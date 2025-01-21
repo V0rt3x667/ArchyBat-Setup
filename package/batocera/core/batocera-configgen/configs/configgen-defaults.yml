@@ -92,9 +92,6 @@ atomiswave:
 bbc:
   emulator: libretro
   core:     mame
-boom3:
-  emulator: libretro
-  core:     boom3
 c64:
   emulator: libretro
   core:     vice_x64
@@ -110,15 +107,15 @@ c20:
 camplynx:
   emulator: libretro
   core:     mame
+catacomb:
+  emulator: catacombgl
+  core:     catacombgl
 cannonball:
   emulator: cannonball
   core:     cannonball
 cavestory:
   emulator: libretro
   core:     nxengine
-cave3rd:
-  emulator: demul
-  core:     demul
 cdi:
   emulator: mame
   core:     mame
@@ -137,6 +134,9 @@ coco:
 colecovision:
   emulator: libretro
   core:     bluemsx
+commanderx16:
+  emulator: x16emu
+  core:     x16emu
 corsixth:
   emulator: corsixth
   core:     corsixth
@@ -156,6 +156,9 @@ daphne:
 devilutionx:
   emulator: devilutionx
   core:     devilutionx
+doom3:
+  emulator: dhewm3
+  core:     dhewm3
 dos:
   emulator: libretro
   core:     dosbox_pure
@@ -211,9 +214,6 @@ fmtowns:
 fury:
   emulator: eduke32
   core:     fury
-gaelco:
-  emulator: demul
-  core:     demul
 gamate:
   emulator: libretro
   core:     mame
@@ -269,9 +269,6 @@ hcl:
   core:     hcl
   options:
     bezel: none
-hikaru:
-  emulator: demul
-  core:     demul
 hurrican:
   emulator: hurrican
   core:     hurrican
@@ -291,10 +288,17 @@ iortcw:
 jaguar:
   emulator: libretro
   core:     virtualjaguar
+jaguarcd:
+  emulator: libretro
+  core:     virtualjaguar
+jazz2:
+  emulator: jazz2-native
+  core:     jazz2-native
 kodi:
   emulator: kodi
   options:
     videomode: default
+    hud_support: false
 laser310:
   emulator: libretro
   core:     mame
@@ -303,6 +307,9 @@ lcdgames:
   core:     mame
   options:
     forceNoBezel: true
+lindbergh:
+  emulator: lindbergh-loader
+  core:     lindbergh-loader
 lowresnx:
   emulator: libretro
   core:     lowresnx
@@ -365,7 +372,7 @@ msxturbor:
   core:     bluemsx
 mugen:
   emulator: mugen
-  core:     ge-custom
+  core:     wine-tkg
 fpinball:
   emulator: fpinball
   core:     fpinball
@@ -483,6 +490,9 @@ ps2:
 ps3:
   emulator: rpcs3
   core:     rpcs3
+ps4:
+  emulator: shadps4
+  core:     shadps4
 psp:
   emulator: ppsspp
   core: ppsspp
@@ -510,6 +520,9 @@ raze:
 reminiscence:
   emulator: libretro
   core:     reminiscence
+rott:
+  emulator: taradino
+  core:     taradino
 samcoupe:
   emulator: samcoupe
   core:     samcoupe
@@ -542,6 +555,9 @@ sg1000:
 sgb:
   emulator: libretro
   core:     mgba
+sgb-msu1:
+  emulator: libretro
+  core:     bsnes
 singe:
   emulator: hypseus-singe
   core:     hypseus-singe
@@ -563,8 +579,8 @@ sonicretro:
   emulator: sonic2013
   core:     sonic2013
 spectravideo:
-  emulator: openmsx
-  core:     openmsx
+  emulator: libretro
+  core:     bluemsx
 steam:
   emulator: steam
   core:     steam
@@ -647,6 +663,9 @@ vgmplay:
 videopacplus:
   emulator: libretro
   core:     o2em
+vircon32:
+  emulator: libretro
+  core:     vircon32
 virtualboy:
   emulator: libretro
   core:     vb
@@ -675,12 +694,12 @@ wiiu:
   core:     cemu
 windows:
   emulator: wine
-  core:     ge-custom
+  core:     wine-tkg
   options:
     hud_support: false
 windows_installers:
   emulator: wine
-  core:     ge-custom
+  core:     wine-tkg
   options:
     hud_support: false
 wswan:

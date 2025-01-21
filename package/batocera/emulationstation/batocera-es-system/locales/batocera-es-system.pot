@@ -78,24 +78,24 @@ msgctxt "game_options"
 msgid "Set the display's resolution. Does not affect the rendering resolution."
 msgstr ""
 
-#. TRANSLATION: shared, mame
+#. TRANSLATION: mame, shared
 msgctxt "game_options"
 msgid "VIDEO MODE"
 msgstr ""
 
-#. TRANSLATION: shared, pcsx2
+#. TRANSLATION: pcsx2, shared
 msgctxt "game_options"
 msgid ""
 "Force the game to render in this aspect ratio. Not all systems support all "
 "ratios."
 msgstr ""
 
-#. TRANSLATION: shared, dolphin, flycast, mupen64plus, pcsx2, ...
+#. TRANSLATION: dolphin, flycast, mupen64plus, pcsx2, shared
 msgctxt "game_options"
 msgid "GAME ASPECT RATIO"
 msgstr ""
 
-#. TRANSLATION: shared, libretro/hatarib
+#. TRANSLATION: libretro/hatarib, shared
 msgctxt "game_options"
 msgid "Full"
 msgstr ""
@@ -115,7 +115,7 @@ msgctxt "game_options"
 msgid "Core provided"
 msgstr ""
 
-#. TRANSLATION: shared, shared, libretro/mesen, libretro/gambatte
+#. TRANSLATION: libretro/gambatte, libretro/mesen, shared, shared
 msgctxt "game_options"
 msgid "Custom"
 msgstr ""
@@ -125,17 +125,17 @@ msgctxt "game_options"
 msgid "Store past states to rewind to in realtime, if the core supports it."
 msgstr ""
 
-#. TRANSLATION: shared, duckstation
+#. TRANSLATION: duckstation, shared
 msgctxt "game_options"
 msgid "REWIND"
 msgstr ""
 
-#. TRANSLATION: shared, shared, shared, shared, shared, ...
+#. TRANSLATION: cannonball, citra, citra, citra, citra, ...
 msgctxt "game_options"
 msgid "On"
 msgstr ""
 
-#. TRANSLATION: shared, shared, shared, shared, shared, ...
+#. TRANSLATION: cannonball, cemu, citra, citra, citra, ...
 msgctxt "game_options"
 msgid "Off"
 msgstr ""
@@ -155,7 +155,7 @@ msgctxt "game_options"
 msgid "GAME RENDERING & SHADERS"
 msgstr ""
 
-#. TRANSLATION: shared
+#. TRANSLATION: pcsx2, shared
 msgctxt "game_options"
 msgid "SHADER SET"
 msgstr ""
@@ -167,7 +167,7 @@ msgid ""
 "resolution."
 msgstr ""
 
-#. TRANSLATION: shared, hypseus-singe, play
+#. TRANSLATION: hypseus-singe, play, shared
 msgctxt "game_options"
 msgid "SMOOTH GAMES (BILINEAR FILTERING)"
 msgstr ""
@@ -207,7 +207,7 @@ msgctxt "game_options"
 msgid "HEADS UP DISPLAY"
 msgstr ""
 
-#. TRANSLATION: shared, shared, libretro/mesen-s, libretro/mesen, libretro/mesen, ...
+#. TRANSLATION: dolphin, dolphin, dolphin, dolphin, dolphin_triforce, ...
 msgctxt "game_options"
 msgid "None"
 msgstr ""
@@ -341,7 +341,7 @@ msgid ""
 "visible jitter."
 msgstr ""
 
-#. TRANSLATION: shared, shared, shared, shared, shared
+#. TRANSLATION: shared, shared, shared, shared, shared, ...
 msgctxt "game_options"
 msgid "LATENCY REDUCTION"
 msgstr ""
@@ -359,6 +359,18 @@ msgstr ""
 #. TRANSLATION: shared
 msgctxt "game_options"
 msgid "USE SECOND INSTANCE FOR RUN-AHEAD"
+msgstr ""
+
+#. TRANSLATION: shared
+msgctxt "game_options"
+msgid ""
+"Use preemptive frames instead of run-ahead. Only runs ahead when controller "
+"state changes."
+msgstr ""
+
+#. TRANSLATION: shared
+msgctxt "game_options"
+msgid "USE PRE-EMPTIVE FRAMES"
 msgstr ""
 
 #. TRANSLATION: shared
@@ -399,9 +411,14 @@ msgctxt "game_options"
 msgid "Use light guns instead of pads if light guns are connected."
 msgstr ""
 
-#. TRANSLATION: shared, shared, libretro/beetle-saturn, libretro/swanstation, libretro/fbneo, ...
+#. TRANSLATION: dolphin, rpcs3, shared
 msgctxt "game_options"
-msgid "LIGHT GUN"
+msgid "LIGHT GUNS"
+msgstr ""
+
+#. TRANSLATION: dolphin, dolphin, dolphin, dolphin, dolphin, ...
+msgctxt "game_options"
+msgid "CONTROLS"
 msgstr ""
 
 #. TRANSLATION: shared
@@ -414,7 +431,7 @@ msgctxt "game_options"
 msgid "Use wheels instead of pads if wheels are connected."
 msgstr ""
 
-#. TRANSLATION: shared, shared, shared, shared, pcsx2
+#. TRANSLATION: pcsx2, shared, shared, shared, shared
 msgctxt "game_options"
 msgid "WHEELS"
 msgstr ""
@@ -486,6 +503,11 @@ msgctxt "game_options"
 msgid "Show/Hide guns borders for specific systems"
 msgstr ""
 
+#. TRANSLATION: duckstation, flycast, flycast, flycast, flycast, ...
+msgctxt "game_options"
+msgid "LIGHT GUN"
+msgstr ""
+
 #. TRANSLATION: shared
 msgctxt "game_options"
 msgid "BORDER MODE"
@@ -506,7 +528,7 @@ msgctxt "game_options"
 msgid "Emulate Chroma 81 interface (colorization)."
 msgstr ""
 
-#. TRANSLATION: libretro/81, libretro/81, libretro/atari800, libretro/atari800, libretro/atari800, ...
+#. TRANSLATION: amiberry, amiberry, bigpemu, bigpemu, bigpemu, ...
 msgctxt "game_options"
 msgid "ADVANCED OPTIONS"
 msgstr ""
@@ -621,7 +643,7 @@ msgctxt "game_options"
 msgid "Dot"
 msgstr ""
 
-#. TRANSLATION: libretro/beetle-saturn, libretro/mesen-s, libretro/mesen, libretro/melondsds, libretro/melondsds, ...
+#. TRANSLATION: bigpemu, corsixth, corsixth, duckstation, duckstation, ...
 msgctxt "game_options"
 msgid "Disabled"
 msgstr ""
@@ -643,7 +665,7 @@ msgctxt "game_options"
 msgid "Not all games support 3D pad."
 msgstr ""
 
-#. TRANSLATION: libretro/beetle-saturn, libretro/dolphin, libretro/dosbox, libretro/dosbox_pure, libretro/swanstation, ...
+#. TRANSLATION: duckstation, libretro/beetle-saturn, libretro/dolphin, libretro/dosbox, libretro/dosbox_pure, ...
 msgctxt "game_options"
 msgid "CONTROLLER 1 TYPE"
 msgstr ""
@@ -658,12 +680,12 @@ msgctxt "game_options"
 msgid "Saturn 3D Pad"
 msgstr ""
 
-#. TRANSLATION: libretro/beetle-saturn, libretro/dolphin, libretro/dosbox, libretro/dosbox_pure, libretro/swanstation, ...
+#. TRANSLATION: duckstation, libretro/beetle-saturn, libretro/dolphin, libretro/dosbox, libretro/dosbox_pure, ...
 msgctxt "game_options"
 msgid "CONTROLLER 2 TYPE"
 msgstr ""
 
-#. TRANSLATION: libretro/bluemsx, libretro/fuse, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, ...
+#. TRANSLATION: libretro/bluemsx, libretro/fuse, libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, ...
 msgctxt "game_options"
 msgid "Hides borders on many games. Some games used the borders."
 msgstr ""
@@ -683,7 +705,7 @@ msgctxt "game_options"
 msgid "Enhancement. Remove the four sprites per line limit."
 msgstr ""
 
-#. TRANSLATION: libretro/bluemsx, libretro/mesen, libretro/fceumm, libretro/genesisplusgx, libretro/mednafen_supergrafx, ...
+#. TRANSLATION: libretro/bluemsx, libretro/fceumm, libretro/genesisplusgx, libretro/mednafen_supergrafx, libretro/mesen, ...
 msgctxt "game_options"
 msgid "REDUCE SPRITE FLICKERING"
 msgstr ""
@@ -723,7 +745,7 @@ msgctxt "game_options"
 msgid "CPC MODEL"
 msgstr ""
 
-#. TRANSLATION: libretro/cap32, libretro/dosbox_pure, libretro/np2kai, libretro/px68k, hatari
+#. TRANSLATION: hatari, libretro/cap32, libretro/dosbox_pure, libretro/np2kai, libretro/px68k
 msgctxt "game_options"
 msgid "EMULATED RAM SIZE"
 msgstr ""
@@ -773,57 +795,57 @@ msgctxt "game_options"
 msgid "24 bit (Default)"
 msgstr ""
 
-#. TRANSLATION: libretro/cap32, sonic2013, soniccd, play, suyu, ...
+#. TRANSLATION: etlegacy, fallout1-ce, fallout2-ce, iortcw, libretro/cap32, ...
 msgctxt "game_options"
 msgid "Change the game's language."
 msgstr ""
 
-#. TRANSLATION: libretro/cap32, libretro/melonds, libretro/melondsds, libretro/dolphin, libretro/yabasanshiro, ...
+#. TRANSLATION: dhewm3, etlegacy, fallout1-ce, fallout2-ce, hatari, ...
 msgctxt "game_options"
 msgid "LANGUAGE"
 msgstr ""
 
-#. TRANSLATION: libretro/cap32, libretro/melonds, libretro/yabasanshiro, redream, xenia, ...
+#. TRANSLATION: fallout1-ce, fallout2-ce, iortcw, libretro/cap32, libretro/melonds, ...
 msgctxt "game_options"
 msgid "English (Default)"
 msgstr ""
 
-#. TRANSLATION: libretro/cap32, libretro/melonds, libretro/melondsds, libretro/dolphin, libretro/kronos, ...
+#. TRANSLATION: cemu, dhewm3, dolphin, etlegacy, fallout1-ce, ...
 msgctxt "game_options"
 msgid "Spanish"
 msgstr ""
 
-#. TRANSLATION: libretro/cap32, libretro/melonds, libretro/melondsds, libretro/dolphin, libretro/kronos, ...
+#. TRANSLATION: cemu, dhewm3, dolphin, etlegacy, fallout1-ce, ...
 msgctxt "game_options"
 msgid "French"
 msgstr ""
 
-#. TRANSLATION: libretro/mesen-s, libretro/fceumm, libretro/genesisplusgx, libretro/genesisplusgx, libretro/nestopia
+#. TRANSLATION: libretro/fceumm, libretro/genesisplusgx, libretro/genesisplusgx, libretro/mesen-s, libretro/nestopia
 msgctxt "game_options"
 msgid "Core-powered video filter."
 msgstr ""
 
-#. TRANSLATION: libretro/mesen-s, libretro/fceumm, libretro/genesisplusgx, libretro/genesisplusgx, libretro/nestopia, ...
+#. TRANSLATION: libretro/fceumm, libretro/genesisplusgx, libretro/genesisplusgx, libretro/mesen-s, libretro/nestopia, ...
 msgctxt "game_options"
 msgid "BLARGG NTSC FILTER"
 msgstr ""
 
-#. TRANSLATION: libretro/mesen-s, libretro/mesen
+#. TRANSLATION: libretro/mesen, libretro/mesen-s
 msgctxt "game_options"
 msgid "Composite (Blargg)"
 msgstr ""
 
-#. TRANSLATION: libretro/mesen-s, libretro/mesen
+#. TRANSLATION: libretro/mesen, libretro/mesen-s
 msgctxt "game_options"
 msgid "S-Video (Blargg)"
 msgstr ""
 
-#. TRANSLATION: libretro/mesen-s, libretro/mesen
+#. TRANSLATION: libretro/mesen, libretro/mesen-s
 msgctxt "game_options"
 msgid "RGB (Blargg)"
 msgstr ""
 
-#. TRANSLATION: libretro/mesen-s, libretro/mesen
+#. TRANSLATION: libretro/mesen, libretro/mesen-s
 msgctxt "game_options"
 msgid "Monochrome (Blargg)"
 msgstr ""
@@ -887,52 +909,52 @@ msgctxt "game_options"
 msgid "SUPER GAME BOY 2"
 msgstr ""
 
-#. TRANSLATION: libretro/mesen-s, libretro/mesen, libretro/fceumm, libretro/same_cdi, libretro/mame, ...
+#. TRANSLATION: libretro/fceumm, libretro/mame, libretro/mamevirtual, libretro/mednafen_psx, libretro/mesen, ...
 msgctxt "game_options"
 msgid "Enhancement. Reduces system slowdown. Causes issues in some games."
 msgstr ""
 
-#. TRANSLATION: libretro/mesen-s, libretro/mesen, libretro/fceumm, libretro/same_cdi, libretro/mame, ...
+#. TRANSLATION: libretro/fceumm, libretro/mame, libretro/mamevirtual, libretro/mednafen_psx, libretro/mesen, ...
 msgctxt "game_options"
 msgid "OVERCLOCK (UNSTABLE)"
 msgstr ""
 
-#. TRANSLATION: libretro/mesen-s, libretro/mesen, libretro/fceumm, amiberry, mupen64plus, ...
+#. TRANSLATION: amiberry, libretro/fceumm, libretro/mesen, libretro/mesen-s, mupen64plus, ...
 msgctxt "game_options"
 msgid "Low"
 msgstr ""
 
-#. TRANSLATION: libretro/mesen-s, libretro/mesen, mupen64plus, pcsx2
+#. TRANSLATION: libretro/mesen, libretro/mesen-s, mupen64plus, pcsx2
 msgctxt "game_options"
 msgid "Medium"
 msgstr ""
 
-#. TRANSLATION: libretro/mesen-s, libretro/mesen, libretro/fceumm, amiberry, mupen64plus, ...
+#. TRANSLATION: amiberry, libretro/fceumm, libretro/mesen, libretro/mesen-s, mupen64plus, ...
 msgctxt "game_options"
 msgid "High"
 msgstr ""
 
-#. TRANSLATION: libretro/mesen-s, libretro/mesen, libretro/fceumm, mupen64plus
+#. TRANSLATION: libretro/fceumm, libretro/mesen, libretro/mesen-s, mupen64plus
 msgctxt "game_options"
 msgid "Very High"
 msgstr ""
 
-#. TRANSLATION: libretro/mesen-s, libretro/mesen
+#. TRANSLATION: libretro/mesen, libretro/mesen-s
 msgctxt "game_options"
 msgid "Prefer \"Before NMI\", change to After NMI only if needed by the game."
 msgstr ""
 
-#. TRANSLATION: libretro/mesen-s, libretro/mesen
+#. TRANSLATION: libretro/mesen, libretro/mesen-s
 msgctxt "game_options"
 msgid "OVERCLOCK TYPE"
 msgstr ""
 
-#. TRANSLATION: libretro/mesen-s, libretro/mesen
+#. TRANSLATION: libretro/mesen, libretro/mesen-s
 msgctxt "game_options"
 msgid "Before NMI"
 msgstr ""
 
-#. TRANSLATION: libretro/mesen-s, libretro/mesen
+#. TRANSLATION: libretro/mesen, libretro/mesen-s
 msgctxt "game_options"
 msgid "After NMI"
 msgstr ""
@@ -952,7 +974,7 @@ msgctxt "game_options"
 msgid "Dendy is a popular Russian clone with unique characteristics."
 msgstr ""
 
-#. TRANSLATION: libretro/mesen, libretro/neocd, libretro/o2em, duckstation, flycast/uzem
+#. TRANSLATION: duckstation, flycast/dolphin, libretro/flycast, libretro/mesen, libretro/neocd, ...
 msgctxt "game_options"
 msgid "CONSOLE REGION"
 msgstr ""
@@ -967,12 +989,12 @@ msgctxt "game_options"
 msgid "Rotate the screen, useful for certain vertical gameplay homebrews."
 msgstr ""
 
-#. TRANSLATION: libretro/mesen, libretro/mednafen_wswan
+#. TRANSLATION: libretro/mednafen_wswan, libretro/mesen
 msgctxt "game_options"
 msgid "DISPLAY ROTATION"
 msgstr ""
 
-#. TRANSLATION: libretro/mesen, hypseus-singe, flycast, melonds, moonlight
+#. TRANSLATION: flycast, hypseus-singe, libretro/mesen, melonds, moonlight
 msgctxt "game_options"
 msgid "90 degrees"
 msgstr ""
@@ -982,7 +1004,7 @@ msgctxt "game_options"
 msgid "180 degrees"
 msgstr ""
 
-#. TRANSLATION: libretro/mesen, hypseus-singe, melonds, moonlight
+#. TRANSLATION: hypseus-singe, libretro/mesen, melonds, moonlight
 msgctxt "game_options"
 msgid "270 degrees"
 msgstr ""
@@ -1022,7 +1044,7 @@ msgctxt "game_options"
 msgid "COLOR PALETTE"
 msgstr ""
 
-#. TRANSLATION: libretro/mesen, libretro/puae, libretro/puae2021, suyu, suyu
+#. TRANSLATION: libretro/flycast, libretro/flycast, libretro/mesen, libretro/puae, libretro/puae2021, ...
 msgctxt "game_options"
 msgid "Default"
 msgstr ""
@@ -1072,7 +1094,7 @@ msgctxt "game_options"
 msgid "For use with HD texture packs."
 msgstr ""
 
-#. TRANSLATION: libretro/mesen, citra, dolphin, dolphin_triforce, duckstation, ...
+#. TRANSLATION: citra, dolphin, dolphin_triforce, duckstation, libretro/mesen, ...
 msgctxt "game_options"
 msgid "LOAD CUSTOM TEXTURES"
 msgstr ""
@@ -1122,13 +1144,13 @@ msgctxt "game_options"
 msgid "Random Values"
 msgstr ""
 
-#. TRANSLATION: libretro/desmume, libretro/dolphin, libretro/swanstation, libretro/duckstation, libretro/flycast, ...
+#. TRANSLATION: citra, dolphin, dolphin_triforce, duckstation, flycast, ...
 msgctxt "game_options"
 msgid ""
 "Enhancement. Increase the rendering resolution. Makes 3D objects clearer."
 msgstr ""
 
-#. TRANSLATION: libretro/desmume, libretro/dolphin, libretro/swanstation, libretro/duckstation, libretro/flycast, ...
+#. TRANSLATION: citra, dolphin, dolphin_triforce, duckstation, libretro/desmume, ...
 msgctxt "game_options"
 msgid "RENDERING RESOLUTION"
 msgstr ""
@@ -1153,7 +1175,7 @@ msgctxt "game_options"
 msgid "TEXTURE SMOOTHING"
 msgstr ""
 
-#. TRANSLATION: libretro/desmume, libretro/swanstation, libretro/duckstation, dolphin, dolphin_triforce, ...
+#. TRANSLATION: dolphin, dolphin_triforce, duckstation, iortcw, libretro/desmume, ...
 msgctxt "game_options"
 msgid "Enhancement. Smooth out jagged edges on 3D object polygons."
 msgstr ""
@@ -1163,12 +1185,12 @@ msgctxt "game_options"
 msgid "ANTI-ALIASING (MSAA)"
 msgstr ""
 
-#. TRANSLATION: libretro/desmume, libretro/melonds, drastic
+#. TRANSLATION: drastic, libretro/desmume, libretro/melonds
 msgctxt "game_options"
 msgid "Arrange the dual screen layout."
 msgstr ""
 
-#. TRANSLATION: libretro/desmume, libretro/melonds, citra, melonds, drastic
+#. TRANSLATION: citra, drastic, libretro/desmume, libretro/melonds, melonds
 msgctxt "game_options"
 msgid "SCREEN LAYOUT"
 msgstr ""
@@ -1263,7 +1285,7 @@ msgctxt "game_options"
 msgid "USE FIRMWARE SETTINGS"
 msgstr ""
 
-#. TRANSLATION: libretro/melonds, amiberry, amiberry
+#. TRANSLATION: amiberry, amiberry, libretro/melonds
 msgctxt "game_options"
 msgid "ON"
 msgstr ""
@@ -1280,17 +1302,17 @@ msgid ""
 "firmware file was not found."
 msgstr ""
 
-#. TRANSLATION: libretro/melonds, libretro/melondsds, libretro/dolphin, libretro/kronos, cemu, ...
+#. TRANSLATION: cemu, dhewm3, dolphin, etlegacy, fallout1-ce, ...
 msgctxt "game_options"
 msgid "German"
 msgstr ""
 
-#. TRANSLATION: libretro/melonds, libretro/melondsds, libretro/dolphin, libretro/kronos, libretro/yabasanshiro, ...
+#. TRANSLATION: cemu, dhewm3, dolphin, etlegacy, fallout1-ce, ...
 msgctxt "game_options"
 msgid "Italian"
 msgstr ""
 
-#. TRANSLATION: libretro/melonds, libretro/melondsds, libretro/dolphin, libretro/kronos, libretro/yabasanshiro, ...
+#. TRANSLATION: cemu, dhewm3, etlegacy, flycast/dolphin, libretro/dolphin, ...
 msgctxt "game_options"
 msgid "Japanese"
 msgstr ""
@@ -1325,7 +1347,7 @@ msgctxt "game_options"
 msgid "TOUCH SCREEN MODE"
 msgstr ""
 
-#. TRANSLATION: libretro/melonds, libretro/flycast, libretro/flycast, libretro/flycast, libretro/flycast, ...
+#. TRANSLATION: libretro/flycast, libretro/flycast, libretro/flycast, libretro/flycast, libretro/genesisplusgx, ...
 msgctxt "game_options"
 msgid "Mouse"
 msgstr ""
@@ -1367,7 +1389,7 @@ msgctxt "game_options"
 msgid "RENDERER MODE"
 msgstr ""
 
-#. TRANSLATION: libretro/melondsds, citra, duckstation, melonds, pcsx2, ...
+#. TRANSLATION: citra, duckstation, libretro/melondsds, melonds, pcsx2, ...
 msgctxt "game_options"
 msgid "Software"
 msgstr ""
@@ -1434,7 +1456,7 @@ msgctxt "game_options"
 msgid "IMPROVED POLYGON SPLITTING"
 msgstr ""
 
-#. TRANSLATION: libretro/melondsds, libretro/melondsds, libretro/melondsds, libretro/melondsds, libretro/melondsds, ...
+#. TRANSLATION: bigpemu, cemu, cemu, cemu, cemu, ...
 msgctxt "game_options"
 msgid "Enabled"
 msgstr ""
@@ -1449,7 +1471,7 @@ msgctxt "game_options"
 msgid "SCREEN FILTERING"
 msgstr ""
 
-#. TRANSLATION: libretro/melondsds, libretro/swanstation, libretro/duckstation, libretro/parallel_n64, pcsx2, ...
+#. TRANSLATION: libretro/duckstation, libretro/melondsds, libretro/parallel_n64, libretro/swanstation, pcsx2, ...
 msgctxt "game_options"
 msgid "Nearest"
 msgstr ""
@@ -1621,7 +1643,7 @@ msgctxt "game_options"
 msgid "Use Host"
 msgstr ""
 
-#. TRANSLATION: libretro/melondsds, libretro/dolphin, libretro/kronos, cemu, flycast/uzem, ...
+#. TRANSLATION: cemu, dhewm3, etlegacy, flycast/dolphin, libretro/dolphin, ...
 msgctxt "game_options"
 msgid "English"
 msgstr ""
@@ -1646,7 +1668,7 @@ msgctxt "game_options"
 msgid "Brown"
 msgstr ""
 
-#. TRANSLATION: libretro/melondsds, libretro/flycast, libretro/flycast, libretro/flycast, libretro/flycast, ...
+#. TRANSLATION: flycast, flycast, flycast, flycast, libretro/flycast, ...
 msgctxt "game_options"
 msgid "Red"
 msgstr ""
@@ -1691,7 +1713,7 @@ msgctxt "game_options"
 msgid "Light Blue"
 msgstr ""
 
-#. TRANSLATION: libretro/melondsds, libretro/flycast, libretro/flycast, libretro/flycast, libretro/flycast, ...
+#. TRANSLATION: flycast, flycast, flycast, flycast, libretro/flycast, ...
 msgctxt "game_options"
 msgid "Blue"
 msgstr ""
@@ -2018,12 +2040,12 @@ msgctxt "game_options"
 msgid "SHOW LID STATE"
 msgstr ""
 
-#. TRANSLATION: libretro/dolphin, dolphin, dolphin_triforce
+#. TRANSLATION: dolphin, libretro/dolphin
 msgctxt "game_options"
 msgid "1x native (640x528)"
 msgstr ""
 
-#. TRANSLATION: libretro/dolphin, dolphin
+#. TRANSLATION: dolphin, libretro/dolphin
 msgctxt "game_options"
 msgid "6x 4K (3840x3168)"
 msgstr ""
@@ -2033,73 +2055,73 @@ msgctxt "game_options"
 msgid "Wii NAND's language setting."
 msgstr ""
 
-#. TRANSLATION: libretro/dolphin, cemu, dolphin/uzem, play, suyu, ...
+#. TRANSLATION: cemu, dolphin, etlegacy, libretro/dolphin, play, ...
 msgctxt "game_options"
 msgid "Dutch"
 msgstr ""
 
-#. TRANSLATION: libretro/dolphin, play, suyu, ryujinx, sonic-mania
+#. TRANSLATION: libretro/dolphin, play, ryujinx, sonic-mania, suyu
 msgctxt "game_options"
 msgid "Simplified Chinese"
 msgstr ""
 
-#. TRANSLATION: libretro/dolphin, play, suyu, ryujinx, sonic-mania
+#. TRANSLATION: libretro/dolphin, play, ryujinx, sonic-mania, suyu
 msgctxt "game_options"
 msgid "Traditional Chinese"
 msgstr ""
 
-#. TRANSLATION: libretro/dolphin, cemu, scummvm, easyrpg, sonic2013, ...
+#. TRANSLATION: cemu, dhewm3, easyrpg, etlegacy, libretro/dolphin, ...
 msgctxt "game_options"
 msgid "Korean"
 msgstr ""
 
-#. TRANSLATION: libretro/dolphin, libretro/swanstation, libretro/duckstation, libretro/flycast, libretro/flycast, ...
+#. TRANSLATION: dolphin, dolphin_triforce, duckstation, libretro/dolphin, libretro/duckstation, ...
 msgctxt "game_options"
 msgid "Enhancement. Only works with a 16/9 ratio and bezels disabled."
 msgstr ""
 
-#. TRANSLATION: libretro/dolphin, libretro/swanstation, libretro/duckstation, libretro/flycast, libretro/mednafen_psx, ...
+#. TRANSLATION: dolphin, dolphin_triforce, duckstation, libretro/dolphin, libretro/duckstation, ...
 msgctxt "game_options"
 msgid "WIDESCREEN HACK (GLITCHY)"
 msgstr ""
 
-#. TRANSLATION: libretro/dolphin, dolphin
+#. TRANSLATION: dolphin, libretro/dolphin
 msgctxt "game_options"
 msgid ""
 "May not work well on all hardware. Hybrid is preferred, where supported."
 msgstr ""
 
-#. TRANSLATION: libretro/dolphin, dolphin
+#. TRANSLATION: dolphin, libretro/dolphin
 msgctxt "game_options"
 msgid "UBERSHADERS"
 msgstr ""
 
-#. TRANSLATION: libretro/dolphin, dolphin
+#. TRANSLATION: dolphin, libretro/dolphin
 msgctxt "game_options"
 msgid "No Ubershaders"
 msgstr ""
 
-#. TRANSLATION: libretro/dolphin, dolphin
+#. TRANSLATION: dolphin, libretro/dolphin
 msgctxt "game_options"
 msgid "Exclusive Ubershaders"
 msgstr ""
 
-#. TRANSLATION: libretro/dolphin, dolphin
+#. TRANSLATION: dolphin, libretro/dolphin
 msgctxt "game_options"
 msgid "Hybrid Ubershaders"
 msgstr ""
 
-#. TRANSLATION: libretro/dolphin, dolphin
+#. TRANSLATION: dolphin, libretro/dolphin
 msgctxt "game_options"
 msgid "Skip Drawing"
 msgstr ""
 
-#. TRANSLATION: libretro/dolphin, dolphin, dolphin_triforce, pcsx2, ppsspp, ...
+#. TRANSLATION: dolphin, dolphin_triforce, dxx-rebirth, iortcw, libretro/dolphin, ...
 msgctxt "game_options"
 msgid "Improves clarity of distant textures."
 msgstr ""
 
-#. TRANSLATION: libretro/dolphin, libretro/flycast, dolphin, dolphin_triforce, flycast, ...
+#. TRANSLATION: dolphin, dolphin_triforce, dxx-rebirth, flycast, iortcw, ...
 msgctxt "game_options"
 msgid "ANISOTROPIC FILTERING"
 msgstr ""
@@ -2114,18 +2136,18 @@ msgctxt "game_options"
 msgid "OSD MESSAGES"
 msgstr ""
 
-#. TRANSLATION: libretro/dolphin, dolphin/uzem
+#. TRANSLATION: dolphin, libretro/dolphin
 msgctxt "game_options"
 msgid ""
 "Wii NAND's aspect ratio setting. Most games support both ratios natively."
 msgstr ""
 
-#. TRANSLATION: libretro/dolphin, dolphin/uzem
+#. TRANSLATION: dolphin, libretro/dolphin
 msgctxt "game_options"
 msgid "WII TV MODE"
 msgstr ""
 
-#. TRANSLATION: libretro/dolphin, libretro/dolphin, libretro/dolphin, libretro/dolphin, dolphin/uzem
+#. TRANSLATION: dolphin, libretro/dolphin, libretro/dolphin, libretro/dolphin, libretro/dolphin
 msgctxt "game_options"
 msgid "Emulate a Wiimote Sideway with L2 for Shake and Nunchuk on R-stick."
 msgstr ""
@@ -2160,7 +2182,7 @@ msgctxt "game_options"
 msgid "Real Wiimote"
 msgstr ""
 
-#. TRANSLATION: libretro/dolphin, libretro/dolphin, libretro/dolphin, libretro/dolphin, dolphin, ...
+#. TRANSLATION: dolphin, dolphin, dolphin, dolphin, libretro/dolphin, ...
 msgctxt "game_options"
 msgid "GameCube Controller"
 msgstr ""
@@ -2195,12 +2217,12 @@ msgctxt "game_options"
 msgid "external (variable fps)"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox, openbor, mame
+#. TRANSLATION: libretro/dosbox, mame, openbor
 msgctxt "game_options"
 msgid "Apply a post-processing effect."
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox, openbor, cgenius
+#. TRANSLATION: cgenius, libretro/dosbox, openbor
 msgctxt "game_options"
 msgid "VIDEO FILTER"
 msgstr ""
@@ -2395,7 +2417,7 @@ msgctxt "game_options"
 msgid "48MB"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure, libretro/mame, libretro/np2kai, mame/pcsx2, ioquake3
+#. TRANSLATION: ioquake3, libretro/dosbox_pure, libretro/mame, libretro/np2kai, mame/pcsx2
 msgctxt "game_options"
 msgid "64MB"
 msgstr ""
@@ -2405,7 +2427,7 @@ msgctxt "game_options"
 msgid "96MB"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure, libretro/mame, mame/pcsx2, ioquake3
+#. TRANSLATION: ioquake3, libretro/dosbox_pure, libretro/mame, mame/pcsx2
 msgctxt "game_options"
 msgid "128MB"
 msgstr ""
@@ -2480,102 +2502,102 @@ msgctxt "game_options"
 msgid "UK"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure
+#. TRANSLATION: libretro/dosbox_pure, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Brazil"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure
+#. TRANSLATION: libretro/dosbox_pure, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Croatia"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure
+#. TRANSLATION: libretro/dosbox_pure, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Czech Republic"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure
+#. TRANSLATION: libretro/dosbox_pure, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Denmark"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure
+#. TRANSLATION: libretro/dosbox_pure, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Finland"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure
+#. TRANSLATION: libretro/dosbox_pure, xenia, xenia-canary
 msgctxt "game_options"
 msgid "France"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure
+#. TRANSLATION: libretro/dosbox_pure, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Germany"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure
+#. TRANSLATION: libretro/dosbox_pure, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Greece"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure
+#. TRANSLATION: libretro/dosbox_pure, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Hungary"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure, suyu
+#. TRANSLATION: libretro/dosbox_pure, suyu, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Iceland"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure
+#. TRANSLATION: libretro/dosbox_pure, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Italy"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure
+#. TRANSLATION: libretro/dosbox_pure, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Netherlands"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure
+#. TRANSLATION: libretro/dosbox_pure, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Norway"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure, suyu
+#. TRANSLATION: libretro/dosbox_pure, suyu, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Poland"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure, suyu
+#. TRANSLATION: libretro/dosbox_pure, suyu, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Portugal"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure
+#. TRANSLATION: libretro/dosbox_pure, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Russia"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure
+#. TRANSLATION: libretro/dosbox_pure, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Slovakia"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure
+#. TRANSLATION: libretro/dosbox_pure, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Slovenia"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure
+#. TRANSLATION: libretro/dosbox_pure, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Spain"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure
+#. TRANSLATION: libretro/dosbox_pure, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Sweden"
 msgstr ""
@@ -2590,7 +2612,7 @@ msgctxt "game_options"
 msgid "Switzerland (French)"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure, suyu
+#. TRANSLATION: libretro/dosbox_pure, suyu, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Turkey"
 msgstr ""
@@ -2742,7 +2764,7 @@ msgctxt "game_options"
 msgid "ENABLE GRAVIS ULTRASOUND"
 msgstr ""
 
-#. TRANSLATION: libretro/dosbox_pure, libretro/same_cdi, libretro/mame, libretro/mame, libretro/mame, ...
+#. TRANSLATION: cemu, cemu, flycast/dolphin, flycast/dolphin, libretro/dosbox_pure, ...
 msgctxt "game_options"
 msgid "Off (Default)"
 msgstr ""
@@ -2773,127 +2795,142 @@ msgctxt "game_options"
 msgid "Frontend MIDI driver"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, libretro/mednafen_psx
+#. TRANSLATION: libretro/duckstation, libretro/mednafen_psx, libretro/swanstation
 msgctxt "game_options"
 msgid "Enhancement. Skipping it can break some games."
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, libretro/gambatte, libretro/mednafen_psx, libretro/mgba, ...
+#. TRANSLATION: duckstation, libretro/duckstation, libretro/gambatte, libretro/mednafen_psx, libretro/mgba, ...
 msgctxt "game_options"
 msgid "SHOW BIOS BOOTLOGO"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, libretro/gambatte, libretro/mednafen_psx, libretro/mgba, ...
+#. TRANSLATION: duckstation, hypseus-singe/uzem, libretro/duckstation, libretro/gambatte, libretro/mednafen_psx, ...
 msgctxt "game_options"
 msgid "Show"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, libretro/gambatte, libretro/mednafen_psx, libretro/mgba, ...
+#. TRANSLATION: duckstation, eduke32, fury, iortcw, libretro/duckstation, ...
 msgctxt "game_options"
 msgid "Skip"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation
+#. TRANSLATION: libretro/duckstation, libretro/swanstation
 msgctxt "game_options"
 msgid "More accurate emulation, but slower."
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation
+#. TRANSLATION: libretro/duckstation, libretro/swanstation
 msgctxt "game_options"
 msgid "USE SOFTWARE RENDERING"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, duckstation
+#. TRANSLATION: duckstation, libretro/swanstation
+msgctxt "game_options"
+msgid "Reduces wobbly polygons & warping textures."
+msgstr ""
+
+#. TRANSLATION: duckstation, libretro/swanstation
+msgctxt "game_options"
+msgid "ENABLE PGXP CORRECTIONS"
+msgstr ""
+
+#. TRANSLATION: corsixth, corsixth, duckstation, duckstation, libretro/mame, ...
+msgctxt "game_options"
+msgid "Enabled (Default)"
+msgstr ""
+
+#. TRANSLATION: duckstation, libretro/duckstation, libretro/swanstation
 msgctxt "game_options"
 msgid "ANTI-ALIASING (MSAA/SSAA)"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, duckstation
+#. TRANSLATION: dolphin_triforce, duckstation, libretro/duckstation, libretro/swanstation
 msgctxt "game_options"
 msgid "2x MSAA"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, duckstation
+#. TRANSLATION: dolphin_triforce, duckstation, libretro/duckstation, libretro/swanstation
 msgctxt "game_options"
 msgid "4x MSAA"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, duckstation
+#. TRANSLATION: dolphin_triforce, duckstation, libretro/duckstation, libretro/swanstation
 msgctxt "game_options"
 msgid "8x MSAA"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, duckstation
+#. TRANSLATION: dolphin_triforce, duckstation, libretro/duckstation, libretro/swanstation
 msgctxt "game_options"
 msgid "16x MSAA"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, duckstation
+#. TRANSLATION: duckstation, libretro/duckstation, libretro/swanstation
 msgctxt "game_options"
 msgid "32x MSAA"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, duckstation
+#. TRANSLATION: dolphin_triforce, duckstation, libretro/duckstation, libretro/swanstation
 msgctxt "game_options"
 msgid "2x SSAA"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, duckstation
+#. TRANSLATION: dolphin_triforce, duckstation, libretro/duckstation, libretro/swanstation
 msgctxt "game_options"
 msgid "4x SSAA"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, duckstation
+#. TRANSLATION: dolphin_triforce, duckstation, libretro/duckstation, libretro/swanstation
 msgctxt "game_options"
 msgid "8x SSAA"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, duckstation
+#. TRANSLATION: dolphin_triforce, duckstation, libretro/duckstation, libretro/swanstation
 msgctxt "game_options"
 msgid "16x SSAA"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, duckstation
+#. TRANSLATION: duckstation, libretro/duckstation, libretro/swanstation
 msgctxt "game_options"
 msgid "32x SSAA"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation
+#. TRANSLATION: libretro/duckstation, libretro/swanstation
 msgctxt "game_options"
 msgid "Enhancement. Smooth/upscale textures."
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, libretro/mupen64plus-next, libretro/parallel_n64, duckstation, ...
+#. TRANSLATION: duckstation, dxx-rebirth, libretro/duckstation, libretro/mupen64plus-next, libretro/parallel_n64, ...
 msgctxt "game_options"
 msgid "TEXTURE FILTERING"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, libretro/parallel_n64, cemu, duckstation, ...
+#. TRANSLATION: bigpemu, cemu, dolphin_triforce, drastic, duckstation, ...
 msgctxt "game_options"
 msgid "Bilinear"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, libretro/fceumm, libretro/nestopia, duckstation
+#. TRANSLATION: duckstation, libretro/duckstation, libretro/fceumm, libretro/nestopia, libretro/swanstation
 msgctxt "game_options"
 msgid "Zooms in to hide black borders. Borders are different per game."
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, libretro/fceumm, libretro/nestopia, libretro/o2em, ...
+#. TRANSLATION: duckstation, libretro/duckstation, libretro/fceumm, libretro/nestopia, libretro/o2em, ...
 msgctxt "game_options"
 msgid "CROP OVERSCAN"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, duckstation
+#. TRANSLATION: duckstation, libretro/duckstation, libretro/swanstation
 msgctxt "game_options"
 msgid "Only Overscan Area"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/duckstation, duckstation
+#. TRANSLATION: duckstation, libretro/duckstation, libretro/swanstation
 msgctxt "game_options"
 msgid "All Borders"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/swanstation, libretro/duckstation, libretro/duckstation, libretro/mednafen_psx, ...
+#. TRANSLATION: duckstation, duckstation, libretro/duckstation, libretro/duckstation, libretro/mednafen_psx, ...
 msgctxt "game_options"
 msgid "DualShock has rumble support. Not all games support DualShock."
 msgstr ""
@@ -2903,32 +2940,32 @@ msgctxt "game_options"
 msgid "Digital Controller (Gamepad)"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/swanstation, libretro/duckstation, libretro/duckstation
+#. TRANSLATION: libretro/duckstation, libretro/duckstation, libretro/swanstation, libretro/swanstation
 msgctxt "game_options"
 msgid "Analog Controller (DualShock)"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/swanstation, libretro/puae, libretro/puae, libretro/puae, ...
+#. TRANSLATION: libretro/puae, libretro/puae, libretro/puae, libretro/puae, libretro/puae2021, ...
 msgctxt "game_options"
 msgid "Analog Joystick"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/swanstation, libretro/duckstation, libretro/duckstation, libretro/mednafen_psx, ...
+#. TRANSLATION: libretro/duckstation, libretro/duckstation, libretro/mednafen_psx, libretro/mednafen_psx, libretro/pcsx_rearmed, ...
 msgctxt "game_options"
 msgid "NeGcon"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/swanstation, libretro/duckstation, libretro/duckstation, libretro/mednafen_psx, ...
+#. TRANSLATION: duckstation, duckstation, libretro/duckstation, libretro/duckstation, libretro/mednafen_psx, ...
 msgctxt "game_options"
 msgid "Namco GunCon"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/swanstation, libretro/duckstation, libretro/duckstation, libretro/mednafen_psx, ...
+#. TRANSLATION: duckstation, duckstation, libretro/duckstation, libretro/duckstation, libretro/mednafen_psx, ...
 msgctxt "game_options"
 msgid "PlayStation Mouse"
 msgstr ""
 
-#. TRANSLATION: libretro/swanstation, libretro/fbneo, libretro/fceumm, libretro/genesisplusgx, libretro/genesisplusgx, ...
+#. TRANSLATION: dolphin, libretro/fbneo, libretro/fceumm, libretro/genesisplusgx, libretro/genesisplusgx, ...
 msgctxt "game_options"
 msgid "SHOW LIGHT GUN CROSSHAIRS"
 msgstr ""
@@ -3013,12 +3050,12 @@ msgctxt "game_options"
 msgid "Enhancement. Remove the eight sprites per line limit."
 msgstr ""
 
-#. TRANSLATION: libretro/fceumm, libretro/flycast, libretro/flycast, libretro/nestopia, drastic
+#. TRANSLATION: drastic, libretro/fceumm, libretro/flycast, libretro/flycast, libretro/nestopia
 msgctxt "game_options"
 msgid "Horizontal"
 msgstr ""
 
-#. TRANSLATION: libretro/fceumm, libretro/flycast, libretro/flycast, libretro/nestopia, drastic
+#. TRANSLATION: drastic, libretro/fceumm, libretro/flycast, libretro/flycast, libretro/nestopia
 msgctxt "game_options"
 msgid "Vertical"
 msgstr ""
@@ -3028,12 +3065,12 @@ msgctxt "game_options"
 msgid "Both"
 msgstr ""
 
-#. TRANSLATION: libretro/fceumm, libretro/nestopia, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, ...
+#. TRANSLATION: libretro/fceumm, libretro/nestopia, libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, ...
 msgctxt "game_options"
 msgid "Can be used to simulate colors of particular displays."
 msgstr ""
 
-#. TRANSLATION: libretro/fceumm, libretro/nestopia, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, ...
+#. TRANSLATION: libretro/fceumm, libretro/nestopia, libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, ...
 msgctxt "game_options"
 msgid "COLOR FILTER"
 msgstr ""
@@ -3108,7 +3145,7 @@ msgctxt "game_options"
 msgid "1.25x (800x600)"
 msgstr ""
 
-#. TRANSLATION: libretro/flycast, flycast
+#. TRANSLATION: flycast, libretro/flycast
 msgctxt "game_options"
 msgid "1.5x (960x720)"
 msgstr ""
@@ -3123,37 +3160,54 @@ msgctxt "game_options"
 msgid "2.25x (1440x1080)"
 msgstr ""
 
-#. TRANSLATION: libretro/flycast, flycast
+#. TRANSLATION: flycast, libretro/flycast
 msgctxt "game_options"
 msgid "2.5x (1600x1200)"
 msgstr ""
 
-#. TRANSLATION: libretro/flycast, libretro/pcsx_rearmed, flycast
+#. TRANSLATION: flycast/dolphin, libretro/flycast
+msgctxt "game_options"
+msgid ""
+"Enable the Dreamcast DSP for more accurate audio. Only recommended for fast "
+"systems."
+msgstr ""
+
+#. TRANSLATION: flycast/dolphin, libretro/flycast
+msgctxt "game_options"
+msgid "DIGITAL SOUND PROCESSOR"
+msgstr ""
+
+#. TRANSLATION: cemu, cemu, cemu, cemu, cgenius, ...
+msgctxt "game_options"
+msgid "Disabled (Default)"
+msgstr ""
+
+#. TRANSLATION: flycast, libretro/flycast, libretro/pcsx_rearmed
 msgctxt "game_options"
 msgid "PLAYER 1 CROSSHAIR COLOR"
 msgstr ""
 
-#. TRANSLATION: libretro/flycast, libretro/flycast, libretro/flycast, libretro/flycast, libretro/pcsx_rearmed, ...
+#. TRANSLATION: flycast, flycast, flycast, flycast, libretro/flycast, ...
 msgctxt "game_options"
 msgid "Green"
 msgstr ""
 
-#. TRANSLATION: libretro/flycast, libretro/flycast, libretro/flycast, libretro/flycast, libretro/pcsx_rearmed, ...
+#. TRANSLATION: flycast, flycast, flycast, flycast, libretro/flycast, ...
 msgctxt "game_options"
 msgid "White"
 msgstr ""
 
-#. TRANSLATION: libretro/flycast, libretro/pcsx_rearmed, flycast
+#. TRANSLATION: flycast, libretro/flycast, libretro/pcsx_rearmed
 msgctxt "game_options"
 msgid "PLAYER 2 CROSSHAIR COLOR"
 msgstr ""
 
-#. TRANSLATION: libretro/flycast, flycast
+#. TRANSLATION: flycast, libretro/flycast
 msgctxt "game_options"
 msgid "PLAYER 3 CROSSHAIR COLOR"
 msgstr ""
 
-#. TRANSLATION: libretro/flycast, flycast
+#. TRANSLATION: flycast, libretro/flycast
 msgctxt "game_options"
 msgid "PLAYER 4 CROSSHAIR COLOR"
 msgstr ""
@@ -3168,7 +3222,7 @@ msgctxt "game_options"
 msgid "TEXTURE MIP-MAPPING (BLUR)"
 msgstr ""
 
-#. TRANSLATION: libretro/flycast, flycast
+#. TRANSLATION: flycast, libretro/flycast
 msgctxt "game_options"
 msgid "Improves clarity of distant textures when mip-mapping is enabled."
 msgstr ""
@@ -3178,12 +3232,44 @@ msgctxt "game_options"
 msgid "Enhancement. Upscales screen textures (2D games only)."
 msgstr ""
 
-#. TRANSLATION: libretro/flycast, libretro/quasi88, flycast/uzem
+#. TRANSLATION: libretro/flycast, redream
+msgctxt "game_options"
+msgid "Choose the Dreamcast console region."
+msgstr ""
+
+#. TRANSLATION: flycast/dolphin, libretro/flycast, libretro/neocd, ryujinx, suyu
+msgctxt "game_options"
+msgid "USA"
+msgstr ""
+
+#. TRANSLATION: flycast/dolphin, libretro/flycast, libretro/neocd, redream, ryujinx, ...
+msgctxt "game_options"
+msgid "Europe"
+msgstr ""
+
+#. TRANSLATION: flycast/dolphin, libretro/flycast, libretro/neocd, redream, ryujinx, ...
+msgctxt "game_options"
+msgid "Japan"
+msgstr ""
+
+#. TRANSLATION: flycast/dolphin, libretro/flycast
+msgctxt "game_options"
+msgid ""
+"Dreamcast BIOS's language setting. Can change the language of some games. "
+"Some games default to Japanese."
+msgstr ""
+
+#. TRANSLATION: flycast/dolphin, libretro/flycast
+msgctxt "game_options"
+msgid "BIOS LANGUAGE"
+msgstr ""
+
+#. TRANSLATION: flycast/dolphin, libretro/flycast, libretro/quasi88
 msgctxt "game_options"
 msgid "Required for some games."
 msgstr ""
 
-#. TRANSLATION: libretro/flycast, flycast/uzem
+#. TRANSLATION: flycast/dolphin, libretro/flycast
 msgctxt "game_options"
 msgid "FORCE WINDOWS CE MODE"
 msgstr ""
@@ -3198,7 +3284,7 @@ msgctxt "game_options"
 msgid "Gamepad"
 msgstr ""
 
-#. TRANSLATION: libretro/flycast, libretro/flycast, libretro/flycast, libretro/flycast, libretro/puae, ...
+#. TRANSLATION: dolphin, dolphin, dolphin, dolphin, libretro/flycast, ...
 msgctxt "game_options"
 msgid "Keyboard"
 msgstr ""
@@ -3206,6 +3292,16 @@ msgstr ""
 #. TRANSLATION: libretro/flycast, libretro/flycast, libretro/flycast, libretro/flycast
 msgctxt "game_options"
 msgid "Light Gun"
+msgstr ""
+
+#. TRANSLATION: libretro/flycast, libretro/mame, mame
+msgctxt "game_options"
+msgid "Set gun button 2 to reload."
+msgstr ""
+
+#. TRANSLATION: libretro/flycast, libretro/mame, mame
+msgctxt "game_options"
+msgid "OFF-SCREEN RELOAD BUTTON"
 msgstr ""
 
 #. TRANSLATION: libretro/flycast, libretro/flycast
@@ -3218,7 +3314,7 @@ msgctxt "game_options"
 msgid "SCREEN ORIENTATION"
 msgstr ""
 
-#. TRANSLATION: libretro/fuse, libretro/mame, hatari, mame/pcsx2
+#. TRANSLATION: hatari, libretro/fuse, libretro/mame, mame/pcsx2
 msgctxt "game_options"
 msgid "MODEL"
 msgstr ""
@@ -3435,6 +3531,11 @@ msgstr ""
 
 #. TRANSLATION: libretro/gambatte
 msgctxt "game_options"
+msgid "GBC - Game Specific"
+msgstr ""
+
+#. TRANSLATION: libretro/gambatte
+msgctxt "game_options"
 msgid "GBC - Blue"
 msgstr ""
 
@@ -3529,7 +3630,7 @@ msgid ""
 "Games may run faster/slower than normal if the incorrect region is selected."
 msgstr ""
 
-#. TRANSLATION: libretro/genesisplusgx, redream
+#. TRANSLATION: libretro/genesisplusgx, lindbergh-loader, redream
 msgctxt "game_options"
 msgid "REGION"
 msgstr ""
@@ -3539,7 +3640,7 @@ msgctxt "game_options"
 msgid "NTSC-U"
 msgstr ""
 
-#. TRANSLATION: libretro/genesisplusgx, duckstation
+#. TRANSLATION: duckstation, libretro/genesisplusgx
 msgctxt "game_options"
 msgid "NTSC-J"
 msgstr ""
@@ -3556,7 +3657,7 @@ msgid ""
 "button layout."
 msgstr ""
 
-#. TRANSLATION: libretro/genesisplusgx, libretro/genesisplusgx, libretro/genesisplusgx, libretro/genesisplusgx, libretro/genesisplusgx, ...
+#. TRANSLATION: duckstation, duckstation, duckstation, libretro/genesisplusgx, libretro/genesisplusgx, ...
 msgctxt "game_options"
 msgid "CONTROLLERS"
 msgstr ""
@@ -3832,16 +3933,6 @@ msgstr ""
 
 #. TRANSLATION: libretro/hatarib
 msgctxt "game_options"
-msgid "256 KB"
-msgstr ""
-
-#. TRANSLATION: libretro/hatarib
-msgctxt "game_options"
-msgid "512 KB"
-msgstr ""
-
-#. TRANSLATION: libretro/hatarib
-msgctxt "game_options"
 msgid "1 MB"
 msgstr ""
 
@@ -3905,7 +3996,7 @@ msgctxt "game_options"
 msgid "Choose your desired pixel aspect ratio."
 msgstr ""
 
-#. TRANSLATION: libretro/hatarib, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, libretro/vice_x128, ...
+#. TRANSLATION: bigpemu, cannonball, cemu, cgenius, dolphin_triforce, ...
 msgctxt "game_options"
 msgid "ASPECT RATIO"
 msgstr ""
@@ -3942,7 +4033,7 @@ msgctxt "game_options"
 msgid "SCREEN BORDERS"
 msgstr ""
 
-#. TRANSLATION: libretro/hatarib
+#. TRANSLATION: hypseus-singe/uzem, libretro/hatarib
 msgctxt "game_options"
 msgid "Hide"
 msgstr ""
@@ -3995,6 +4086,131 @@ msgstr ""
 #. TRANSLATION: libretro/hatarib
 msgctxt "game_options"
 msgid "No Indicator"
+msgstr ""
+
+#. TRANSLATION: libretro/hatarib
+msgctxt "game_options"
+msgid "Emutos language && region setting."
+msgstr ""
+
+#. TRANSLATION: hatari, libretro/hatarib
+msgctxt "game_options"
+msgid "English (us)"
+msgstr ""
+
+#. TRANSLATION: hatari, libretro/hatarib
+msgctxt "game_options"
+msgid "German (de)"
+msgstr ""
+
+#. TRANSLATION: hatari, libretro/hatarib
+msgctxt "game_options"
+msgid "French (fr)"
+msgstr ""
+
+#. TRANSLATION: hatari, libretro/hatarib
+msgctxt "game_options"
+msgid "British English (uk)"
+msgstr ""
+
+#. TRANSLATION: hatari, libretro/hatarib
+msgctxt "game_options"
+msgid "Spanish (es)"
+msgstr ""
+
+#. TRANSLATION: hatari, libretro/hatarib
+msgctxt "game_options"
+msgid "Italian (it)"
+msgstr ""
+
+#. TRANSLATION: hatari, libretro/hatarib
+msgctxt "game_options"
+msgid "Swedish (se)"
+msgstr ""
+
+#. TRANSLATION: libretro/hatarib
+msgctxt "game_options"
+msgid "Swiss French (ch)"
+msgstr ""
+
+#. TRANSLATION: libretro/hatarib
+msgctxt "game_options"
+msgid "Swiss German (ch)"
+msgstr ""
+
+#. TRANSLATION: libretro/hatarib
+msgctxt "game_options"
+msgid "Turkish (tr)"
+msgstr ""
+
+#. TRANSLATION: libretro/hatarib
+msgctxt "game_options"
+msgid "Finnish (fi)"
+msgstr ""
+
+#. TRANSLATION: libretro/hatarib
+msgctxt "game_options"
+msgid "Norwegian (no)"
+msgstr ""
+
+#. TRANSLATION: libretro/hatarib
+msgctxt "game_options"
+msgid "Danish (dk)"
+msgstr ""
+
+#. TRANSLATION: libretro/hatarib
+msgctxt "game_options"
+msgid "Arabic (ar)"
+msgstr ""
+
+#. TRANSLATION: libretro/hatarib
+msgctxt "game_options"
+msgid "Netherlands (nl)"
+msgstr ""
+
+#. TRANSLATION: libretro/hatarib
+msgctxt "game_options"
+msgid "Czech (cz)"
+msgstr ""
+
+#. TRANSLATION: libretro/hatarib
+msgctxt "game_options"
+msgid "Hungarian (hg)"
+msgstr ""
+
+#. TRANSLATION: libretro/hatarib
+msgctxt "game_options"
+msgid "Poland (pl)"
+msgstr ""
+
+#. TRANSLATION: hatari, libretro/hatarib
+msgctxt "game_options"
+msgid "Russian (ru)"
+msgstr ""
+
+#. TRANSLATION: libretro/hatarib
+msgctxt "game_options"
+msgid "Greek (gk)"
+msgstr ""
+
+#. TRANSLATION: hatari, libretro/hatarib
+msgctxt "game_options"
+msgid "Choose your Atari hard drive type for the .hd extension file."
+msgstr ""
+
+#. TRANSLATION: hatari, libretro/hatarib
+msgctxt "game_options"
+msgid "ATARI HARD DRIVE TYPE"
+msgstr ""
+
+#. TRANSLATION: hatari, libretro/hatarib
+msgctxt "game_options"
+msgid "IDE (Default)"
+msgstr ""
+
+#. TRANSLATION: hatari, libretro/hatarib
+msgctxt "game_options"
+msgid "ACSI"
 msgstr ""
 
 #. TRANSLATION: libretro/kronos, libretro/puae, libretro/puae2021, libretro/vb
@@ -4077,12 +4293,12 @@ msgctxt "game_options"
 msgid "BIOS Language"
 msgstr ""
 
-#. TRANSLATION: libretro/same_cdi, libretro/mame, libretro/mamevirtual
+#. TRANSLATION: libretro/mame, libretro/mamevirtual, libretro/same_cdi
 msgctxt "game_options"
 msgid "Use a custom MAME config, do not overwrite config on launch."
 msgstr ""
 
-#. TRANSLATION: libretro/same_cdi, libretro/mame, libretro/mame, libretro/mame, libretro/mame, ...
+#. TRANSLATION: libretro/mame, libretro/mame, libretro/mame, libretro/mame, libretro/mamevirtual, ...
 msgctxt "game_options"
 msgid "CUSTOM CONFIG"
 msgstr ""
@@ -4147,11 +4363,6 @@ msgctxt "game_options"
 msgid "HIGH SCORE PLUGIN"
 msgstr ""
 
-#. TRANSLATION: libretro/mame, libretro/mame, duckstation, duckstation, pcsx2, ...
-msgctxt "game_options"
-msgid "Enabled (Default)"
-msgstr ""
-
 #. TRANSLATION: libretro/mame, mame/pcsx2, mame/pcsx2
 msgctxt "game_options"
 msgid "Play a coin drop sound effect when an insert coin button is pressed"
@@ -4160,11 +4371,6 @@ msgstr ""
 #. TRANSLATION: libretro/mame, mame/pcsx2, mame/pcsx2
 msgctxt "game_options"
 msgid "COIN SOUND PLUGIN"
-msgstr ""
-
-#. TRANSLATION: libretro/mame, libretro/mame, cemu, cemu, cemu, ...
-msgctxt "game_options"
-msgid "Disabled (Default)"
 msgstr ""
 
 #. TRANSLATION: libretro/mame, libretro/mamevirtual
@@ -4179,7 +4385,7 @@ msgctxt "game_options"
 msgid "SHARE MAME ARTWORK"
 msgstr ""
 
-#. TRANSLATION: libretro/mame, libretro/mame, libretro/mamevirtual, libretro/xrick, cemu, ...
+#. TRANSLATION: cemu, libretro/mame, libretro/mame, libretro/mamevirtual, libretro/xrick, ...
 msgctxt "game_options"
 msgid "On (Default)"
 msgstr ""
@@ -4193,16 +4399,6 @@ msgstr ""
 #. TRANSLATION: libretro/mame, libretro/mamevirtual
 msgctxt "game_options"
 msgid "CROP ARTWORK"
-msgstr ""
-
-#. TRANSLATION: libretro/mame, flycast, mame
-msgctxt "game_options"
-msgid "Set gun button 2 to reload."
-msgstr ""
-
-#. TRANSLATION: libretro/mame, flycast, mame
-msgctxt "game_options"
-msgid "OFF-SCREEN RELOAD BUTTON"
 msgstr ""
 
 #. TRANSLATION: libretro/mame, libretro/mame, libretro/mame, libretro/mame, libretro/mame, ...
@@ -4520,7 +4716,7 @@ msgctxt "game_options"
 msgid "Select which joystick to emulate."
 msgstr ""
 
-#. TRANSLATION: libretro/mame, cgenius, mame/pcsx2, iortcw
+#. TRANSLATION: cgenius, iortcw, libretro/mame, mame/pcsx2, supermodel
 msgctxt "game_options"
 msgid "None (Default)"
 msgstr ""
@@ -5232,7 +5428,7 @@ msgctxt "game_options"
 msgid "Digital"
 msgstr ""
 
-#. TRANSLATION: libretro/mame078plus, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, libretro/vice_x128, ...
+#. TRANSLATION: libretro/mame078plus, libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xpet, ...
 msgctxt "game_options"
 msgid "Keyboard shortcuts unavailable if passing through the keyboard."
 msgstr ""
@@ -5327,12 +5523,12 @@ msgctxt "game_options"
 msgid "Allows up to 5 or 8 controllers in supported games."
 msgstr ""
 
-#. TRANSLATION: libretro/mednafen_psx, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, libretro/vice_x128, ...
+#. TRANSLATION: libretro/mednafen_psx, libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xpet, ...
 msgctxt "game_options"
 msgid "Port 1"
 msgstr ""
 
-#. TRANSLATION: libretro/mednafen_psx, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, libretro/vice_x128, ...
+#. TRANSLATION: libretro/mednafen_psx, libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xpet, ...
 msgctxt "game_options"
 msgid "Port 2"
 msgstr ""
@@ -5367,7 +5563,7 @@ msgctxt "game_options"
 msgid "Enhancement. Remove the sixteen sprites per line limit."
 msgstr ""
 
-#. TRANSLATION: libretro/mednafen_wswan, drastic, vpinball, vpinball, vpinball, ...
+#. TRANSLATION: drastic, libretro/mednafen_wswan, vpinball, vpinball, vpinball, ...
 msgctxt "game_options"
 msgid "Manual"
 msgstr ""
@@ -5432,16 +5628,6 @@ msgctxt "game_options"
 msgid "Skynet"
 msgstr ""
 
-#. TRANSLATION: libretro/mrboom
-msgctxt "game_options"
-msgid "Enable or disable monsters in battle."
-msgstr ""
-
-#. TRANSLATION: libretro/mrboom
-msgctxt "game_options"
-msgid "MONSTERS"
-msgstr ""
-
 #. TRANSLATION: libretro/mupen64plus-next
 msgctxt "game_options"
 msgid "4:3 RENDERING RESOLUTION"
@@ -5484,7 +5670,7 @@ msgctxt "game_options"
 msgid "Enhancement. Smooth out jagged edges on 3D objects polygons."
 msgstr ""
 
-#. TRANSLATION: libretro/mupen64plus-next, libretro/parallel_n64, ppsspp, suyu, dxx-rebirth
+#. TRANSLATION: dxx-rebirth, libretro/mupen64plus-next, libretro/parallel_n64, ppsspp, suyu
 msgctxt "game_options"
 msgid "Smooth textures on 3D objects."
 msgstr ""
@@ -5606,7 +5792,7 @@ msgid ""
 "dedicated hotkey."
 msgstr ""
 
-#. TRANSLATION: libretro/mupen64plus-next, libretro/mupen64plus-next, libretro/parallel_n64, libretro/parallel_n64, dolphin, ...
+#. TRANSLATION: libretro/mupen64plus-next, libretro/mupen64plus-next, libretro/parallel_n64, libretro/parallel_n64, mupen64plus, ...
 msgctxt "game_options"
 msgid "CONTROLLER 1"
 msgstr ""
@@ -5636,17 +5822,17 @@ msgctxt "game_options"
 msgid "Useful for N64 style controllers."
 msgstr ""
 
-#. TRANSLATION: libretro/mupen64plus-next, libretro/mupen64plus-next, libretro/parallel_n64, libretro/parallel_n64, dolphin, ...
+#. TRANSLATION: libretro/mupen64plus-next, libretro/mupen64plus-next, libretro/parallel_n64, libretro/parallel_n64, mupen64plus, ...
 msgctxt "game_options"
 msgid "CONTROLLER 2"
 msgstr ""
 
-#. TRANSLATION: libretro/mupen64plus-next, libretro/mupen64plus-next, libretro/parallel_n64, libretro/parallel_n64, dolphin, ...
+#. TRANSLATION: libretro/mupen64plus-next, libretro/mupen64plus-next, libretro/parallel_n64, libretro/parallel_n64, mupen64plus, ...
 msgctxt "game_options"
 msgid "CONTROLLER 3"
 msgstr ""
 
-#. TRANSLATION: libretro/mupen64plus-next, libretro/mupen64plus-next, libretro/parallel_n64, libretro/parallel_n64, dolphin, ...
+#. TRANSLATION: libretro/mupen64plus-next, libretro/mupen64plus-next, libretro/parallel_n64, libretro/parallel_n64, mupen64plus, ...
 msgctxt "game_options"
 msgid "CONTROLLER 4"
 msgstr ""
@@ -5704,7 +5890,7 @@ msgctxt "game_options"
 msgid "JOYSTICK SENSITIVITY"
 msgstr ""
 
-#. TRANSLATION: libretro/mupen64plus-next, libretro/parallel_n64
+#. TRANSLATION: dhewm3, libretro/mupen64plus-next, libretro/parallel_n64
 msgctxt "game_options"
 msgid "100% (Default)"
 msgstr ""
@@ -5719,7 +5905,7 @@ msgctxt "game_options"
 msgid "FRAME RATE"
 msgstr ""
 
-#. TRANSLATION: libretro/mupen64plus-next, libretro/parallel_n64, hypseus-singe
+#. TRANSLATION: hypseus-singe, libretro/mupen64plus-next, libretro/parallel_n64
 msgctxt "game_options"
 msgid "Original"
 msgstr ""
@@ -5747,21 +5933,6 @@ msgstr ""
 #. TRANSLATION: libretro/neocd
 msgctxt "game_options"
 msgid "Can change the language of some games."
-msgstr ""
-
-#. TRANSLATION: libretro/neocd, flycast/uzem, redream, suyu, suyu, ...
-msgctxt "game_options"
-msgid "Japan"
-msgstr ""
-
-#. TRANSLATION: libretro/neocd, flycast/uzem, suyu, ryujinx
-msgctxt "game_options"
-msgid "USA"
-msgstr ""
-
-#. TRANSLATION: libretro/neocd, flycast/uzem, redream, suyu, ryujinx
-msgctxt "game_options"
-msgid "Europe"
 msgstr ""
 
 #. TRANSLATION: libretro/neocd
@@ -5879,7 +6050,7 @@ msgctxt "game_options"
 msgid "230MB"
 msgstr ""
 
-#. TRANSLATION: libretro/np2kai, ioquake3
+#. TRANSLATION: ioquake3, libretro/np2kai
 msgctxt "game_options"
 msgid "512MB"
 msgstr ""
@@ -6079,7 +6250,7 @@ msgctxt "game_options"
 msgid "30fps"
 msgstr ""
 
-#. TRANSLATION: libretro/openlara, xenia-canary
+#. TRANSLATION: libretro/openlara
 msgctxt "game_options"
 msgid "60fps (Default)"
 msgstr ""
@@ -6259,7 +6430,7 @@ msgctxt "game_options"
 msgid "4.5x (1440x1080)"
 msgstr ""
 
-#. TRANSLATION: libretro/parallel_n64, libretro/tyrquake, amiberry, melonds, rpcs3, ...
+#. TRANSLATION: amiberry, drastic, libretro/parallel_n64, libretro/tyrquake, melonds, ...
 msgctxt "game_options"
 msgid "Automatic"
 msgstr ""
@@ -6292,6 +6463,21 @@ msgstr ""
 #. TRANSLATION: libretro/pcsx_rearmed, libretro/virtualjaguar
 msgctxt "game_options"
 msgid "Off is safer, On for specific games."
+msgstr ""
+
+#. TRANSLATION: libretro/pcsx_rearmed
+msgctxt "game_options"
+msgid "Double the rendering resolution."
+msgstr ""
+
+#. TRANSLATION: drastic, libretro/pcsx_rearmed
+msgctxt "game_options"
+msgid "ENHANCED RENDERING RESOLUTION"
+msgstr ""
+
+#. TRANSLATION: libretro/pcsx_rearmed
+msgctxt "game_options"
+msgid "On (Speed hack)"
 msgstr ""
 
 #. TRANSLATION: libretro/pcsx_rearmed
@@ -6609,7 +6795,7 @@ msgctxt "game_options"
 msgid "CPU COMPATIBILITY"
 msgstr ""
 
-#. TRANSLATION: libretro/puae, libretro/puae2021, duckstation, openbor, scummvm, ...
+#. TRANSLATION: duckstation, libretro/puae, libretro/puae2021, openbor, scummvm, ...
 msgctxt "game_options"
 msgid "Normal"
 msgstr ""
@@ -6696,7 +6882,7 @@ msgid ""
 "switches to Super-High when needed."
 msgstr ""
 
-#. TRANSLATION: libretro/puae, libretro/puae2021, amiberry
+#. TRANSLATION: amiberry, libretro/puae, libretro/puae2021
 msgctxt "game_options"
 msgid "VIDEO RESOLUTION"
 msgstr ""
@@ -6721,12 +6907,12 @@ msgctxt "game_options"
 msgid "Hides borders on many games. Some games use the borders."
 msgstr ""
 
-#. TRANSLATION: libretro/puae, libretro/puae2021, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, ...
+#. TRANSLATION: libretro/puae, libretro/puae2021, libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, ...
 msgctxt "game_options"
 msgid "ZOOM/CROP (HIDE BORDERS)"
 msgstr ""
 
-#. TRANSLATION: libretro/puae, libretro/puae2021, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, ...
+#. TRANSLATION: libretro/puae, libretro/puae2021, libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, ...
 msgctxt "game_options"
 msgid "Auto zoom"
 msgstr ""
@@ -6741,12 +6927,12 @@ msgctxt "game_options"
 msgid "smaller"
 msgstr ""
 
-#. TRANSLATION: libretro/puae, libretro/puae2021, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, ...
+#. TRANSLATION: libretro/puae, libretro/puae2021, libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, ...
 msgctxt "game_options"
 msgid "small"
 msgstr ""
 
-#. TRANSLATION: libretro/puae, libretro/puae2021, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, ...
+#. TRANSLATION: libretro/puae, libretro/puae2021, libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, ...
 msgctxt "game_options"
 msgid "medium"
 msgstr ""
@@ -6761,7 +6947,7 @@ msgctxt "game_options"
 msgid "larger"
 msgstr ""
 
-#. TRANSLATION: libretro/puae, libretro/puae2021, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, ...
+#. TRANSLATION: libretro/puae, libretro/puae2021, libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, ...
 msgctxt "game_options"
 msgid "maximum"
 msgstr ""
@@ -7333,7 +7519,7 @@ msgctxt "game_options"
 msgid "50fps"
 msgstr ""
 
-#. TRANSLATION: libretro/tyrquake
+#. TRANSLATION: libretro/tyrquake, xenia-canary
 msgctxt "game_options"
 msgid "60fps"
 msgstr ""
@@ -7348,7 +7534,7 @@ msgctxt "game_options"
 msgid "160fps"
 msgstr ""
 
-#. TRANSLATION: libretro/tyrquake, cemu, dolphin/uzem, dolphin_triforce, openbor/openbor7530, ...
+#. TRANSLATION: cemu, dolphin, dolphin_triforce, libretro/tyrquake, model2emu, ...
 msgctxt "game_options"
 msgid "RUMBLE"
 msgstr ""
@@ -7528,7 +7714,7 @@ msgctxt "game_options"
 msgid "Automatic switches region per file path tags"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, libretro/vice_x128, libretro/vice_xplus4, ...
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xpet, libretro/vice_xplus4, ...
 msgctxt "game_options"
 msgid "MODEL TYPE"
 msgstr ""
@@ -7563,107 +7749,107 @@ msgctxt "game_options"
 msgid "C64 Japanese NTSC"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, libretro/vice_x128, libretro/vice_xplus4, ...
+#. TRANSLATION: bigpemu, cannonball, cemu, duckstation, libretro/vice_x128, ...
 msgctxt "game_options"
 msgid "Change the output resolution ratio."
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, libretro/vice_x128, libretro/vice_xplus4, ...
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xpet, libretro/vice_xplus4, ...
 msgctxt "game_options"
 msgid "PAL 576x312px"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, libretro/vice_x128, libretro/vice_xplus4, ...
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xpet, libretro/vice_xplus4, ...
 msgctxt "game_options"
 msgid "NTSC 492x262px"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, libretro/vice_x128, libretro/vice_xplus4, ...
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xpet, libretro/vice_xplus4, ...
 msgctxt "game_options"
 msgid "Auto-disable zoom"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, libretro/vice_x128, libretro/vice_xplus4, ...
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xpet, libretro/vice_xplus4, ...
 msgctxt "game_options"
 msgid "Most games use port 2, some use port 1."
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, libretro/vice_x128, libretro/vice_xplus4, ...
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xpet, libretro/vice_xplus4, ...
 msgctxt "game_options"
 msgid "CONTROLLER PORT"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, libretro/vice_x128, libretro/vice_xplus4, ...
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xpet, libretro/vice_xplus4, ...
 msgctxt "game_options"
 msgid "Paddles"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, libretro/vice_x128, libretro/vice_xplus4, ...
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xpet, libretro/vice_xplus4, ...
 msgctxt "game_options"
 msgid "Mouse (1351)"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, libretro/vice_x128, libretro/vice_xplus4, ...
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xpet, libretro/vice_xplus4, ...
 msgctxt "game_options"
 msgid "Trackball (Atari CX-22)"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, libretro/vice_x128, libretro/vice_xplus4, ...
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xpet, libretro/vice_xplus4, ...
 msgctxt "game_options"
 msgid "Koalapad"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_x128
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc
 msgctxt "game_options"
 msgid "Some games and homebrews require more RAM"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_x128
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc
 msgctxt "game_options"
 msgid "RAM EXPANSION UNIT"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_x128
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc
 msgctxt "game_options"
 msgid "128kB (1700)"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_x128
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc
 msgctxt "game_options"
 msgid "256kB (1764)"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_x128
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc
 msgctxt "game_options"
 msgid "512kB (1750)"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_x128
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc
 msgctxt "game_options"
 msgid "1024kB"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_x128
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc
 msgctxt "game_options"
 msgid "2048kB"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_x128
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc
 msgctxt "game_options"
 msgid "4096kB"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_x128
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc
 msgctxt "game_options"
 msgid "8192kB"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_x128
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc
 msgctxt "game_options"
 msgid "16384kB"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xscpu64, libretro/vice_x128, libretro/vice_xplus4, ...
+#. TRANSLATION: libretro/vice_x128, libretro/vice_x64, libretro/vice_x64sc, libretro/vice_xpet, libretro/vice_xplus4, ...
 msgctxt "game_options"
 msgid "KEYBOARD PASSTHROUGH"
 msgstr ""
@@ -7688,32 +7874,32 @@ msgctxt "game_options"
 msgid "C128 DCR NTSC"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x128, libretro/vice_xplus4, libretro/vice_xvic, libretro/vice_xpet
+#. TRANSLATION: libretro/vice_x128, libretro/vice_xpet, libretro/vice_xplus4, libretro/vice_xvic
 msgctxt "game_options"
 msgid "RetroPad Face Button Options."
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x128, libretro/vice_xplus4, libretro/vice_xvic, libretro/vice_xpet
+#. TRANSLATION: libretro/vice_x128, libretro/vice_xpet, libretro/vice_xplus4, libretro/vice_xvic
 msgctxt "game_options"
 msgid "Button Options"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x128, libretro/vice_xplus4, libretro/vice_xvic, libretro/vice_xpet
+#. TRANSLATION: libretro/vice_x128, libretro/vice_xpet, libretro/vice_xplus4, libretro/vice_xvic
 msgctxt "game_options"
 msgid "B = Fire"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x128, libretro/vice_xplus4, libretro/vice_xvic, libretro/vice_xpet
+#. TRANSLATION: libretro/vice_x128, libretro/vice_xpet, libretro/vice_xplus4, libretro/vice_xvic
 msgctxt "game_options"
 msgid "B = Fire, A = Up"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x128, libretro/vice_xplus4, libretro/vice_xvic, libretro/vice_xpet
+#. TRANSLATION: libretro/vice_x128, libretro/vice_xpet, libretro/vice_xplus4, libretro/vice_xvic
 msgctxt "game_options"
 msgid "Y = Fire"
 msgstr ""
 
-#. TRANSLATION: libretro/vice_x128, libretro/vice_xplus4, libretro/vice_xvic, libretro/vice_xpet
+#. TRANSLATION: libretro/vice_x128, libretro/vice_xpet, libretro/vice_xplus4, libretro/vice_xvic
 msgctxt "game_options"
 msgid "Y = Fire, B = Up"
 msgstr ""
@@ -7914,12 +8100,12 @@ msgid ""
 "Choose which graphics API library to use. Vulkan may not work for every core."
 msgstr ""
 
-#. TRANSLATION: libretro, cemu, citra, hypseus-singe, dolphin, ...
+#. TRANSLATION: cemu, citra, dolphin, dolphin_triforce, duckstation, ...
 msgctxt "game_options"
 msgid "GRAPHICS API"
 msgstr ""
 
-#. TRANSLATION: libretro, cemu, hypseus-singe, dolphin, duckstation, ...
+#. TRANSLATION: cemu, dolphin, duckstation, hypseus-singe, libretro, ...
 msgctxt "game_options"
 msgid "OpenGL"
 msgstr ""
@@ -7929,7 +8115,7 @@ msgctxt "game_options"
 msgid "GLCore"
 msgstr ""
 
-#. TRANSLATION: libretro, citra, hypseus-singe, dolphin, duckstation, ...
+#. TRANSLATION: citra, dolphin, dolphin_triforce, duckstation, flycast, ...
 msgctxt "game_options"
 msgid "Vulkan"
 msgstr ""
@@ -8093,7 +8279,7 @@ msgctxt "game_options"
 msgid "HIGH RESOLUTION MODE"
 msgstr ""
 
-#. TRANSLATION: cemu, citra, dolphin, duckstation, melonds, ...
+#. TRANSLATION: cemu, citra, dolphin, dolphin_triforce, duckstation, ...
 msgctxt "game_options"
 msgid "Choose which graphics API library to use."
 msgstr ""
@@ -8168,22 +8354,22 @@ msgctxt "game_options"
 msgid "Current language"
 msgstr ""
 
-#. TRANSLATION: cemu, sonic2013, suyu, ryujinx, xenia, ...
+#. TRANSLATION: cemu, dhewm3, ryujinx, sonic2013, suyu, ...
 msgctxt "game_options"
 msgid "Chinese"
 msgstr ""
 
-#. TRANSLATION: cemu, scummvm, play, suyu, ryujinx, ...
+#. TRANSLATION: cemu, etlegacy, play, ryujinx, scummvm, ...
 msgctxt "game_options"
 msgid "Portuguese"
 msgstr ""
 
-#. TRANSLATION: cemu, scummvm, sonic2013, play, suyu, ...
+#. TRANSLATION: cemu, dhewm3, etlegacy, play, ryujinx, ...
 msgctxt "game_options"
 msgid "Russian"
 msgstr ""
 
-#. TRANSLATION: cemu, suyu, ryujinx
+#. TRANSLATION: cemu, ryujinx, suyu
 msgctxt "game_options"
 msgid "Taiwanese"
 msgstr ""
@@ -8228,12 +8414,12 @@ msgctxt "game_options"
 msgid "Batocera sets first audio device (Default)"
 msgstr ""
 
-#. TRANSLATION: cemu, openbor/openbor7530, xemu, sonic2013, play, ...
+#. TRANSLATION: bigpemu, cemu, dxx-rebirth, iortcw, openbor/openbor7530, ...
 msgctxt "game_options"
 msgid "Fix screen tearing."
 msgstr ""
 
-#. TRANSLATION: cemu, citra, dolphin, dolphin_triforce, duckstation, ...
+#. TRANSLATION: bigpemu, cemu, citra, dolphin, dolphin_triforce, ...
 msgctxt "game_options"
 msgid "VSYNC"
 msgstr ""
@@ -8258,7 +8444,7 @@ msgctxt "game_options"
 msgid "UPSCALE FILTER"
 msgstr ""
 
-#. TRANSLATION: cemu, cemu, ppsspp, suyu
+#. TRANSLATION: cemu, cemu, ppsspp, supermodel, suyu
 msgctxt "game_options"
 msgid "Bicubic"
 msgstr ""
@@ -8283,7 +8469,7 @@ msgctxt "game_options"
 msgid "DOWNSCALE FILTER"
 msgstr ""
 
-#. TRANSLATION: cemu, rpcs3
+#. TRANSLATION: cemu, rpcs3, supermodel
 msgctxt "game_options"
 msgid "Bilinear (Default)"
 msgstr ""
@@ -8298,7 +8484,7 @@ msgctxt "game_options"
 msgid "Keep Aspect Ration (Default)"
 msgstr ""
 
-#. TRANSLATION: cemu, hypseus-singe, openbor, redream, demul
+#. TRANSLATION: cemu, hypseus-singe, openbor, redream
 msgctxt "game_options"
 msgid "Stretch"
 msgstr ""
@@ -8402,12 +8588,12 @@ msgctxt "game_options"
 msgid "GRAPHICS"
 msgstr ""
 
-#. TRANSLATION: citra, flycast, scummvm, play, gzdoom
+#. TRANSLATION: citra, dolphin_triforce, flycast, gzdoom, play, ...
 msgctxt "game_options"
 msgid "OpenGL (Default)"
 msgstr ""
 
-#. TRANSLATION: citra, dolphin, dolphin_triforce, duckstation, pcsx2
+#. TRANSLATION: citra, dolphin, dolphin_triforce, duckstation, melonds, ...
 msgctxt "game_options"
 msgid "Fix screen tearing. CPU heavy."
 msgstr ""
@@ -8484,24 +8670,9 @@ msgctxt "game_options"
 msgid "Hide crosshairs in supported games e.g. ActionMax, Maddog II."
 msgstr ""
 
-#. TRANSLATION: hypseus-singe/uzem, dolphin/uzem
-msgctxt "game_options"
-msgid "LIGHT GUNS"
-msgstr ""
-
 #. TRANSLATION: hypseus-singe/uzem
 msgctxt "game_options"
 msgid "HIDE LIGHT GUN CROSSHAIRS"
-msgstr ""
-
-#. TRANSLATION: hypseus-singe/uzem
-msgctxt "game_options"
-msgid "Hidden"
-msgstr ""
-
-#. TRANSLATION: hypseus-singe/uzem
-msgctxt "game_options"
-msgid "Shown"
 msgstr ""
 
 #. TRANSLATION: hypseus-singe/uzem
@@ -8526,17 +8697,17 @@ msgctxt "game_options"
 msgid "Not all games support stretching, depending on their video files."
 msgstr ""
 
-#. TRANSLATION: hypseus-singe, dolphin, dolphin_triforce, suyu
+#. TRANSLATION: dolphin, dolphin_triforce, hypseus-singe, suyu
 msgctxt "game_options"
 msgid "Force 4:3"
 msgstr ""
 
-#. TRANSLATION: hypseus-singe, flycast, melonds
+#. TRANSLATION: flycast, hypseus-singe, melonds
 msgctxt "game_options"
 msgid "SCREEN ROTATION"
 msgstr ""
 
-#. TRANSLATION: hypseus-singe, flycast, melonds, moonlight
+#. TRANSLATION: flycast, hypseus-singe, melonds, moonlight
 msgctxt "game_options"
 msgid "0 degrees"
 msgstr ""
@@ -8544,8 +8715,58 @@ msgstr ""
 #. TRANSLATION: hypseus-singe
 msgctxt "game_options"
 msgid ""
-"Use with the stretch aspect ratio and adjust joystick sensitivity as "
-"required."
+"Enable or disable bezels being added when content is a 4:3 aspect with a "
+"widescreen display."
+msgstr ""
+
+#. TRANSLATION: hypseus-singe
+msgctxt "game_options"
+msgid "BEZELS"
+msgstr ""
+
+#. TRANSLATION: hypseus-singe
+msgctxt "game_options"
+msgid "Shunt 2"
+msgstr ""
+
+#. TRANSLATION: hypseus-singe
+msgctxt "game_options"
+msgid "Shunt 3"
+msgstr ""
+
+#. TRANSLATION: hypseus-singe
+msgctxt "game_options"
+msgid "Shunt 4"
+msgstr ""
+
+#. TRANSLATION: hypseus-singe
+msgctxt "game_options"
+msgid "Shunt 5"
+msgstr ""
+
+#. TRANSLATION: hypseus-singe
+msgctxt "game_options"
+msgid "Shunt 6"
+msgstr ""
+
+#. TRANSLATION: hypseus-singe
+msgctxt "game_options"
+msgid "Shunt 7"
+msgstr ""
+
+#. TRANSLATION: hypseus-singe
+msgctxt "game_options"
+msgid "Shunt 8"
+msgstr ""
+
+#. TRANSLATION: hypseus-singe
+msgctxt "game_options"
+msgid "Shunt 9"
+msgstr ""
+
+#. TRANSLATION: hypseus-singe
+msgctxt "game_options"
+msgid "Shunt 10"
 msgstr ""
 
 #. TRANSLATION: hypseus-singe
@@ -8579,126 +8800,14 @@ msgctxt "game_options"
 msgid "CUSTOM CONTROLLER"
 msgstr ""
 
-#. TRANSLATION: dolphin/uzem, dolphin/uzem, dolphin, dolphin, dolphin, ...
+#. TRANSLATION: devilutionx
 msgctxt "game_options"
-msgid "DISPLAY"
+msgid "Fills the screen."
 msgstr ""
 
-#. TRANSLATION: dolphin/uzem
+#. TRANSLATION: devilutionx, duckstation
 msgctxt "game_options"
-msgid ""
-"Enable Gamecube boot animation and BIOS access (requires IPL.bin BIOS in "
-"appropriate user directory)."
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "ENABLE BOOT ANIMATION"
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "Change the Gamecube system language."
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "GAMECUBE LANGUAGE"
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "English/Japanese"
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "Map your controller to an emulated Wiimote."
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "EMULATE WIIMOTE"
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "CUSTOMIZE EMULATED WIIMOTE & GAMEPAD"
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "Classic Controller"
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "Classic Controller Pro"
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "Wiimote Sideway"
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "Wiimote Sideway + Swing"
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "Wiimote Sideway + Tilt"
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "Wiimote Sideway + Nunchuk"
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "Position of wii sensor bar relative to the disaply for real wiimotes."
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "SENSOR BAR POSITION"
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "Bottom (Default)"
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "Top"
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "Emulate the Wiimote pointer with a DS4's gyroscope."
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "DUALSHOCK MOTION CONTROL"
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "Emulate the Wiimote pointer with a mouse."
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "MOUSE AS WIIMOTE POINTER"
-msgstr ""
-
-#. TRANSLATION: dolphin/uzem
-msgctxt "game_options"
-msgid "Enable controller rumble capabilities if supported by the controller."
+msgid "STRETCH TO FILL"
 msgstr ""
 
 #. TRANSLATION: dolphin, dolphin_triforce
@@ -8706,12 +8815,22 @@ msgctxt "game_options"
 msgid "The final output image, unrelated to the Wii's emulated NAND setting."
 msgstr ""
 
+#. TRANSLATION: dolphin, dolphin, dolphin, dolphin, dolphin, ...
+msgctxt "game_options"
+msgid "DISPLAY"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "Automatic ratio"
+msgstr ""
+
 #. TRANSLATION: dolphin, dolphin_triforce
 msgctxt "game_options"
 msgid "Force 16:9"
 msgstr ""
 
-#. TRANSLATION: dolphin, dolphin_triforce, suyu
+#. TRANSLATION: dolphin, suyu
 msgctxt "game_options"
 msgid "Stretch to window"
 msgstr ""
@@ -8729,7 +8848,8 @@ msgstr ""
 #. TRANSLATION: dolphin
 msgctxt "game_options"
 msgid ""
-"Compile shaders on next launch of game (one time). Reduces micro-freezes."
+"Compile shaders on next launch of game (one time). Reduces micro-freezes. "
+"Vulkan only."
 msgstr ""
 
 #. TRANSLATION: dolphin
@@ -8737,9 +8857,58 @@ msgctxt "game_options"
 msgid "PRE-CACHE SHADERS"
 msgstr ""
 
+#. TRANSLATION: dolphin, dolphin_triforce, iortcw, rpcs3
+msgctxt "game_options"
+msgid "ANTI-ALIASING"
+msgstr ""
+
 #. TRANSLATION: dolphin
 msgctxt "game_options"
-msgid "Off (default)"
+msgid ""
+"Use SSAA instead of MSAA for anti-aliasing. SSAA may look better but has a "
+"higher performance cost."
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "ANTI-ALIASING MODE"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid ""
+"Enabling will allow for correct emulation of texture wrapping. This comes at "
+"a cost of potential worse performance."
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "MANUAL TEXTURE SAMPLING"
+msgstr ""
+
+#. TRANSLATION: dolphin, dolphin_triforce
+msgctxt "game_options"
+msgid "Usually not much faster than single core mode."
+msgstr ""
+
+#. TRANSLATION: dolphin, dolphin, dolphin, dolphin, dolphin, ...
+msgctxt "game_options"
+msgid "EMULATION"
+msgstr ""
+
+#. TRANSLATION: dolphin, dolphin_triforce
+msgctxt "game_options"
+msgid "DUAL CORE MODE"
+msgstr ""
+
+#. TRANSLATION: dolphin, dolphin_triforce
+msgctxt "game_options"
+msgid "Speed hack for dual core mode to fix some glitches."
+msgstr ""
+
+#. TRANSLATION: dolphin, dolphin_triforce
+msgctxt "game_options"
+msgid "GPU SYNC"
 msgstr ""
 
 #. TRANSLATION: dolphin, dolphin_triforce
@@ -8752,6 +8921,48 @@ msgctxt "game_options"
 msgid "PERFORMANCE HACKS"
 msgstr ""
 
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "To use game cheats or 16/9 Aspect Ratio Fix codes."
+msgstr ""
+
+#. TRANSLATION: dolphin, duckstation, melonds
+msgctxt "game_options"
+msgid "ENABLE CHEATS"
+msgstr ""
+
+#. TRANSLATION: dolphin, dolphin_triforce, mupen64plus, tsugaru
+msgctxt "game_options"
+msgid "Required by some games."
+msgstr ""
+
+#. TRANSLATION: dolphin, dolphin_triforce
+msgctxt "game_options"
+msgid "MEMORY MANAGEMENT UNIT"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "Enhancement. Removes disc loading."
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "FAST DISK TRANSFER RATE"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid ""
+"Skips Vertical Blank Interrupts when lag is detected, allowing for smooth "
+"audio playback when emulation speed is not 100%."
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "VBI SKIP"
+msgstr ""
+
 #. TRANSLATION: dolphin, dolphin_triforce
 msgctxt "game_options"
 msgid "Search for custom configured joystick profiles."
@@ -8762,9 +8973,19 @@ msgctxt "game_options"
 msgid "USE PAD PROFILES"
 msgstr ""
 
+#. TRANSLATION: dolphin, rpcs3, rpcs3, rpcs3, rpcs3, ...
+msgctxt "game_options"
+msgid "Enable controller rumble capabilities if supported by the controller."
+msgstr ""
+
 #. TRANSLATION: dolphin, dolphin, dolphin, dolphin
 msgctxt "game_options"
 msgid "Change what's plugged into the virtual GameCube ports."
+msgstr ""
+
+#. TRANSLATION: dolphin, dolphin, dolphin, dolphin
+msgctxt "game_options"
+msgid "GAMECUBE CONTROLLER 1"
 msgstr ""
 
 #. TRANSLATION: dolphin
@@ -8797,14 +9018,29 @@ msgctxt "game_options"
 msgid "DK Bongos"
 msgstr ""
 
+#. TRANSLATION: dolphin, dolphin, dolphin, dolphin
+msgctxt "game_options"
+msgid "GAMECUBE CONTROLLER 2"
+msgstr ""
+
 #. TRANSLATION: dolphin
 msgctxt "game_options"
 msgid "GAMECUBE PORT 2 TYPE"
 msgstr ""
 
+#. TRANSLATION: dolphin, dolphin, dolphin, dolphin
+msgctxt "game_options"
+msgid "GAMECUBE CONTROLLER 3"
+msgstr ""
+
 #. TRANSLATION: dolphin
 msgctxt "game_options"
 msgid "GAMECUBE PORT 3 TYPE"
+msgstr ""
+
+#. TRANSLATION: dolphin, dolphin, dolphin, dolphin
+msgctxt "game_options"
+msgid "GAMECUBE CONTROLLER 4"
 msgstr ""
 
 #. TRANSLATION: dolphin
@@ -8814,132 +9050,12 @@ msgstr ""
 
 #. TRANSLATION: dolphin, dolphin, dolphin, dolphin
 msgctxt "game_options"
-msgid ""
-"Use alternative input mappings. Only applies to Standard Controller type."
+msgid "Moves South to West, West to North, etc. Standard controller type only."
 msgstr ""
 
 #. TRANSLATION: dolphin, dolphin, dolphin, dolphin
 msgctxt "game_options"
-msgid "ALT INPUT MAPPING"
-msgstr ""
-
-#. TRANSLATION: dolphin, dolphin, dolphin, dolphin
-msgctxt "game_options"
-msgid "Face Buttons (CW)"
-msgstr ""
-
-#. TRANSLATION: dolphin, dolphin, dolphin, dolphin
-msgctxt "game_options"
-msgid "Face Buttons (CCW)"
-msgstr ""
-
-#. TRANSLATION: dolphin, dolphin_triforce
-msgctxt "game_options"
-msgid "Usually not much faster than single core mode."
-msgstr ""
-
-#. TRANSLATION: dolphin, dolphin_triforce
-msgctxt "game_options"
-msgid "DUAL CORE MODE"
-msgstr ""
-
-#. TRANSLATION: dolphin, dolphin_triforce
-msgctxt "game_options"
-msgid "Speed hack for dual core mode to fix some glitches."
-msgstr ""
-
-#. TRANSLATION: dolphin, dolphin_triforce
-msgctxt "game_options"
-msgid "GPU SYNC"
-msgstr ""
-
-#. TRANSLATION: dolphin, dolphin_triforce, rpcs3, iortcw
-msgctxt "game_options"
-msgid "ANTI-ALIASING"
-msgstr ""
-
-#. TRANSLATION: dolphin
-msgctxt "game_options"
-msgid "Toggle MSAA/SSAA. Depends on anti-aliasing being enabled."
-msgstr ""
-
-#. TRANSLATION: dolphin
-msgctxt "game_options"
-msgid "ANTI-ALIASING MODE"
-msgstr ""
-
-#. TRANSLATION: dolphin
-msgctxt "game_options"
-msgid "MSAA (default)"
-msgstr ""
-
-#. TRANSLATION: dolphin
-msgctxt "game_options"
-msgid "SSAA"
-msgstr ""
-
-#. TRANSLATION: dolphin
-msgctxt "game_options"
-msgid ""
-"Enabling will allow for correct emulation of texture wrapping. This comes at "
-"a cost of potential worse performance."
-msgstr ""
-
-#. TRANSLATION: dolphin
-msgctxt "game_options"
-msgid "MANUAL TEXTURE SAMPLING"
-msgstr ""
-
-#. TRANSLATION: dolphin
-msgctxt "game_options"
-msgid "To use game cheats or 16/9 Aspect Ratio Fix codes."
-msgstr ""
-
-#. TRANSLATION: dolphin, melonds
-msgctxt "game_options"
-msgid "ENABLE CHEATS"
-msgstr ""
-
-#. TRANSLATION: dolphin, dolphin_triforce, mupen64plus, tsugaru
-msgctxt "game_options"
-msgid "Required by some games."
-msgstr ""
-
-#. TRANSLATION: dolphin, dolphin_triforce
-msgctxt "game_options"
-msgid "MEMORY MANAGEMENT UNIT"
-msgstr ""
-
-#. TRANSLATION: dolphin
-msgctxt "game_options"
-msgid "Enhancement. Removes disc loading."
-msgstr ""
-
-#. TRANSLATION: dolphin
-msgctxt "game_options"
-msgid "FAST DISK TRANSFER RATE"
-msgstr ""
-
-#. TRANSLATION: dolphin
-msgctxt "game_options"
-msgid "Show on screen display messages (memory card saves..)."
-msgstr ""
-
-#. TRANSLATION: dolphin, duckstation, melonds
-msgctxt "game_options"
-msgid "SHOW ON-SCREEN DISPLAY MESSAGES"
-msgstr ""
-
-#. TRANSLATION: dolphin
-msgctxt "game_options"
-msgid ""
-"Skips Vertical Blank Interrupts when lag is detected, allowing for smooth "
-"audio playback when emulation speed is not 100%."
-msgstr ""
-
-#. TRANSLATION: dolphin
-msgctxt "game_options"
-msgid "VBI SKIP"
+msgid "ROTATE FACE BUTTONS"
 msgstr ""
 
 #. TRANSLATION: dolphin, dolphin, dolphin, dolphin
@@ -8989,19 +9105,291 @@ msgctxt "game_options"
 msgid "Enables Dolby Pro Logic II for surround sound. May impact performance."
 msgstr ""
 
+#. TRANSLATION: dolphin, duckstation, rpcs3, rpcs3, rpcs3, ...
+msgctxt "game_options"
+msgid "AUDIO"
+msgstr ""
+
 #. TRANSLATION: dolphin
 msgctxt "game_options"
 msgid "DOLBY PRO LOGIC II"
 msgstr ""
 
-#. TRANSLATION: dolphin_triforce
+#. TRANSLATION: dolphin
 msgctxt "game_options"
-msgid "1.5x 720p (960x792)"
+msgid "Show on screen display messages (memory card saves..)."
+msgstr ""
+
+#. TRANSLATION: dolphin, duckstation, melonds
+msgctxt "game_options"
+msgid "SHOW ON-SCREEN DISPLAY MESSAGES"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid ""
+"Enable Gamecube boot animation and BIOS access (requires IPL.bin BIOS in "
+"appropriate user directory)."
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "ENABLE BOOT ANIMATION"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "Change the Gamecube system language."
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "GAMECUBE LANGUAGE"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "English/Japanese"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "Map your controller to an emulated Wiimote."
+msgstr ""
+
+#. TRANSLATION: dolphin, dolphin, dolphin, dolphin, dolphin
+msgctxt "game_options"
+msgid "WII CONTROLLERS"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "EMULATE WIIMOTE"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "CUSTOMIZE EMULATED WIIMOTE & GAMEPAD"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "Classic Controller"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "Classic Controller Pro"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "Wiimote Sideway"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "Wiimote Sideway + Swing"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "Wiimote Sideway + Tilt"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "Wiimote Sideway + Nunchuk"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "Position of wii sensor bar relative to the disaply for real wiimotes."
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "SENSOR BAR POSITION"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "Bottom (Default)"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "Top"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "Emulate the Wiimote pointer with a DS4's gyroscope."
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "DUALSHOCK MOTION CONTROL"
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "Emulate the Wiimote pointer with a mouse."
+msgstr ""
+
+#. TRANSLATION: dolphin
+msgctxt "game_options"
+msgid "MOUSE AS WIIMOTE POINTER"
 msgstr ""
 
 #. TRANSLATION: dolphin_triforce
 msgctxt "game_options"
-msgid "2.5x 1080p (1600x1320)"
+msgid "Native (640x528)"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "2x Native (1280x1056) for 720p"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "3x Native (1920x1584) for 1080p"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "4x Native (2560x2112) for 1440p"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "5x Native (3200x2640)"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "6x Native (3840x3168) for 4K"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "7x Native (4480x3696)"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "8x Native (5120x4224) for 5K"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "9x Native (5760x4752)"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "10x Native (6400x5280)"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "11x Native (7040x5808)"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "12x Native (7680x6336) for 8K"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "Stretch to Window"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "2x Anistropic"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "4x Anistropic"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "8x Anistropic"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "16x Anistropic"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "Force Nearest"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "Force Linear"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "Force Linear and 2x Anistropic"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "Force Linear and 4x Anistropic"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "Force Linear and 8x Anistropic"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "Force Linear and 16x Anistropic"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "Affects how the game output is scaled to the resolution."
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "OUTPUT RESAMPLING"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "Bicubic: B-Spine"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "Bicubic: Mitchell-Netravali"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "Bicubic: Catmull-Rom"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce, sonic2013, soniccd
+msgctxt "game_options"
+msgid "Sharp Bilinear"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "Area Sampling"
 msgstr ""
 
 #. TRANSLATION: dolphin_triforce
@@ -9011,42 +9399,32 @@ msgstr ""
 
 #. TRANSLATION: dolphin_triforce
 msgctxt "game_options"
-msgid "8x (CSAA)"
-msgstr ""
-
-#. TRANSLATION: dolphin_triforce
-msgctxt "game_options"
-msgid "8xQ (CSAA)"
-msgstr ""
-
-#. TRANSLATION: dolphin_triforce
-msgctxt "game_options"
-msgid "16x (CSAA)"
-msgstr ""
-
-#. TRANSLATION: dolphin_triforce
-msgctxt "game_options"
-msgid "16xQ (CSAA)"
-msgstr ""
-
-#. TRANSLATION: dolphin_triforce
-msgctxt "game_options"
-msgid "4x (SSAA)"
-msgstr ""
-
-#. TRANSLATION: dolphin_triforce
-msgctxt "game_options"
 msgid "DISABLE ON-SCREEN DISPLAY MESSAGES"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "Sine"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "Triangle"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "Weak"
+msgstr ""
+
+#. TRANSLATION: dolphin_triforce
+msgctxt "game_options"
+msgid "Strong"
 msgstr ""
 
 #. TRANSLATION: duckstation
 msgctxt "game_options"
 msgid "Determines the speed and the runahead behaviour of the system."
-msgstr ""
-
-#. TRANSLATION: duckstation, duckstation, duckstation
-msgctxt "game_options"
-msgid "EMULATION"
 msgstr ""
 
 #. TRANSLATION: duckstation
@@ -9128,11 +9506,6 @@ msgstr ""
 
 #. TRANSLATION: duckstation
 msgctxt "game_options"
-msgid "STRETCH TO FILL"
-msgstr ""
-
-#. TRANSLATION: duckstation
-msgctxt "game_options"
 msgid "1x native (320x240)"
 msgstr ""
 
@@ -9202,11 +9575,6 @@ msgid ""
 "When running outside of 100%, adjusts the temp instead of dropping frames."
 msgstr ""
 
-#. TRANSLATION: duckstation, rpcs3, rpcs3, rpcs3, rpcs3, ...
-msgctxt "game_options"
-msgid "AUDIO"
-msgstr ""
-
 #. TRANSLATION: duckstation, scummvm
 msgctxt "game_options"
 msgid "STRETCH MODE"
@@ -9254,6 +9622,11 @@ msgstr ""
 
 #. TRANSLATION: duckstation
 msgctxt "game_options"
+msgid "Enable the cheat list (if available)."
+msgstr ""
+
+#. TRANSLATION: duckstation
+msgctxt "game_options"
 msgid "Preload requires more RAM."
 msgstr ""
 
@@ -9290,16 +9663,6 @@ msgstr ""
 #. TRANSLATION: duckstation, duckstation
 msgctxt "game_options"
 msgid "NeGcon (Rumble)"
-msgstr ""
-
-#. TRANSLATION: duckstation
-msgctxt "game_options"
-msgid "Reduces wobbly polygons & warping textures."
-msgstr ""
-
-#. TRANSLATION: duckstation
-msgctxt "game_options"
-msgid "ENABLE PGXP CORRECTIONS"
 msgstr ""
 
 #. TRANSLATION: duckstation
@@ -9387,88 +9750,59 @@ msgctxt "game_options"
 msgid "ACHIEVEMENTS"
 msgstr ""
 
-#. TRANSLATION: duckstation, theforceengine
+#. TRANSLATION: duckstation, mame, theforceengine
 msgctxt "game_options"
 msgid "CROSSHAIR"
 msgstr ""
 
-#. TRANSLATION: flycast/uzem
-msgctxt "game_options"
-msgid ""
-"Dreamcast BIOS's language setting. Can change the language of some games. "
-"Some games default to Japanese."
-msgstr ""
-
-#. TRANSLATION: flycast/uzem
-msgctxt "game_options"
-msgid "BIOS LANGUAGE"
-msgstr ""
-
-#. TRANSLATION: flycast/uzem, flycast/uzem
+#. TRANSLATION: flycast/dolphin, flycast/dolphin
 msgctxt "game_options"
 msgid "Game's default"
 msgstr ""
 
-#. TRANSLATION: flycast/uzem
+#. TRANSLATION: flycast/dolphin
 msgctxt "game_options"
 msgid "AUTO LOAD ON GAME LAUNCH"
 msgstr ""
 
-#. TRANSLATION: flycast/uzem
+#. TRANSLATION: flycast/dolphin
 msgctxt "game_options"
 msgid "AUTO SAVE ON GAME EXIT"
 msgstr ""
 
-#. TRANSLATION: flycast/uzem, flycast/uzem, flycast/uzem, flycast/uzem
+#. TRANSLATION: flycast/dolphin, flycast/dolphin, flycast/dolphin, flycast/dolphin
 msgctxt "game_options"
 msgid "Choose second feature pack for the controller."
 msgstr ""
 
-#. TRANSLATION: flycast/uzem
+#. TRANSLATION: flycast/dolphin
 msgctxt "game_options"
 msgid "CONTROLLER 1 FEATURE PACK"
 msgstr ""
 
-#. TRANSLATION: flycast/uzem, flycast/uzem, flycast/uzem, flycast/uzem
+#. TRANSLATION: flycast/dolphin, flycast/dolphin, flycast/dolphin, flycast/dolphin
 msgctxt "game_options"
 msgid "2nd VMU (Default)"
 msgstr ""
 
-#. TRANSLATION: flycast/uzem, flycast/uzem, flycast/uzem, flycast/uzem
+#. TRANSLATION: flycast/dolphin, flycast/dolphin, flycast/dolphin, flycast/dolphin
 msgctxt "game_options"
 msgid "Purupuru Pack/Vibration Pack"
 msgstr ""
 
-#. TRANSLATION: flycast/uzem
+#. TRANSLATION: flycast/dolphin
 msgctxt "game_options"
 msgid "CONTROLLER 2 FEATURE PACK"
 msgstr ""
 
-#. TRANSLATION: flycast/uzem
+#. TRANSLATION: flycast/dolphin
 msgctxt "game_options"
 msgid "CONTROLLER 3 FEATURE PACK"
 msgstr ""
 
-#. TRANSLATION: flycast/uzem
+#. TRANSLATION: flycast/dolphin
 msgctxt "game_options"
 msgid "CONTROLLER 4 FEATURE PACK"
-msgstr ""
-
-#. TRANSLATION: flycast/uzem
-msgctxt "game_options"
-msgid ""
-"Enable the Dreamcast DSP for more accurate audio. Only recommended for fast "
-"systems."
-msgstr ""
-
-#. TRANSLATION: flycast/uzem
-msgctxt "game_options"
-msgid "DIGITAL SOUND PROCESSOR"
-msgstr ""
-
-#. TRANSLATION: flycast/uzem, flycast
-msgctxt "game_options"
-msgid "Disbaled (Default)"
 msgstr ""
 
 #. TRANSLATION: flycast
@@ -9476,7 +9810,7 @@ msgctxt "game_options"
 msgid "Force the game to render in this aspect ratio."
 msgstr ""
 
-#. TRANSLATION: flycast, cgenius
+#. TRANSLATION: cgenius, flycast
 msgctxt "game_options"
 msgid "RENDER RESOLUTION"
 msgstr ""
@@ -9553,6 +9887,11 @@ msgstr ""
 
 #. TRANSLATION: hatari
 msgctxt "game_options"
+msgid "520 ST EMUTOS 256k"
+msgstr ""
+
+#. TRANSLATION: hatari
+msgctxt "game_options"
 msgid "1040 STE AUTO"
 msgstr ""
 
@@ -9564,6 +9903,11 @@ msgstr ""
 #. TRANSLATION: hatari
 msgctxt "game_options"
 msgid "1040 STE 1.62"
+msgstr ""
+
+#. TRANSLATION: hatari
+msgctxt "game_options"
+msgid "1040 STE ETOS 256k"
 msgstr ""
 
 #. TRANSLATION: hatari
@@ -9583,52 +9927,57 @@ msgstr ""
 
 #. TRANSLATION: hatari
 msgctxt "game_options"
+msgid "Mega STE ETOS 256k"
+msgstr ""
+
+#. TRANSLATION: hatari
+msgctxt "game_options"
+msgid "TT AUTO"
+msgstr ""
+
+#. TRANSLATION: hatari
+msgctxt "game_options"
+msgid "TT 3.06"
+msgstr ""
+
+#. TRANSLATION: hatari
+msgctxt "game_options"
+msgid "TT ETOS 512k"
+msgstr ""
+
+#. TRANSLATION: hatari
+msgctxt "game_options"
+msgid "Falcon AUTO"
+msgstr ""
+
+#. TRANSLATION: hatari
+msgctxt "game_options"
+msgid "Falcon 4.0"
+msgstr ""
+
+#. TRANSLATION: hatari
+msgctxt "game_options"
+msgid "Falcon 4.02"
+msgstr ""
+
+#. TRANSLATION: hatari
+msgctxt "game_options"
+msgid "Falcon 4.04"
+msgstr ""
+
+#. TRANSLATION: hatari
+msgctxt "game_options"
+msgid "Falcon ETOS 512k"
+msgstr ""
+
+#. TRANSLATION: hatari
+msgctxt "game_options"
 msgid "TOS languages."
 msgstr ""
 
 #. TRANSLATION: hatari
 msgctxt "game_options"
-msgid "German (de)"
-msgstr ""
-
-#. TRANSLATION: hatari
-msgctxt "game_options"
-msgid "Spanish (es)"
-msgstr ""
-
-#. TRANSLATION: hatari
-msgctxt "game_options"
-msgid "French (fr)"
-msgstr ""
-
-#. TRANSLATION: hatari
-msgctxt "game_options"
-msgid "Italian (it)"
-msgstr ""
-
-#. TRANSLATION: hatari
-msgctxt "game_options"
 msgid "Dutch (nl)"
-msgstr ""
-
-#. TRANSLATION: hatari
-msgctxt "game_options"
-msgid "Russian (ru)"
-msgstr ""
-
-#. TRANSLATION: hatari
-msgctxt "game_options"
-msgid "Swedish (se)"
-msgstr ""
-
-#. TRANSLATION: hatari
-msgctxt "game_options"
-msgid "British English (uk)"
-msgstr ""
-
-#. TRANSLATION: hatari
-msgctxt "game_options"
-msgid "English (us)"
 msgstr ""
 
 #. TRANSLATION: hatari
@@ -9651,24 +10000,14 @@ msgctxt "game_options"
 msgid "4M"
 msgstr ""
 
-#. TRANSLATION: hatari
+#. TRANSLATION: melonds
 msgctxt "game_options"
-msgid "Choose your Atari hard drive type for the .hd extension file."
+msgid "OpenGL (Classic)"
 msgstr ""
 
-#. TRANSLATION: hatari
+#. TRANSLATION: melonds
 msgctxt "game_options"
-msgid "ATARI HARD DRIVE TYPE"
-msgstr ""
-
-#. TRANSLATION: hatari
-msgctxt "game_options"
-msgid "IDE (Default)"
-msgstr ""
-
-#. TRANSLATION: hatari
-msgctxt "game_options"
-msgid "ASCI"
+msgid "OpenGL (Compute shader)"
 msgstr ""
 
 #. TRANSLATION: melonds
@@ -9980,7 +10319,7 @@ msgctxt "game_options"
 msgid "AUDIO BUFFER (SAMPLES)"
 msgstr ""
 
-#. TRANSLATION: mupen64plus, cgenius
+#. TRANSLATION: cgenius, mupen64plus
 msgctxt "game_options"
 msgid "nearest"
 msgstr ""
@@ -10175,6 +10514,41 @@ msgstr ""
 
 #. TRANSLATION: pcsx2
 msgctxt "game_options"
+msgid "scanlines"
+msgstr ""
+
+#. TRANSLATION: pcsx2
+msgctxt "game_options"
+msgid "diagonal filter"
+msgstr ""
+
+#. TRANSLATION: pcsx2
+msgctxt "game_options"
+msgid "triangular filter"
+msgstr ""
+
+#. TRANSLATION: pcsx2
+msgctxt "game_options"
+msgid "wave filter"
+msgstr ""
+
+#. TRANSLATION: pcsx2
+msgctxt "game_options"
+msgid "lottes crt"
+msgstr ""
+
+#. TRANSLATION: pcsx2
+msgctxt "game_options"
+msgid "4xrgss"
+msgstr ""
+
+#. TRANSLATION: pcsx2
+msgctxt "game_options"
+msgid "nxagss"
+msgstr ""
+
+#. TRANSLATION: pcsx2
+msgctxt "game_options"
 msgid "Display on screen information like savestate, config warning etc..."
 msgstr ""
 
@@ -10265,7 +10639,7 @@ msgid ""
 "positioning between pixels."
 msgstr ""
 
-#. TRANSLATION: pcsx2, model2emu
+#. TRANSLATION: model2emu, pcsx2
 msgctxt "game_options"
 msgid "BILINEAR FILTERING"
 msgstr ""
@@ -10430,7 +10804,7 @@ msgctxt "game_options"
 msgid "Control the texture's trilinear filtering of the emulation."
 msgstr ""
 
-#. TRANSLATION: pcsx2, model2emu
+#. TRANSLATION: model2emu, pcsx2
 msgctxt "game_options"
 msgid "TRILINEAR FILTERING"
 msgstr ""
@@ -10466,9 +10840,14 @@ msgctxt "game_options"
 msgid "Unscaled (Default)"
 msgstr ""
 
-#. TRANSLATION: pcsx2, pcsx2
+#. TRANSLATION: pcsx2
 msgctxt "game_options"
-msgid "Basic (Recommended)"
+msgid "Scaled"
+msgstr ""
+
+#. TRANSLATION: pcsx2
+msgctxt "game_options"
+msgid "Force 32bit"
 msgstr ""
 
 #. TRANSLATION: pcsx2
@@ -10486,6 +10865,11 @@ msgstr ""
 #. TRANSLATION: pcsx2, rpcs3
 msgctxt "game_options"
 msgid "Minimum"
+msgstr ""
+
+#. TRANSLATION: pcsx2
+msgctxt "game_options"
+msgid "Basic (Recommended)"
 msgstr ""
 
 #. TRANSLATION: pcsx2
@@ -11001,7 +11385,7 @@ msgctxt "game_options"
 msgid "High (Default)"
 msgstr ""
 
-#. TRANSLATION: rpcs3, cgenius
+#. TRANSLATION: cgenius, rpcs3
 msgctxt "game_options"
 msgid "Choose your preferred render resolution."
 msgstr ""
@@ -11320,9 +11704,9 @@ msgid ""
 "DS won't work with clone controllers."
 msgstr ""
 
-#. TRANSLATION: rpcs3
+#. TRANSLATION: rpcs3, rpcs3, rpcs3, rpcs3, rpcs3, ...
 msgctxt "game_options"
-msgid "PS3 CONTROLLER 1"
+msgid "PS3 CONTROLLER"
 msgstr ""
 
 #. TRANSLATION: rpcs3, rpcs3, rpcs3, rpcs3, rpcs3, ...
@@ -11335,34 +11719,19 @@ msgctxt "game_options"
 msgid "Sony DS"
 msgstr ""
 
-#. TRANSLATION: rpcs3
+#. TRANSLATION: rpcs3, rpcs3
 msgctxt "game_options"
-msgid "PS3 CONTROLLER 2"
+msgid "CONTROLLER 5"
 msgstr ""
 
-#. TRANSLATION: rpcs3
+#. TRANSLATION: rpcs3, rpcs3
 msgctxt "game_options"
-msgid "PS3 CONTROLLER 3"
+msgid "CONTROLLER 6"
 msgstr ""
 
-#. TRANSLATION: rpcs3
+#. TRANSLATION: rpcs3, rpcs3
 msgctxt "game_options"
-msgid "PS3 CONTROLLER 4"
-msgstr ""
-
-#. TRANSLATION: rpcs3
-msgctxt "game_options"
-msgid "PS3 CONTROLLER 5"
-msgstr ""
-
-#. TRANSLATION: rpcs3
-msgctxt "game_options"
-msgid "PS3 CONTROLLER 6"
-msgstr ""
-
-#. TRANSLATION: rpcs3
-msgctxt "game_options"
-msgid "PS3 CONTROLLER 7"
+msgid "CONTROLLER 7"
 msgstr ""
 
 #. TRANSLATION: scummvm
@@ -11465,12 +11834,12 @@ msgctxt "game_options"
 msgid "Fit 4:3 Aspect Ratio"
 msgstr ""
 
-#. TRANSLATION: scummvm, iortcw
+#. TRANSLATION: iortcw, scummvm
 msgctxt "game_options"
 msgid "Choose your preferred renderer."
 msgstr ""
 
-#. TRANSLATION: scummvm, iortcw
+#. TRANSLATION: iortcw, scummvm
 msgctxt "game_options"
 msgid "RENDERER"
 msgstr ""
@@ -11490,17 +11859,17 @@ msgctxt "game_options"
 msgid "Chinese (Mandarin)"
 msgstr ""
 
-#. TRANSLATION: scummvm, xenia, xenia-canary, etlegacy
+#. TRANSLATION: etlegacy, scummvm, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Swedish"
 msgstr ""
 
-#. TRANSLATION: scummvm, etlegacy
+#. TRANSLATION: etlegacy, scummvm
 msgctxt "game_options"
 msgid "Hebrew"
 msgstr ""
 
-#. TRANSLATION: scummvm, etlegacy
+#. TRANSLATION: etlegacy, scummvm
 msgctxt "game_options"
 msgid "Czech"
 msgstr ""
@@ -11565,7 +11934,7 @@ msgctxt "game_options"
 msgid "Greek"
 msgstr ""
 
-#. TRANSLATION: easyrpg, xenia, xenia-canary, etlegacy
+#. TRANSLATION: easyrpg, etlegacy, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Turkish"
 msgstr ""
@@ -11590,7 +11959,7 @@ msgctxt "game_options"
 msgid "Choose your preferred aspect ratio."
 msgstr ""
 
-#. TRANSLATION: redream, demul, bigpemu
+#. TRANSLATION: bigpemu, redream
 msgctxt "game_options"
 msgid "4:3 (Default)"
 msgstr ""
@@ -11623,11 +11992,6 @@ msgstr ""
 #. TRANSLATION: redream
 msgctxt "game_options"
 msgid "LLE"
-msgstr ""
-
-#. TRANSLATION: redream
-msgctxt "game_options"
-msgid "Choose the Dreamcast console region."
 msgstr ""
 
 #. TRANSLATION: redream
@@ -11712,6 +12076,61 @@ msgstr ""
 
 #. TRANSLATION: supermodel
 msgctxt "game_options"
+msgid "CRT-like colour adaption. Requires New 3D engine."
+msgstr ""
+
+#. TRANSLATION: supermodel
+msgctxt "game_options"
+msgid "CRT COLOUR"
+msgstr ""
+
+#. TRANSLATION: supermodel
+msgctxt "game_options"
+msgid "ARI/D93 (recommended for all JP developed games)"
+msgstr ""
+
+#. TRANSLATION: supermodel
+msgctxt "game_options"
+msgid "PVM_20M2U/D93"
+msgstr ""
+
+#. TRANSLATION: supermodel
+msgctxt "game_options"
+msgid "BT601_525/D93"
+msgstr ""
+
+#. TRANSLATION: supermodel
+msgctxt "game_options"
+msgid "BT601_525/D65 (recommended for all US developed games)"
+msgstr ""
+
+#. TRANSLATION: supermodel
+msgctxt "game_options"
+msgid "BT601_625/D65 (recommended for all EUR/AUS developed games)"
+msgstr ""
+
+#. TRANSLATION: supermodel
+msgctxt "game_options"
+msgid "Upscale filter used for the 2D layers. Requires New 3D engine."
+msgstr ""
+
+#. TRANSLATION: supermodel
+msgctxt "game_options"
+msgid "UPSCALE MODE"
+msgstr ""
+
+#. TRANSLATION: supermodel
+msgctxt "game_options"
+msgid "None/Sharp Pixels"
+msgstr ""
+
+#. TRANSLATION: supermodel
+msgctxt "game_options"
+msgid "Biquintic"
+msgstr ""
+
+#. TRANSLATION: supermodel
+msgctxt "game_options"
 msgid "Enable crosshairs in shooting games for the selected players."
 msgstr ""
 
@@ -11735,7 +12154,7 @@ msgstr ""
 msgctxt "game_options"
 msgid ""
 "For playing driving games with a game pad, it is sometimes a good idea to "
-"use a value larger than 100% so that the steering feels less sensitive on a "
+"use a value larger than 100%% so that the steering feels less sensitive on a "
 "thumbstick."
 msgstr ""
 
@@ -11747,7 +12166,7 @@ msgstr ""
 #. TRANSLATION: supermodel
 msgctxt "game_options"
 msgid ""
-"Use L2/R2 for Accel/Brake and L1/R1 or R-stick Up/Down for Shift Up/Down."
+"Use L2/R2 for Brake/Accel and L1/R1 or R-stick Up/Down for Shift Up/Down."
 msgstr ""
 
 #. TRANSLATION: supermodel
@@ -11775,7 +12194,7 @@ msgctxt "game_options"
 msgid "Choose your preferred aspect ratio.."
 msgstr ""
 
-#. TRANSLATION: cgenius
+#. TRANSLATION: cgenius, x16emu
 msgctxt "game_options"
 msgid "4x3 (Default)"
 msgstr ""
@@ -11822,7 +12241,7 @@ msgstr ""
 
 #. TRANSLATION: cgenius
 msgctxt "game_options"
-msgid "Enabled or disbale the mouse cursor. Useful for CG's menus."
+msgid "Enabled or disable the mouse cursor. Useful for CG's menus."
 msgstr ""
 
 #. TRANSLATION: cgenius
@@ -11830,12 +12249,12 @@ msgctxt "game_options"
 msgid "CURSOR"
 msgstr ""
 
-#. TRANSLATION: vice, tsugaru
+#. TRANSLATION: tsugaru, vice
 msgctxt "game_options"
 msgid "NO (DEFAULT)"
 msgstr ""
 
-#. TRANSLATION: vice, tsugaru
+#. TRANSLATION: tsugaru, vice
 msgctxt "game_options"
 msgid "YES"
 msgstr ""
@@ -12049,6 +12468,11 @@ msgctxt "game_options"
 msgid "DATA PLUGIN"
 msgstr ""
 
+#. TRANSLATION: mame
+msgctxt "game_options"
+msgid "When moving"
+msgstr ""
+
 #. TRANSLATION: wine
 msgctxt "game_options"
 msgid ""
@@ -12076,7 +12500,7 @@ msgctxt "game_options"
 msgid "Allows you to limit FPS to 60."
 msgstr ""
 
-#. TRANSLATION: wine
+#. TRANSLATION: lindbergh-loader, wine
 msgctxt "game_options"
 msgid "FPS LIMITER"
 msgstr ""
@@ -12108,12 +12532,12 @@ msgctxt "game_options"
 msgid "DXVK HUD"
 msgstr ""
 
-#. TRANSLATION: wine, mugen
+#. TRANSLATION: mugen, wine
 msgctxt "game_options"
 msgid "Can increase performance for games that stress the CPU."
 msgstr ""
 
-#. TRANSLATION: wine, mugen
+#. TRANSLATION: mugen, wine
 msgctxt "game_options"
 msgid "ESYNC"
 msgstr ""
@@ -12123,17 +12547,17 @@ msgctxt "game_options"
 msgid "Can improve frame rate and responsiveness."
 msgstr ""
 
-#. TRANSLATION: wine, mugen
+#. TRANSLATION: mugen, wine
 msgctxt "game_options"
 msgid "FSYNC"
 msgstr ""
 
-#. TRANSLATION: wine, mugen
+#. TRANSLATION: mugen, wine
 msgctxt "game_options"
 msgid "Vastly improves the speed of buffer maps."
 msgstr ""
 
-#. TRANSLATION: wine, mugen
+#. TRANSLATION: mugen, wine
 msgctxt "game_options"
 msgid "PBA"
 msgstr ""
@@ -12148,12 +12572,12 @@ msgctxt "game_options"
 msgid "FIDELITY FX SUPER RESOLUTION"
 msgstr ""
 
-#. TRANSLATION: wine, mugen
+#. TRANSLATION: wine
 msgctxt "game_options"
 msgid "Define the resolution and a new dedicated window."
 msgstr ""
 
-#. TRANSLATION: wine, mugen
+#. TRANSLATION: wine
 msgctxt "game_options"
 msgid "VIRTUAL DESKTOP"
 msgstr ""
@@ -12292,11 +12716,6 @@ msgstr ""
 
 #. TRANSLATION: drastic
 msgctxt "game_options"
-msgid "ENHANCED RENDERING RESOLUTION"
-msgstr ""
-
-#. TRANSLATION: drastic
-msgctxt "game_options"
 msgid ""
 "Skip frames to improve performance, at the cost of choppy motion. Can cause "
 "visual glitches."
@@ -12332,6 +12751,23 @@ msgstr ""
 #. TRANSLATION: drastic
 msgctxt "game_options"
 msgid ""
+"Switches between smooth (Bilinear) and sharp (Nearest Neighbor) image "
+"scaling."
+msgstr ""
+
+#. TRANSLATION: drastic
+msgctxt "game_options"
+msgid "IMAGE SCALING"
+msgstr ""
+
+#. TRANSLATION: drastic
+msgctxt "game_options"
+msgid "Nearest-neighbor"
+msgstr ""
+
+#. TRANSLATION: drastic
+msgctxt "game_options"
+msgid ""
 "Force 3D geometry to always render on the top screen. Useful for single-"
 "screen devices/games."
 msgstr ""
@@ -12351,7 +12787,7 @@ msgctxt "game_options"
 msgid "Choose the scaling mode for the game screen."
 msgstr ""
 
-#. TRANSLATION: xemu, sonic2013, soniccd
+#. TRANSLATION: sonic2013, soniccd, xemu
 msgctxt "game_options"
 msgid "SCALING MODE"
 msgstr ""
@@ -12475,11 +12911,6 @@ msgstr ""
 #. TRANSLATION: sonic2013, soniccd
 msgctxt "game_options"
 msgid "Integer Scale"
-msgstr ""
-
-#. TRANSLATION: sonic2013, soniccd
-msgctxt "game_options"
-msgid "Sharp Bilinear"
 msgstr ""
 
 #. TRANSLATION: sonic2013, soniccd
@@ -12664,6 +13095,23 @@ msgctxt "game_options"
 msgid "ENABLE SOFTWARE RENDERER"
 msgstr ""
 
+#. TRANSLATION: model2emu
+msgctxt "game_options"
+msgid "Enable X-Input mode for Xbox type controllers."
+msgstr ""
+
+#. TRANSLATION: model2emu
+msgctxt "game_options"
+msgid "X-INPUT"
+msgstr ""
+
+#. TRANSLATION: model2emu
+msgctxt "game_options"
+msgid ""
+"Only some games support rumble. Requires X-Input mode and may not be "
+"compatible with all controllers."
+msgstr ""
+
 #. TRANSLATION: play
 msgctxt "game_options"
 msgid "OPENGL RENDERING RESOLUTION"
@@ -12739,17 +13187,17 @@ msgctxt "game_options"
 msgid "1.5x (1080p/1620p) [EXPERIMENTAL]"
 msgstr ""
 
-#. TRANSLATION: suyu, ryujinx
+#. TRANSLATION: ryujinx, suyu
 msgctxt "game_options"
 msgid "2x (1440p/2160p)"
 msgstr ""
 
-#. TRANSLATION: suyu, ryujinx
+#. TRANSLATION: ryujinx, suyu
 msgctxt "game_options"
 msgid "3x (2160p/3240p)"
 msgstr ""
 
-#. TRANSLATION: suyu, ryujinx
+#. TRANSLATION: ryujinx, suyu
 msgctxt "game_options"
 msgid "4x (2880p/4320p)"
 msgstr ""
@@ -12774,7 +13222,7 @@ msgctxt "game_options"
 msgid "8x (5760p/8640p)"
 msgstr ""
 
-#. TRANSLATION: suyu, ryujinx
+#. TRANSLATION: ryujinx, suyu
 msgctxt "game_options"
 msgid "16:9 (Default)"
 msgstr ""
@@ -12906,52 +13354,52 @@ msgctxt "game_options"
 msgid "Docked (Default)"
 msgstr ""
 
-#. TRANSLATION: suyu, ryujinx
+#. TRANSLATION: ryujinx, suyu
 msgctxt "game_options"
 msgid "British English"
 msgstr ""
 
-#. TRANSLATION: suyu, ryujinx
+#. TRANSLATION: ryujinx, suyu
 msgctxt "game_options"
 msgid "Canadian French"
 msgstr ""
 
-#. TRANSLATION: suyu, ryujinx
+#. TRANSLATION: ryujinx, suyu
 msgctxt "game_options"
 msgid "Latin American Spanish"
 msgstr ""
 
-#. TRANSLATION: suyu, ryujinx
+#. TRANSLATION: ryujinx, suyu
 msgctxt "game_options"
 msgid "Brazilian Portuguese"
 msgstr ""
 
-#. TRANSLATION: suyu, ryujinx
+#. TRANSLATION: ryujinx, suyu
 msgctxt "game_options"
 msgid "Choose your console region."
 msgstr ""
 
-#. TRANSLATION: suyu, ryujinx
+#. TRANSLATION: ryujinx, suyu
 msgctxt "game_options"
 msgid "CHOOSE CONSOLE REGION"
 msgstr ""
 
-#. TRANSLATION: suyu, ryujinx
+#. TRANSLATION: ryujinx, suyu, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Australia"
 msgstr ""
 
-#. TRANSLATION: suyu, ryujinx
+#. TRANSLATION: ryujinx, suyu, xenia, xenia-canary
 msgctxt "game_options"
 msgid "China"
 msgstr ""
 
-#. TRANSLATION: suyu, ryujinx
+#. TRANSLATION: ryujinx, suyu
 msgctxt "game_options"
 msgid "Korea"
 msgstr ""
 
-#. TRANSLATION: suyu, ryujinx
+#. TRANSLATION: ryujinx, suyu, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Taiwan"
 msgstr ""
@@ -12961,7 +13409,7 @@ msgctxt "game_options"
 msgid "Choose your console timezone."
 msgstr ""
 
-#. TRANSLATION: suyu, ryujinx
+#. TRANSLATION: ryujinx, suyu
 msgctxt "game_options"
 msgid "CHOOSE CONSOLE TIMEZONE"
 msgstr ""
@@ -12986,7 +13434,7 @@ msgctxt "game_options"
 msgid "EET"
 msgstr ""
 
-#. TRANSLATION: suyu
+#. TRANSLATION: suyu, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Egypt"
 msgstr ""
@@ -13041,7 +13489,7 @@ msgctxt "game_options"
 msgid "Greenwich"
 msgstr ""
 
-#. TRANSLATION: suyu
+#. TRANSLATION: suyu, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Hong Kong"
 msgstr ""
@@ -13051,17 +13499,17 @@ msgctxt "game_options"
 msgid "HST"
 msgstr ""
 
-#. TRANSLATION: suyu
+#. TRANSLATION: suyu, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Iran"
 msgstr ""
 
-#. TRANSLATION: suyu
+#. TRANSLATION: suyu, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Israel"
 msgstr ""
 
-#. TRANSLATION: suyu
+#. TRANSLATION: suyu, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Jamaica"
 msgstr ""
@@ -13071,7 +13519,7 @@ msgctxt "game_options"
 msgid "Kwajalein"
 msgstr ""
 
-#. TRANSLATION: suyu
+#. TRANSLATION: suyu, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Libya"
 msgstr ""
@@ -13126,7 +13574,7 @@ msgctxt "game_options"
 msgid "ROK"
 msgstr ""
 
-#. TRANSLATION: suyu
+#. TRANSLATION: suyu, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Singapore"
 msgstr ""
@@ -13141,7 +13589,7 @@ msgctxt "game_options"
 msgid "Univarsal"
 msgstr ""
 
-#. TRANSLATION: suyu, ryujinx
+#. TRANSLATION: ryujinx, suyu
 msgctxt "game_options"
 msgid "UTC"
 msgstr ""
@@ -13301,6 +13749,86 @@ msgctxt "game_options"
 msgid "UTC+12"
 msgstr ""
 
+#. TRANSLATION: openjazz
+msgctxt "game_options"
+msgid "320 x 200"
+msgstr ""
+
+#. TRANSLATION: openjazz
+msgctxt "game_options"
+msgid "640 x 480"
+msgstr ""
+
+#. TRANSLATION: openjazz
+msgctxt "game_options"
+msgid "800 x 600"
+msgstr ""
+
+#. TRANSLATION: openjazz
+msgctxt "game_options"
+msgid "1024 x 768"
+msgstr ""
+
+#. TRANSLATION: openjazz
+msgctxt "game_options"
+msgid "1280 x 720"
+msgstr ""
+
+#. TRANSLATION: openjazz
+msgctxt "game_options"
+msgid "1280 x 800"
+msgstr ""
+
+#. TRANSLATION: openjazz
+msgctxt "game_options"
+msgid "1280 x 1024"
+msgstr ""
+
+#. TRANSLATION: openjazz
+msgctxt "game_options"
+msgid "1366 x 768"
+msgstr ""
+
+#. TRANSLATION: openjazz
+msgctxt "game_options"
+msgid "1440 x 900"
+msgstr ""
+
+#. TRANSLATION: openjazz
+msgctxt "game_options"
+msgid "1600 x 900"
+msgstr ""
+
+#. TRANSLATION: openjazz
+msgctxt "game_options"
+msgid "1680 x 1050"
+msgstr ""
+
+#. TRANSLATION: openjazz
+msgctxt "game_options"
+msgid "1920 x 1080"
+msgstr ""
+
+#. TRANSLATION: openjazz
+msgctxt "game_options"
+msgid "1920 x 1200"
+msgstr ""
+
+#. TRANSLATION: openjazz
+msgctxt "game_options"
+msgid "2560 x 1440"
+msgstr ""
+
+#. TRANSLATION: openjazz
+msgctxt "game_options"
+msgid "2560 x 1600"
+msgstr ""
+
+#. TRANSLATION: openjazz
+msgctxt "game_options"
+msgid "3840 x 2160"
+msgstr ""
+
 #. TRANSLATION: openmsx
 msgctxt "game_options"
 msgid "This can be convenient if you're using laserdiscs."
@@ -13397,20 +13925,395 @@ msgstr ""
 
 #. TRANSLATION: xenia, xenia-canary
 msgctxt "game_options"
-msgid "Enabled UI prompts (Default)"
+msgid "Change the consoles country from the default of the United States."
 msgstr ""
 
 #. TRANSLATION: xenia, xenia-canary
 msgctxt "game_options"
-msgid "Disable UI prompts"
+msgid "CONSOLE COUNTRY"
 msgstr ""
 
-#. TRANSLATION: xenia, xenia-canary, etlegacy
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "United Arab Emirates"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Albania"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Armenia"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Argentina"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Austria"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Azerbaijan"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Belgium"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Bulgaria"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Bahrain"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Brunei"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Bolivia"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Belarus"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Belize"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Canada"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Switzerland"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Chile"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Colombia"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Costa Rica"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Dominican Republic"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Algeria"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Ecuador"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Estonia"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Faroe Islands"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "United Kingdom"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Georgia"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Guatemala"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Honduras"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Indonesia"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Ireland"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "India"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Iraq"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Jordan"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Kenya"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Kyrgyzstan"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "South Korea"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Kuwait"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Kazakhstan"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Lebanon"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Liechtenstein"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Lithuania"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Luxembourg"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Latvia"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Morocco"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Monaco"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "North Macedonia"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Mongolia"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Macau"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Maldives"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Mexico"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Malaysia"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Nicaragua"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "New Zealand"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Oman"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Panama"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Peru"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Philippines"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Pakistan"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Puerto Rico"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Paraguay"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Qatar"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Romania"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Saudi Arabia"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "El Salvador"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Syria"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Thailand"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Tunisia"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Trinidad and Tobago"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Ukraine"
+msgstr ""
+
+#. TRANSLATION: lindbergh-loader, xenia, xenia-canary
+msgctxt "game_options"
+msgid "United States"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Uruguay"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Uzbekistan"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Venezuela"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Vietnam"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "Yemen"
+msgstr ""
+
+#. TRANSLATION: xenia, xenia-canary
+msgctxt "game_options"
+msgid "South Africa"
+msgstr ""
+
+#. TRANSLATION: dhewm3, etlegacy, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Polish"
 msgstr ""
 
-#. TRANSLATION: xenia, xenia-canary, etlegacy
+#. TRANSLATION: etlegacy, xenia, xenia-canary
 msgctxt "game_options"
 msgid "Norwegian"
 msgstr ""
@@ -13665,6 +14568,16 @@ msgstr ""
 
 #. TRANSLATION: xenia-canary
 msgctxt "game_options"
+msgid "Choose to display achievement messages in the UI."
+msgstr ""
+
+#. TRANSLATION: xenia-canary
+msgctxt "game_options"
+msgid "SHOW ACHIEVEMENT MESSAGES"
+msgstr ""
+
+#. TRANSLATION: xenia-canary
+msgctxt "game_options"
 msgid ""
 "Enable or disable Xenia patches. These patches can fix graphics problems in "
 "some games."
@@ -13772,6 +14685,144 @@ msgstr ""
 #. TRANSLATION: vita3k
 msgctxt "game_options"
 msgid "SHOW POINTER"
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid ""
+"Basic Filtering type for the jaguar display when rendering to the native "
+"display."
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid "SCREEN FILTER"
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid "Point (Default)"
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid ""
+"Supports uncapped frame rates, analog controllers, and mouse look "
+"functionality."
+msgstr ""
+
+#. TRANSLATION: bigpemu, bigpemu, bigpemu, bigpemu, bigpemu, ...
+msgctxt "game_options"
+msgid "SCRIPT MODULES"
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid "ALIEN VS PREDATOR"
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid "Switches the game to multiplayer mode."
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid "ALIEN VS PREDATOR MULTIPLAYER"
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid "Fixes flickering."
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid "BRETT HULL HOCKEY"
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid ""
+"Features native resolution rendering, analog controller and mouse support, "
+"frame rate unlocking up to 60Hz, an improved camera with a disable tilt "
+"option, custom sky/background functionality, and various other tweaks and "
+"options."
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid "CHECKERED FLAG"
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid "Renders polygons and textures at the native resolution."
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid "CYBERMORPH"
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid ""
+"Offers support for analog controllers and mouse look functionality for "
+"improved control."
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid "IRON SOLDIER"
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid ""
+"Includes VR head tracking and stereoscopic rendering for both VR and 3D TVs, "
+"along with mouse support (Mouse Look), and introduces a new Head Tracker "
+"input device type with options to convert analog inputs to tracker angles "
+"for enhanced analog controller support."
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid "MISSILE COMMAND 3D VR"
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid ""
+"Provides analog controller and mouse support while patching existing rotary "
+"controller bugs found in hardware."
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid "TEMPEST 2000"
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid ""
+"Offers analog controller and mouse support (Mouse Look), along with options "
+"for always-strafe and always-run functionalities."
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid "WOLFENSTEIN 3D"
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid "Activate Doom DOS original music and throttle the Doom frame rate."
+msgstr ""
+
+#. TRANSLATION: bigpemu
+msgctxt "game_options"
+msgid "DOOM"
 msgstr ""
 
 #. TRANSLATION: ioquake3
@@ -14233,37 +15284,37 @@ msgctxt "game_options"
 msgid "WIDESCREEN"
 msgstr ""
 
-#. TRANSLATION: theforceengine, iortcw
+#. TRANSLATION: iortcw, theforceengine
 msgctxt "game_options"
 msgid "Set the desired maximum refresh rate when Vsync is off."
 msgstr ""
 
-#. TRANSLATION: theforceengine, iortcw
+#. TRANSLATION: iortcw, theforceengine
 msgctxt "game_options"
 msgid "REFRESH RATE"
 msgstr ""
 
-#. TRANSLATION: theforceengine, iortcw
+#. TRANSLATION: iortcw, lindbergh-loader, theforceengine
 msgctxt "game_options"
 msgid "30 fps"
 msgstr ""
 
-#. TRANSLATION: theforceengine, iortcw
+#. TRANSLATION: iortcw, lindbergh-loader, theforceengine
 msgctxt "game_options"
 msgid "50 fps"
 msgstr ""
 
-#. TRANSLATION: theforceengine, iortcw
+#. TRANSLATION: iortcw, lindbergh-loader, theforceengine
 msgctxt "game_options"
 msgid "60 fps (Default)"
 msgstr ""
 
-#. TRANSLATION: theforceengine, iortcw
+#. TRANSLATION: iortcw, lindbergh-loader, theforceengine
 msgctxt "game_options"
 msgid "75 fps"
 msgstr ""
 
-#. TRANSLATION: theforceengine, iortcw
+#. TRANSLATION: iortcw, lindbergh-loader, theforceengine
 msgctxt "game_options"
 msgid "120 fps"
 msgstr ""
@@ -14635,6 +15686,162 @@ msgctxt "game_options"
 msgid "TRIPLE BUFFERING"
 msgstr ""
 
+#. TRANSLATION: x16emu
+msgctxt "game_options"
+msgid "Enhancement. Increase the rendering resolution."
+msgstr ""
+
+#. TRANSLATION: x16emu
+msgctxt "game_options"
+msgid "1280x960 (Default)"
+msgstr ""
+
+#. TRANSLATION: x16emu
+msgctxt "game_options"
+msgid "Change image scaling algorithm quality."
+msgstr ""
+
+#. TRANSLATION: x16emu
+msgctxt "game_options"
+msgid "IMAGE QUALITY"
+msgstr ""
+
+#. TRANSLATION: x16emu
+msgctxt "game_options"
+msgid "Nearest pixel sampling"
+msgstr ""
+
+#. TRANSLATION: x16emu
+msgctxt "game_options"
+msgid "Linear filtering"
+msgstr ""
+
+#. TRANSLATION: x16emu
+msgctxt "game_options"
+msgid "Anisotropic filtering"
+msgstr ""
+
+#. TRANSLATION: dhewm3
+msgctxt "game_options"
+msgid "Change the game's brightness."
+msgstr ""
+
+#. TRANSLATION: dhewm3
+msgctxt "game_options"
+msgid "BRIGHTNESS"
+msgstr ""
+
+#. TRANSLATION: dhewm3
+msgctxt "game_options"
+msgid "200% (Maximum)"
+msgstr ""
+
+#. TRANSLATION: dhewm3
+msgctxt "game_options"
+msgid ""
+"Change the game's language. Game files require the supported language "
+"strings in the .pk4 files."
+msgstr ""
+
+#. TRANSLATION: lindbergh-loader
+msgctxt "game_options"
+msgid "Enable free play for supported games."
+msgstr ""
+
+#. TRANSLATION: lindbergh-loader
+msgctxt "game_options"
+msgid "FREE PLAY"
+msgstr ""
+
+#. TRANSLATION: lindbergh-loader
+msgctxt "game_options"
+msgid ""
+"Choose the arcade machine console region. May be required to start the game."
+msgstr ""
+
+#. TRANSLATION: lindbergh-loader
+msgctxt "game_options"
+msgid "Japan (Default)"
+msgstr ""
+
+#. TRANSLATION: lindbergh-loader
+msgctxt "game_options"
+msgid "Export"
+msgstr ""
+
+#. TRANSLATION: lindbergh-loader
+msgctxt "game_options"
+msgid ""
+"Set to keep the aspect ratio (4:3) in games like Sega Race TV and Primeval "
+"Hunt."
+msgstr ""
+
+#. TRANSLATION: lindbergh-loader
+msgctxt "game_options"
+msgid ""
+"Set if you want to limit the FPS in games that are not limited like OutRun2."
+msgstr ""
+
+#. TRANSLATION: lindbergh-loader
+msgctxt "game_options"
+msgid "Set the target FPS (will only work if FPS LIMITER is enabled)."
+msgstr ""
+
+#. TRANSLATION: lindbergh-loader
+msgctxt "game_options"
+msgid "FPS TARGET"
+msgstr ""
+
+#. TRANSLATION: lindbergh-loader
+msgctxt "game_options"
+msgid "100 fps"
+msgstr ""
+
+#. TRANSLATION: lindbergh-loader
+msgctxt "game_options"
+msgid "Set to on if you experience flickering in Hummer."
+msgstr ""
+
+#. TRANSLATION: lindbergh-loader, lindbergh-loader
+msgctxt "game_options"
+msgid "GAME OPTIONS"
+msgstr ""
+
+#. TRANSLATION: lindbergh-loader
+msgctxt "game_options"
+msgid "HUMMER FLICKER FIX"
+msgstr ""
+
+#. TRANSLATION: lindbergh-loader
+msgctxt "game_options"
+msgid "Set to enable lens glare in Outrun 2."
+msgstr ""
+
+#. TRANSLATION: lindbergh-loader
+msgctxt "game_options"
+msgid "OUTRUN LENS GLARE"
+msgstr ""
+
+#. TRANSLATION: lindbergh-loader
+msgctxt "game_options"
+msgid "Run the game in test mode to configure certain game options."
+msgstr ""
+
+#. TRANSLATION: lindbergh-loader
+msgctxt "game_options"
+msgid "RUN TEST MODE"
+msgstr ""
+
+#. TRANSLATION: lindbergh-loader
+msgctxt "game_options"
+msgid "Add debug logging to help troubleshoot issues."
+msgstr ""
+
+#. TRANSLATION: lindbergh-loader
+msgctxt "game_options"
+msgid "DEBUG MODE"
+msgstr ""
+
 #. TRANSLATION: steam.keys
 msgctxt "keys_files"
 msgid "Exit Steam"
@@ -14645,37 +15852,217 @@ msgctxt "keys_files"
 msgid "Exit running Flatpak"
 msgstr ""
 
-#. TRANSLATION: raze.keys, gzdoom.keys, eduke32.keys
+#. TRANSLATION: mugen.keys
+msgctxt "keys_files"
+msgid "Analog Up"
+msgstr ""
+
+#. TRANSLATION: mugen.keys
+msgctxt "keys_files"
+msgid "Analog Down"
+msgstr ""
+
+#. TRANSLATION: mugen.keys
+msgctxt "keys_files"
+msgid "Analog Left"
+msgstr ""
+
+#. TRANSLATION: mugen.keys
+msgctxt "keys_files"
+msgid "Analog Right"
+msgstr ""
+
+#. TRANSLATION: mugen.keys
+msgctxt "keys_files"
+msgid "Up"
+msgstr ""
+
+#. TRANSLATION: mugen.keys
+msgctxt "keys_files"
+msgid "Down"
+msgstr ""
+
+#. TRANSLATION: mugen.keys
+msgctxt "keys_files"
+msgid "Left"
+msgstr ""
+
+#. TRANSLATION: mugen.keys
+msgctxt "keys_files"
+msgid "Right"
+msgstr ""
+
+#. TRANSLATION: mugen.keys, nds.drastic.keys
+msgctxt "keys_files"
+msgid "Button X"
+msgstr ""
+
+#. TRANSLATION: mugen.keys, nds.drastic.keys
+msgctxt "keys_files"
+msgid "Button Y"
+msgstr ""
+
+#. TRANSLATION: mugen.keys
+msgctxt "keys_files"
+msgid "Button Z"
+msgstr ""
+
+#. TRANSLATION: mugen.keys, nds.drastic.keys
+msgctxt "keys_files"
+msgid "Button A"
+msgstr ""
+
+#. TRANSLATION: mugen.keys, nds.drastic.keys
+msgctxt "keys_files"
+msgid "Button B"
+msgstr ""
+
+#. TRANSLATION: mugen.keys
+msgctxt "keys_files"
+msgid "Button C"
+msgstr ""
+
+#. TRANSLATION: mugen.keys, rott.keys
+msgctxt "keys_files"
+msgid "Menu back"
+msgstr ""
+
+#. TRANSLATION: mugen.keys, nds.drastic.keys
+msgctxt "keys_files"
+msgid "Button Start"
+msgstr ""
+
+#. TRANSLATION: eduke32.keys, gzdoom.keys, raze.keys
 msgctxt "keys_files"
 msgid "quicksave"
 msgstr ""
 
-#. TRANSLATION: raze.keys, gzdoom.keys, eduke32.keys
+#. TRANSLATION: eduke32.keys, gzdoom.keys, raze.keys
 msgctxt "keys_files"
 msgid "quickload"
 msgstr ""
 
-#. TRANSLATION: raze.keys, gzdoom.keys, eduke32.keys
+#. TRANSLATION: eduke32.keys, gzdoom.keys, raze.keys
 msgctxt "keys_files"
 msgid "screenshot"
 msgstr ""
 
-#. TRANSLATION: dxx-rebirth.keys, fallout2-ce.keys, fallout1-ce.keys, etlegacy.keys, sonic-mania.keys, ...
+#. TRANSLATION: dreamcast.redream.keys, fpinball.keys, jaguar.bigpemu.keys, jaguarcd.bigpemu.keys, openjazz.keys, ...
+msgctxt "keys_files"
+msgid "Exit the emulator"
+msgstr ""
+
+#. TRANSLATION: cgenius.cgenius.keys, doom3.dhewm3.keys, theforceengine.keys
+msgctxt "keys_files"
+msgid "Quick Save"
+msgstr ""
+
+#. TRANSLATION: cgenius.cgenius.keys, doom3.dhewm3.keys, theforceengine.keys
+msgctxt "keys_files"
+msgid "Quick Load"
+msgstr ""
+
+#. TRANSLATION: dxx-rebirth.keys
+msgctxt "keys_files"
+msgid "exit game"
+msgstr ""
+
+#. TRANSLATION: dxx-rebirth.keys
+msgctxt "keys_files"
+msgid "map"
+msgstr ""
+
+#. TRANSLATION: dxx-rebirth.keys
+msgctxt "keys_files"
+msgid "rear view"
+msgstr ""
+
+#. TRANSLATION: dxx-rebirth.keys
+msgctxt "keys_files"
+msgid "fire primary"
+msgstr ""
+
+#. TRANSLATION: dxx-rebirth.keys
+msgctxt "keys_files"
+msgid "fire secondary"
+msgstr ""
+
+#. TRANSLATION: dxx-rebirth.keys
+msgctxt "keys_files"
+msgid "drop proximity bomb"
+msgstr ""
+
+#. TRANSLATION: dxx-rebirth.keys
+msgctxt "keys_files"
+msgid "flare"
+msgstr ""
+
+#. TRANSLATION: dxx-rebirth.keys
+msgctxt "keys_files"
+msgid "laser"
+msgstr ""
+
+#. TRANSLATION: dxx-rebirth.keys
+msgctxt "keys_files"
+msgid "vulcan cannon"
+msgstr ""
+
+#. TRANSLATION: dxx-rebirth.keys
+msgctxt "keys_files"
+msgid "spreadfire cannon"
+msgstr ""
+
+#. TRANSLATION: dxx-rebirth.keys
+msgctxt "keys_files"
+msgid "plasma cannon"
+msgstr ""
+
+#. TRANSLATION: dxx-rebirth.keys
+msgctxt "keys_files"
+msgid "concussion missile"
+msgstr ""
+
+#. TRANSLATION: dxx-rebirth.keys
+msgctxt "keys_files"
+msgid "homing missile"
+msgstr ""
+
+#. TRANSLATION: dxx-rebirth.keys
+msgctxt "keys_files"
+msgid "proximity bomb"
+msgstr ""
+
+#. TRANSLATION: dxx-rebirth.keys
+msgctxt "keys_files"
+msgid "smart missile"
+msgstr ""
+
+#. TRANSLATION: dxx-rebirth.keys
+msgctxt "keys_files"
+msgid "quick save"
+msgstr ""
+
+#. TRANSLATION: dxx-rebirth.keys
+msgctxt "keys_files"
+msgid "quick load"
+msgstr ""
+
+#. TRANSLATION: etlegacy.keys, fallout1-ce.keys, fallout2-ce.keys, jazz2.keys, sonic-mania.keys, ...
 msgctxt "keys_files"
 msgid "Exit game"
 msgstr ""
 
-#. TRANSLATION: fallout2-ce.keys, fallout1-ce.keys
+#. TRANSLATION: fallout1-ce.keys, fallout2-ce.keys
 msgctxt "keys_files"
 msgid "Bring up menu"
 msgstr ""
 
-#. TRANSLATION: fallout2-ce.keys, fallout1-ce.keys, iortcw.keys, corsixth.keys
+#. TRANSLATION: corsixth.keys, fallout1-ce.keys, fallout2-ce.keys, iortcw.keys, mame.mame.keys
 msgctxt "keys_files"
 msgid "Quick save"
 msgstr ""
 
-#. TRANSLATION: fallout2-ce.keys, fallout1-ce.keys, iortcw.keys, corsixth.keys
+#. TRANSLATION: corsixth.keys, fallout1-ce.keys, fallout2-ce.keys, iortcw.keys, mame.mame.keys
 msgctxt "keys_files"
 msgid "Quick load"
 msgstr ""
@@ -14685,9 +16072,189 @@ msgctxt "keys_files"
 msgid "Skip cutscene"
 msgstr ""
 
-#. TRANSLATION: iortcw.keys, triforce.dolphin_triforce.keys, psx.duckstation.keys, 3ds.citra.keys, psp.ppsspp.keys, ...
+#. TRANSLATION: 3ds.citra.keys, atomiswave.flycast.keys, doom3.dhewm3.keys, dreamcast.flycast.keys, iortcw.keys, ...
 msgctxt "keys_files"
 msgid "Screenshot"
+msgstr ""
+
+#. TRANSLATION: 3ds.citra.keys, amiga1200.fsuae.keys, amiga500.fsuae.keys, amigacd32.fsuae.keys, amigacdtv.fsuae.keys, ...
+msgctxt "keys_files"
+msgid "Exit emulator"
+msgstr ""
+
+#. TRANSLATION: cannonball.keys, corsixth.keys, xash3d_fwgs.keys
+msgctxt "keys_files"
+msgid "Quit the application"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys
+msgctxt "keys_files"
+msgid "Move Forward, Can be use to press W"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys
+msgctxt "keys_files"
+msgid "Move Backward"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys
+msgctxt "keys_files"
+msgid "Turn Left"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys
+msgctxt "keys_files"
+msgid "Turn Right"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys
+msgctxt "keys_files"
+msgid "Start / Enter"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys
+msgctxt "keys_files"
+msgid "Open Menu"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys
+msgctxt "keys_files"
+msgid "Shoot Zappper"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys, rott.keys
+msgctxt "keys_files"
+msgid "Run"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys
+msgctxt "keys_files"
+msgid "Shoot"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys
+msgctxt "keys_files"
+msgid "Use Potion"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys
+msgctxt "keys_files"
+msgid "Move Forward"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys
+msgctxt "keys_files"
+msgid "Strafe Left"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys
+msgctxt "keys_files"
+msgid "Strafe Right"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys
+msgctxt "keys_files"
+msgid "Shoot Xterm"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys, lindbergh.keys
+msgctxt "keys_files"
+msgid "Exit Game"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys
+msgctxt "keys_files"
+msgid "Open Save Menu"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys
+msgctxt "keys_files"
+msgid "Open Load Menu"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys
+msgctxt "keys_files"
+msgid "Press the Y key for 'Yes'"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys
+msgctxt "keys_files"
+msgid "Press the N key for 'Novice' or 'No'"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys
+msgctxt "keys_files"
+msgid "use with R3 for cheat automap"
+msgstr ""
+
+#. TRANSLATION: catacomb.keys
+msgctxt "keys_files"
+msgid "Automap"
+msgstr ""
+
+#. TRANSLATION: rott.keys
+msgctxt "keys_files"
+msgid "Open door"
+msgstr ""
+
+#. TRANSLATION: rott.keys
+msgctxt "keys_files"
+msgid "Toggle weapon"
+msgstr ""
+
+#. TRANSLATION: rott.keys
+msgctxt "keys_files"
+msgid "Drop weapon"
+msgstr ""
+
+#. TRANSLATION: rott.keys
+msgctxt "keys_files"
+msgid "Aim up"
+msgstr ""
+
+#. TRANSLATION: rott.keys
+msgctxt "keys_files"
+msgid "Aim down"
+msgstr ""
+
+#. TRANSLATION: rott.keys
+msgctxt "keys_files"
+msgid "Strafe left"
+msgstr ""
+
+#. TRANSLATION: rott.keys
+msgctxt "keys_files"
+msgid "Strafe right"
+msgstr ""
+
+#. TRANSLATION: rott.keys
+msgctxt "keys_files"
+msgid "Fire"
+msgstr ""
+
+#. TRANSLATION: rott.keys
+msgctxt "keys_files"
+msgid "Move left"
+msgstr ""
+
+#. TRANSLATION: rott.keys
+msgctxt "keys_files"
+msgid "Move right"
+msgstr ""
+
+#. TRANSLATION: rott.keys
+msgctxt "keys_files"
+msgid "Move forward"
+msgstr ""
+
+#. TRANSLATION: rott.keys
+msgctxt "keys_files"
+msgid "Move backward"
+msgstr ""
+
+#. TRANSLATION: rott.keys
+msgctxt "keys_files"
+msgid "Toggle run"
 msgstr ""
 
 #. TRANSLATION: corsixth.keys
@@ -14708,11 +16275,6 @@ msgstr ""
 #. TRANSLATION: corsixth.keys
 msgctxt "keys_files"
 msgid "Move camera to the right"
-msgstr ""
-
-#. TRANSLATION: corsixth.keys
-msgctxt "keys_files"
-msgid "Quit the application"
 msgstr ""
 
 #. TRANSLATION: corsixth.keys
@@ -14830,29 +16392,9 @@ msgctxt "keys_files"
 msgid "Manage Staff"
 msgstr ""
 
-#. TRANSLATION: theforceengine.keys, dreamcast.redream.keys, cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, ...
-msgctxt "keys_files"
-msgid "Exit the emulator"
-msgstr ""
-
-#. TRANSLATION: theforceengine.keys
-msgctxt "keys_files"
-msgid "Quick Load"
-msgstr ""
-
-#. TRANSLATION: theforceengine.keys
-msgctxt "keys_files"
-msgid "Quick Save"
-msgstr ""
-
-#. TRANSLATION: dreamcast.redream.keys, dreamcast.flycast.keys, naomi2.flycast.keys, naomi.flycast.keys, atomiswave.flycast.keys
+#. TRANSLATION: atomiswave.flycast.keys, dreamcast.flycast.keys, dreamcast.redream.keys, jaguar.bigpemu.keys, jaguarcd.bigpemu.keys, ...
 msgctxt "keys_files"
 msgid "Hide the bezel"
-msgstr ""
-
-#. TRANSLATION: xbox360.xenia.keys, triforce.dolphin_triforce.keys, singe.hypseus-singe.keys, daphne.hypseus-singe.keys, amigacdtv.fsuae.keys, ...
-msgctxt "keys_files"
-msgid "Exit emulator"
 msgstr ""
 
 #. TRANSLATION: triforce.dolphin_triforce.keys
@@ -14875,12 +16417,12 @@ msgctxt "keys_files"
 msgid "Exit Duckstation"
 msgstr ""
 
-#. TRANSLATION: psx.duckstation.keys, psp.ppsspp.keys, nds.drastic.keys
+#. TRANSLATION: atomiswave.flycast.keys, dreamcast.flycast.keys, jaguar.bigpemu.keys, jaguarcd.bigpemu.keys, naomi.flycast.keys, ...
 msgctxt "keys_files"
 msgid "Load State"
 msgstr ""
 
-#. TRANSLATION: psx.duckstation.keys, psp.ppsspp.keys, nds.drastic.keys
+#. TRANSLATION: atomiswave.flycast.keys, dreamcast.flycast.keys, jaguar.bigpemu.keys, jaguarcd.bigpemu.keys, naomi.flycast.keys, ...
 msgctxt "keys_files"
 msgid "Save State"
 msgstr ""
@@ -14895,17 +16437,17 @@ msgctxt "keys_files"
 msgid "Restart Game"
 msgstr ""
 
-#. TRANSLATION: psx.duckstation.keys, psp.ppsspp.keys
+#. TRANSLATION: psp.ppsspp.keys, psx.duckstation.keys
 msgctxt "keys_files"
 msgid "Slot -"
 msgstr ""
 
-#. TRANSLATION: psx.duckstation.keys, psp.ppsspp.keys
+#. TRANSLATION: psp.ppsspp.keys, psx.duckstation.keys
 msgctxt "keys_files"
 msgid "Slot +"
 msgstr ""
 
-#. TRANSLATION: psx.duckstation.keys, psp.ppsspp.keys
+#. TRANSLATION: psp.ppsspp.keys, psx.duckstation.keys
 msgctxt "keys_files"
 msgid "Rewind"
 msgstr ""
@@ -14915,137 +16457,22 @@ msgctxt "keys_files"
 msgid "Next Disc (m3u)"
 msgstr ""
 
-#. TRANSLATION: psx.duckstation.keys, psp.ppsspp.keys
+#. TRANSLATION: atomiswave.flycast.keys, dreamcast.flycast.keys, naomi.flycast.keys, naomi2.flycast.keys, psp.ppsspp.keys, ...
 msgctxt "keys_files"
 msgid "Fast Forward"
 msgstr ""
 
-#. TRANSLATION: singe.hypseus-singe.keys, daphne.hypseus-singe.keys
+#. TRANSLATION: daphne.hypseus-singe.keys, singe.hypseus-singe.keys
 msgctxt "keys_files"
 msgid "Service menu"
 msgstr ""
 
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Start"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Coin"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Push 2"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Push 1"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Push 4"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Push 3"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Push 5"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Push 6"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Push 7"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Push 8"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Digital Left"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Digital Right"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Digital Up"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Digital Down"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Analog 1 Left"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Analog 1 Right"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Analog 1 Up"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Analog 1 Down"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Analog 2 Left"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Analog 2 Right"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Analog 2 Up"
-msgstr ""
-
-#. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, naomi.demul.keys, hikaru.demul.keys, gaelco.demul.keys, ...
-msgctxt "keys_files"
-msgid "Analog 2 Down"
-msgstr ""
-
-#. TRANSLATION: hikaru.demul.keys, gaelco.demul.keys
-msgctxt "keys_files"
-msgid "Set to full screen"
-msgstr ""
-
-#. TRANSLATION: amigacdtv.fsuae.keys, amigacd32.fsuae.keys, amiga500.fsuae.keys, amiga1200.fsuae.keys
+#. TRANSLATION: amiga1200.fsuae.keys, amiga500.fsuae.keys, amigacd32.fsuae.keys, amigacdtv.fsuae.keys
 msgctxt "keys_files"
 msgid "Virtual Keyboard"
 msgstr ""
 
-#. TRANSLATION: amigacdtv.fsuae.keys, amigacd32.fsuae.keys, amiga500.fsuae.keys, amiga1200.fsuae.keys
+#. TRANSLATION: amiga1200.fsuae.keys, amiga500.fsuae.keys, amigacd32.fsuae.keys, amigacdtv.fsuae.keys
 msgctxt "keys_files"
 msgid "Settings GUI"
 msgstr ""
@@ -15115,6 +16542,11 @@ msgctxt "keys_files"
 msgid "Right magnasave"
 msgstr ""
 
+#. TRANSLATION: atomiswave.flycast.keys, dreamcast.flycast.keys, jaguar.bigpemu.keys, jaguarcd.bigpemu.keys, naomi.flycast.keys, ...
+msgctxt "keys_files"
+msgid "Configuration menu"
+msgstr ""
+
 #. TRANSLATION: 3ds.citra.keys
 msgctxt "keys_files"
 msgid "Move Stylet Pointer"
@@ -15160,9 +16592,74 @@ msgctxt "keys_files"
 msgid "Exit Dosbox-X"
 msgstr ""
 
+#. TRANSLATION: fpinball.keys
+msgctxt "keys_files"
+msgid "Start"
+msgstr ""
+
+#. TRANSLATION: fpinball.keys
+msgctxt "keys_files"
+msgid "Coin"
+msgstr ""
+
+#. TRANSLATION: fpinball.keys
+msgctxt "keys_files"
+msgid "Left Flipper"
+msgstr ""
+
+#. TRANSLATION: fpinball.keys
+msgctxt "keys_files"
+msgid "Right Flipper"
+msgstr ""
+
+#. TRANSLATION: fpinball.keys
+msgctxt "keys_files"
+msgid "Plunger"
+msgstr ""
+
+#. TRANSLATION: fpinball.keys
+msgctxt "keys_files"
+msgid "Change Camera Angle"
+msgstr ""
+
+#. TRANSLATION: fpinball.keys
+msgctxt "keys_files"
+msgid "Forward Nudge"
+msgstr ""
+
+#. TRANSLATION: fpinball.keys
+msgctxt "keys_files"
+msgid "Left Nudge"
+msgstr ""
+
+#. TRANSLATION: fpinball.keys
+msgctxt "keys_files"
+msgid "Right Nudge"
+msgstr ""
+
+#. TRANSLATION: fpinball.keys
+msgctxt "keys_files"
+msgid "Mech Tilt"
+msgstr ""
+
+#. TRANSLATION: fpinball.keys
+msgctxt "keys_files"
+msgid "Left Manga Save"
+msgstr ""
+
+#. TRANSLATION: fpinball.keys
+msgctxt "keys_files"
+msgid "Right Manga Save"
+msgstr ""
+
 #. TRANSLATION: wiiu.keys
 msgctxt "keys_files"
 msgid "Display the controller screen"
+msgstr ""
+
+#. TRANSLATION: wii.dolphin.keys
+msgctxt "keys_files"
+msgid "Exit Dolphin"
 msgstr ""
 
 #. TRANSLATION: psp.ppsspp.keys
@@ -15213,31 +16710,6 @@ msgstr ""
 #. TRANSLATION: nds.drastic.keys
 msgctxt "keys_files"
 msgid "Hat Right"
-msgstr ""
-
-#. TRANSLATION: nds.drastic.keys
-msgctxt "keys_files"
-msgid "Button A"
-msgstr ""
-
-#. TRANSLATION: nds.drastic.keys
-msgctxt "keys_files"
-msgid "Button B"
-msgstr ""
-
-#. TRANSLATION: nds.drastic.keys
-msgctxt "keys_files"
-msgid "Button X"
-msgstr ""
-
-#. TRANSLATION: nds.drastic.keys
-msgctxt "keys_files"
-msgid "Button Y"
-msgstr ""
-
-#. TRANSLATION: nds.drastic.keys
-msgctxt "keys_files"
-msgid "Button Start"
 msgstr ""
 
 #. TRANSLATION: nds.drastic.keys
@@ -15303,9 +16775,4 @@ msgstr ""
 #. TRANSLATION: scummvm.keys
 msgctxt "keys_files"
 msgid "Graphics filtering on/off"
-msgstr ""
-
-#. TRANSLATION: jaguar.bigpemu.keys
-msgctxt "keys_files"
-msgid "Configuration menu"
 msgstr ""

@@ -1,43 +1,43 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
-import batoceraFiles
-import Command
-import shutil
-import os
-from utils.logger import get_logger
-from os import path
-from os import environ
-import configparser
-from xml.dom import minidom
 import codecs
-import shutil
-import utils.bezels as bezelsUtil
-import subprocess
 import csv
+import logging
+import os
+from typing import TYPE_CHECKING
 from xml.dom import minidom
-from PIL import Image, ImageOps
 
-eslog = get_logger(__name__)
+from .mamePaths import MAME_CONFIG, MAME_DEFAULT_DATA
 
-def generatePadsConfig(cfgPath, playersControllers, sysName, altButtons, customCfg, specialController, decorations, useGuns, guns, useWheels, wheels, useMouse, multiMouse):
+if TYPE_CHECKING:
+    from collections.abc import Mapping
+    from pathlib import Path
+
+    from ...controller import Controller, ControllerMapping
+    from ...Emulator import Emulator
+    from ...input import Input
+    from ...types import DeviceInfoMapping, GunMapping
+
+eslog = logging.getLogger(__name__)
+
+def generatePadsConfig(cfgPath: Path, playersControllers: ControllerMapping, sysName: str, altButtons: str | int, customCfg: bool, specialController: str, decorations: str | None, useGuns: bool, guns: GunMapping, useWheels: bool, wheels: DeviceInfoMapping, useMouse: bool, multiMouse: bool, system: Emulator) -> None:
     # config file
     config = minidom.Document()
-    configFile = cfgPath + "default.cfg"
-    if os.path.exists(configFile):
+    configFile = cfgPath / "default.cfg"
+    if configFile.exists():
         try:
-            config = minidom.parse(configFile)
+            config = minidom.parse(str(configFile))
         except:
             pass # reinit the file
-    if os.path.exists(configFile) and customCfg:
+    if configFile.exists() and customCfg:
         overwriteMAME = False
     else:
         overwriteMAME = True
-    
+
     # Load standard controls from csv
-    controlFile = '/usr/share/batocera/configgen/data/mame/mameControls.csv'
-    openFile = open(controlFile, 'r')
-    controlDict = {}
+    controlFile = MAME_DEFAULT_DATA / 'mameControls.csv'
+    openFile = controlFile.open('r')
+    controlDict: dict[str, dict[str, str]] = {}
     with openFile:
         controlList = csv.reader(openFile)
         for row in controlList:
@@ -46,19 +46,19 @@ def generatePadsConfig(cfgPath, playersControllers, sysName, altButtons, customC
             controlDict[row[0]][row[1]] = row[2]
 
     # Common controls
-    mappings = {}
+    mappings: dict[str, str] = {}
     for controlDef in controlDict['default'].keys():
         mappings[controlDef] = controlDict['default'][controlDef]
 
     # Only use gun buttons if lightguns are enabled to prevent conflicts with mouse
-    gunmappings = {}
+    gunmappings: dict[str, str] = {}
     if useGuns:
         for controlDef in controlDict['gunbuttons'].keys():
             gunmappings[controlDef] = controlDict['gunbuttons'][controlDef]
 
     # Only define mouse buttons if mouse is enabled, to prevent unwanted inputs
     # For a standard mouse, left, right, scroll wheel should be mapped to action buttons, and if side buttons are available, they will be coin & start
-    mousemappings = {}
+    mousemappings: dict[str, str] = {}
     if useMouse:
         for controlDef in controlDict['mousebuttons'].keys():
             mousemappings[controlDef] = controlDict['mousebuttons'][controlDef]
@@ -72,6 +72,21 @@ def generatePadsConfig(cfgPath, playersControllers, sysName, altButtons, customC
     xml_mameconfig.setAttribute("version", "10") # otherwise, config of pad won't work at first run (batocera v33)
     xml_system     = getSection(config, xml_mameconfig, "system")
     xml_system.setAttribute("name", "default")
+
+    # crosshairs
+    removeSection(config, xml_system, "crosshairs")
+    xml_crosshairs = config.createElement("crosshairs")
+    for p in range(0, 4):
+        xml_crosshair = config.createElement("crosshair")
+        xml_crosshair.setAttribute("player", str(p))
+        if system.isOptSet("mame_crosshair") and system.config["mame_crosshair"] == "enabled":
+            xml_crosshair.setAttribute("mode", "1")
+        elif system.isOptSet("mame_crosshair") and system.config["mame_crosshair"] == "onmove":
+            continue # keep no line
+        else:
+            xml_crosshair.setAttribute("mode", "0")
+        xml_crosshairs.appendChild(xml_crosshair)
+    xml_system.appendChild(xml_crosshairs)
 
     removeSection(config, xml_system, "input")
     xml_input = config.createElement("input")
@@ -91,15 +106,15 @@ def generatePadsConfig(cfgPath, playersControllers, sysName, altButtons, customC
     else:
         useControls = sysName
     eslog.debug(f"Using {useControls} for controller config.")
-    
+
     # Open or create alternate config file for systems with special controllers/settings
     # If the system/game is set to per game config, don't try to open/reset an existing file, only write if it's blank or going to the shared cfg folder
     specialControlList = [ "cdimono1", "apfm1000", "astrocde", "adam", "arcadia", "gamecom", "tutor", "crvision", "bbcb", "bbcm", "bbcm512", "bbcmc", "xegs", \
         "socrates", "vgmplay", "pdp1", "vc4000", "fmtmarty", "gp32", "apple2p", "apple2e", "apple2ee" ]
     if sysName in specialControlList:
         # Load mess controls from csv
-        messControlFile = '/usr/share/batocera/configgen/data/mame/messControls.csv'
-        openMessFile = open(messControlFile, 'r')
+        messControlFile = MAME_DEFAULT_DATA / 'messControls.csv'
+        openMessFile = messControlFile.open('r')
         with openMessFile:
             controlList = csv.reader(openMessFile, delimiter=';')
             for row in controlList:
@@ -140,22 +155,22 @@ def generatePadsConfig(cfgPath, playersControllers, sysName, altButtons, customC
                     currentEntry['reversed'] == True
 
         config_alt = minidom.Document()
-        configFile_alt = cfgPath + sysName + ".cfg"
-        if os.path.exists(configFile_alt) and cfgPath == "/userdata/system/configs/mame/" + sysName + "/":
+        configFile_alt = cfgPath / f"{sysName}.cfg"
+        if configFile_alt.exists() and cfgPath == (MAME_CONFIG / sysName):
             try:
-                config_alt = minidom.parse(configFile_alt)
+                config_alt = minidom.parse(str(configFile_alt))
             except:
                 pass # reinit the file
-        elif os.path.exists(configFile_alt):
+        elif configFile_alt.exists():
             try:
-                config_alt = minidom.parse(configFile_alt)
+                config_alt = minidom.parse(str(configFile_alt))
             except:
                 pass # reinit the file
-        if cfgPath == "/userdata/system/configs/mame/" + sysName + "/":
+        if cfgPath == (MAME_CONFIG / sysName):
             perGameCfg = False
         else:
             perGameCfg = True
-        if os.path.exists(configFile_alt) and (customCfg or perGameCfg):
+        if configFile_alt.exists() and (customCfg or perGameCfg):
             overwriteSystem = False
         else:
             overwriteSystem = True
@@ -164,7 +179,7 @@ def generatePadsConfig(cfgPath, playersControllers, sysName, altButtons, customC
         xml_mameconfig_alt.setAttribute("version", "10")
         xml_system_alt = getSection(config_alt, xml_mameconfig_alt, "system")
         xml_system_alt.setAttribute("name", sysName)
-        
+
         removeSection(config_alt, xml_system_alt, "input")
         xml_input_alt = config_alt.createElement("input")
         xml_system_alt.appendChild(xml_input_alt)
@@ -189,7 +204,7 @@ def generatePadsConfig(cfgPath, playersControllers, sysName, altButtons, customC
             xml_kbenable_alt.setAttribute("tag", ":")
             xml_kbenable_alt.setAttribute("enabled", "1")
             xml_input_alt.appendChild(xml_kbenable_alt)
-    
+
     # Fill in controls on cfg files
     nplayer = 1
     maxplayers = len(playersControllers)
@@ -218,16 +233,27 @@ def generatePadsConfig(cfgPath, playersControllers, sysName, altButtons, customC
 
         addCommonPlayerPorts(config, xml_input, nplayer)
 
+        ### find a keyboard key to simulate the action of the player (always like button 2) ; search in batocera.conf, else default config
+        pedalsKeys = {1: "c", 2: "v", 3: "b", 4: "n"}
+        pedalkey: str | None = None
+        pedalcname = "controllers.pedals{}".format(nplayer)
+        if pedalcname in system.config:
+            pedalkey = system.config[pedalcname]
+        else:
+            if nplayer in pedalsKeys:
+                pedalkey = pedalsKeys[nplayer]
+        ###
+
         for mapping in mappings_use:
             if mappings_use[mapping] in pad.inputs:
                 if mapping in [ 'START', 'COIN' ]:
-                    xml_input.appendChild(generateSpecialPortElementPlayer(pad, config, 'standard', nplayer, pad.index, mapping, mappings_use[mapping], pad.inputs[mappings_use[mapping]], False, "", "", gunmappings, mousemappings, multiMouse))
+                    xml_input.appendChild(generateSpecialPortElementPlayer(pad, config, 'standard', nplayer, pad.index, mapping, mappings_use[mapping], pad.inputs[mappings_use[mapping]], False, "", "", gunmappings, mousemappings, multiMouse, pedalkey))
                 else:
-                    xml_input.appendChild(generatePortElement(pad, config, nplayer, pad.index, mapping, mappings_use[mapping], pad.inputs[mappings_use[mapping]], False, altButtons, gunmappings, isWheel, mousemappings, multiMouse))
+                    xml_input.appendChild(generatePortElement(pad, config, nplayer, pad.index, mapping, mappings_use[mapping], pad.inputs[mappings_use[mapping]], False, altButtons, gunmappings, isWheel, mousemappings, multiMouse, pedalkey))
             else:
                 rmapping = reverseMapping(mappings_use[mapping])
                 if rmapping in pad.inputs:
-                        xml_input.appendChild(generatePortElement(pad, config, nplayer, pad.index, mapping, mappings_use[mapping], pad.inputs[rmapping], True, altButtons, gunmappings, isWheel, mousemappings, multiMouse))
+                        xml_input.appendChild(generatePortElement(pad, config, nplayer, pad.index, mapping, mappings_use[mapping], pad.inputs[rmapping], True, altButtons, gunmappings, isWheel, mousemappings, multiMouse, pedalkey))
 
         #UI Mappings
         if nplayer == 1:
@@ -243,10 +269,10 @@ def generatePadsConfig(cfgPath, playersControllers, sysName, altButtons, customC
                 if nplayer == thisControl['player']:
                     if thisControl['type'] == 'special':
                         xml_input_alt.appendChild(generateSpecialPortElement(pad, config_alt, thisControl['tag'], nplayer, pad.index, thisControl['key'], thisControl['mapping'], \
-                            pad.inputs[mappings_use[thisControl['useMapping']]], thisControl['reversed'], thisControl['mask'], thisControl['default']))
+                            pad.inputs[mappings_use[thisControl['useMapping']]], thisControl['reversed'], thisControl['mask'], thisControl['default'], pedalkey))
                     elif thisControl['type'] == 'main':
                         xml_input.appendChild(generateSpecialPortElement(pad, config_alt, thisControl['tag'], nplayer, pad.index, thisControl['key'], thisControl['mapping'], \
-                            pad.inputs[mappings_use[thisControl['useMapping']]], thisControl['reversed'], thisControl['mask'], thisControl['default']))
+                            pad.inputs[mappings_use[thisControl['useMapping']]], thisControl['reversed'], thisControl['mask'], thisControl['default'], pedalkey))
                     elif thisControl['type'] == 'analog':
                         xml_input_alt.appendChild(generateAnalogPortElement(pad, config_alt, thisControl['tag'], nplayer, pad.index, thisControl['key'], mappings_use[thisControl['incMapping']], \
                             mappings_use[thisControl['decMapping']], pad.inputs[mappings_use[thisControl['useMapping1']]], pad.inputs[mappings_use[thisControl['useMapping2']]], thisControl['reversed'], \
@@ -260,27 +286,37 @@ def generatePadsConfig(cfgPath, playersControllers, sysName, altButtons, customC
     # in case there are more guns than pads, configure them
     if useGuns and len(guns) > len(playersControllers):
         for gunnum in range(len(playersControllers)+1, len(guns)+1):
+            ### find a keyboard key to simulate the action of the player (always like button 2) ; search in batocera.conf, else default config
+            pedalsKeys = {1: "c", 2: "v", 3: "b", 4: "n"}
+            pedalkey = None
+            pedalcname = "controllers.pedals{}".format(gunnum)
+            if pedalcname in system.config:
+                pedalkey = system.config[pedalcname]
+            else:
+                if gunnum in pedalsKeys:
+                    pedalkey = pedalsKeys[gunnum]
+            ###
             addCommonPlayerPorts(config, xml_input, gunnum)
             for mapping in gunmappings:
-                xml_input.appendChild(generateGunPortElement(config, gunnum, mapping, gunmappings))
+                xml_input.appendChild(generateGunPortElement(config, gunnum, mapping, gunmappings, pedalkey))
 
     # save the config file
     #mameXml = open(configFile, "w")
     # TODO: python 3 - workawround to encode files in utf-8
     if overwriteMAME:
         eslog.debug(f"Saving {configFile}")
-        mameXml = codecs.open(configFile, "w", "utf-8")
-        dom_string = os.linesep.join([s for s in config.toprettyxml().splitlines() if s.strip()]) # remove ugly empty lines while minicom adds them...
-        mameXml.write(dom_string)
+        with codecs.open(str(configFile), "w", "utf-8") as mameXml:
+            dom_string = os.linesep.join([s for s in config.toprettyxml().splitlines() if s.strip()]) # remove ugly empty lines while minicom adds them...
+            mameXml.write(dom_string)
 
     # Write alt config (if used, custom config is turned off or file doesn't exist yet)
     if sysName in specialControlList and overwriteSystem:
         eslog.debug(f"Saving {configFile_alt}")
-        mameXml_alt = codecs.open(configFile_alt, "w", "utf-8")
-        dom_string_alt = os.linesep.join([s for s in config_alt.toprettyxml().splitlines() if s.strip()]) # remove ugly empty lines while minicom adds them...
-        mameXml_alt.write(dom_string_alt)
+        with codecs.open(str(configFile_alt), "w", "utf-8") as mameXml_alt:
+            dom_string_alt = os.linesep.join([s for s in config_alt.toprettyxml().splitlines() if s.strip()]) # remove ugly empty lines while minicom adds them...
+            mameXml_alt.write(dom_string_alt)
 
-def reverseMapping(key):
+def reverseMapping(key: str) -> str | None:
     if key == "joystick1down":
         return "joystick1up"
     if key == "joystick1right":
@@ -291,7 +327,7 @@ def reverseMapping(key):
         return "joystick2left"
     return None
 
-def generatePortElement(pad, config, nplayer, padindex, mapping, key, input, reversed, altButtons, gunmappings, isWheel, mousemappings, multiMouse):
+def generatePortElement(pad: Controller, config: minidom.Document, nplayer: int, padindex: int, mapping: str, key: str, input: Input, reversed: bool, altButtons: str | int, gunmappings: Mapping[str, str], isWheel: bool, mousemappings: Mapping[str, str], multiMouse: bool, pedalkey: str | None):
     # Generic input
     xml_port = config.createElement("port")
     xml_port.setAttribute("type", "P{}_{}".format(nplayer, mapping))
@@ -301,6 +337,8 @@ def generatePortElement(pad, config, nplayer, padindex, mapping, key, input, rev
     keyval = input2definition(pad, key, input, padindex + 1, reversed, altButtons, False, isWheel)
     if mapping in gunmappings:
         keyval = keyval + " OR GUNCODE_{}_{}".format(nplayer, gunmappings[mapping])
+        if gunmappings[mapping] == "BUTTON2" and pedalkey is not None:
+            keyval += " OR KEYCODE_" + pedalkey.upper()
     if mapping in mousemappings:
         if multiMouse:
             keyval = keyval + " OR MOUSECODE_{}_{}".format(nplayer, mousemappings[mapping])
@@ -310,7 +348,7 @@ def generatePortElement(pad, config, nplayer, padindex, mapping, key, input, rev
     xml_newseq.appendChild(value)
     return xml_port
 
-def generateGunPortElement(config, nplayer, mapping, gunmappings):
+def generateGunPortElement(config: minidom.Document, nplayer: int, mapping: str, gunmappings: Mapping[str, str], pedalkey: str | None):
     # Generic input
     xml_port = config.createElement("port")
     if mapping in ["START", "COIN"]:
@@ -323,13 +361,15 @@ def generateGunPortElement(config, nplayer, mapping, gunmappings):
     keyval = None
     if mapping in gunmappings:
         keyval = "GUNCODE_{}_{}".format(nplayer, gunmappings[mapping])
+        if gunmappings[mapping] == "BUTTON2" and pedalkey is not None:
+            keyval += " OR KEYCODE_" + pedalkey.upper()
     if keyval is None:
         return None
     value = config.createTextNode(keyval)
     xml_newseq.appendChild(value)
     return xml_port
 
-def generateSpecialPortElementPlayer(pad, config, tag, nplayer, padindex, mapping, key, input, reversed, mask, default, gunmappings, mousemappings, multiMouse):
+def generateSpecialPortElementPlayer(pad: Controller, config: minidom.Document, tag: str, nplayer: int, padindex: int, mapping: str, key: str, input: Input, reversed: bool, mask: str, default: str, gunmappings: Mapping[str, str], mousemappings: Mapping[str, str], multiMouse: bool, pedalkey: str | None):
     # Special button input (ie mouse button to gamepad)
     xml_port = config.createElement("port")
     xml_port.setAttribute("tag", tag)
@@ -340,8 +380,12 @@ def generateSpecialPortElementPlayer(pad, config, tag, nplayer, padindex, mappin
     xml_newseq.setAttribute("type", "standard")
     xml_port.appendChild(xml_newseq)
     keyval = input2definition(pad, key, input, padindex + 1, reversed, 0)
+    if mapping == "COIN" and nplayer <= 4:
+        keyval = keyval + " OR KEYCODE_{}_{}".format(nplayer, str(nplayer + 4)) # 5 for player 1, 6 for player 2, 7 for player 3 and 8 for player 4
     if mapping in gunmappings:
         keyval = keyval + " OR GUNCODE_{}_{}".format(nplayer, gunmappings[mapping])
+        if gunmappings[mapping] == "BUTTON2" and pedalkey is not None:
+            keyval += " OR KEYCODE_" + pedalkey.upper()
     if mapping in mousemappings:
         if multiMouse:
             keyval = keyval + " OR MOUSECODE_{}_{}".format(nplayer, mousemappings[mapping])
@@ -351,7 +395,7 @@ def generateSpecialPortElementPlayer(pad, config, tag, nplayer, padindex, mappin
     xml_newseq.appendChild(value)
     return xml_port
 
-def generateSpecialPortElement(pad, config, tag, nplayer, padindex, mapping, key, input, reversed, mask, default):
+def generateSpecialPortElement(pad: Controller, config: minidom.Document, tag: str, nplayer: int, padindex: int, mapping: str, key: str, input: Input, reversed: bool, mask: str, default: str, pedalkey: str | None):
     # Special button input (ie mouse button to gamepad)
     xml_port = config.createElement("port")
     xml_port.setAttribute("tag", tag)
@@ -365,7 +409,7 @@ def generateSpecialPortElement(pad, config, tag, nplayer, padindex, mapping, key
     xml_newseq.appendChild(value)
     return xml_port
 
-def generateComboPortElement(pad, config, tag, padindex, mapping, kbkey, key, input, reversed, mask, default):
+def generateComboPortElement(pad: Controller, config: minidom.Document, tag: str, padindex: int, mapping: str, kbkey: str, key: str, input: Input, reversed: bool, mask: str, default: str):
     # Maps a keycode + button - for important keyboard keys when available
     xml_port = config.createElement("port")
     xml_port.setAttribute("tag", tag)
@@ -379,7 +423,7 @@ def generateComboPortElement(pad, config, tag, padindex, mapping, kbkey, key, in
     xml_newseq.appendChild(value)
     return xml_port
 
-def generateAnalogPortElement(pad, config, tag, nplayer, padindex, mapping, inckey, deckey, mappedinput, mappedinput2, reversed, mask, default, delta, axis = ''):
+def generateAnalogPortElement(pad: Controller, config: minidom.Document, tag: str, nplayer: int, padindex: int, mapping: str, inckey: str, deckey: str, mappedinput: Input, mappedinput2: Input, reversed: bool, mask: str, default: str, delta: str, axis: str = ''):
     # Mapping analog to digital (mouse, etc)
     xml_port = config.createElement("port")
     xml_port.setAttribute("tag", tag)
@@ -407,7 +451,7 @@ def generateAnalogPortElement(pad, config, tag, nplayer, padindex, mapping, inck
     xml_newseq_std.appendChild(stdvalue)
     return xml_port
 
-def input2definition(pad, key, input, joycode, reversed, altButtons, ignoreAxis = False, isWheel = False):
+def input2definition(pad: Controller, key: str, input: Input, joycode: int, reversed: bool, altButtons: str | int, ignoreAxis: bool = False, isWheel: bool = False):
 
     mameAxisMappingNames = {0: "XAXIS", 1: "YAXIS", 2: "ZAXIS", 3: "RXAXIS", 4: "RYAXIS", 5: "RZAXIS"}
 
@@ -435,7 +479,7 @@ def input2definition(pad, key, input, joycode, reversed, altButtons, ignoreAxis 
             return f"JOYCODE_{joycode}_HAT1LEFT"
     elif input.type == "axis":
         # Determine alternate button for D-Pad and right stick as buttons
-        dpadInputs = {}
+        dpadInputs: dict[str, str] = {}
         for direction in ['up', 'down', 'left', 'right']:
             if pad.inputs[direction].type == 'button':
                 dpadInputs[direction] = f'JOYCODE_{joycode}_BUTTON{int(pad.inputs[direction].id)+1}'
@@ -450,7 +494,7 @@ def input2definition(pad, key, input, joycode, reversed, altButtons, ignoreAxis 
                     dpadInputs[direction] = f'JOYCODE_{joycode}_HAT1LEFT'
             else:
                 dpadInputs[direction] = ''
-        buttonDirections = {}
+        buttonDirections: dict[str, str] = {}
         # workarounds for issue #6892
         # Modified because right stick to buttons was not working after the workaround
         # Creates a blank, only modifies if the button exists in the pad.
@@ -505,7 +549,7 @@ def input2definition(pad, key, input, joycode, reversed, altButtons, ignoreAxis 
 
     return "unknown"
 
-def hasStick(pad):
+def hasStick(pad: Controller) -> bool:
     if "joystick1up" in pad.inputs:
         return True
     else:

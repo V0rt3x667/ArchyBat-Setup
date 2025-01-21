@@ -4,12 +4,19 @@
 #
 ################################################################################
 
-BATOCERA_AUDIO_VERSION = 6.7
+BATOCERA_AUDIO_VERSION = 6.9
 BATOCERA_AUDIO_LICENSE = GPL
 BATOCERA_AUDIO_SOURCE=
 
-# this one is important because the package erase the default pipewire config files, so it must be built after it
-BATOCERA_AUDIO_DEPENDENCIES = pipewire wireplumber
+# this one is important because the package erase the default pipewire config files
+# so it must be built after it
+BATOCERA_AUDIO_DEPENDENCIES = pipewire wireplumber alsa-ucm-conf
+
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RK3326),y)
+ALSA_SUFFIX = "-rk3326"
+else
+ALSA_SUFFIX =
+endif
 
 define BATOCERA_AUDIO_INSTALL_TARGET_CMDS
 	mkdir -p $(TARGET_DIR)/usr/lib/python$(PYTHON3_VERSION_MAJOR) \
@@ -41,7 +48,7 @@ define BATOCERA_AUDIO_INSTALL_TARGET_CMDS
 		$(TARGET_DIR)/etc/udev/rules.d/90-alsa-setup.rules
 	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-audio/soundconfig \
 		$(TARGET_DIR)/usr/bin/soundconfig
-	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-audio/alsa/batocera-audio \
+	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-audio/alsa/batocera-audio$(ALSA_SUFFIX) \
 		$(TARGET_DIR)/usr/bin/batocera-audio
 	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-audio/alsa/batocera-mixer \
 		$(TARGET_DIR)/usr/bin/batocera-mixer
@@ -55,9 +62,9 @@ define BATOCERA_AUDIO_INSTALL_TARGET_CMDS
 		/usr/share/alsa/alsa.conf.d/{50-pipewire,99-pipewire-default}.conf
 
 	# pipewire-media-session config: disable dbus device reservation
-    mkdir -p $(TARGET_DIR)/usr/share/wireplumber/main.lua.d
-	cp $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-audio/50-alsa-config.lua \
-		$(TARGET_DIR)/usr/share/wireplumber/main.lua.d/50-alsa-config.lua
+    mkdir -p $(TARGET_DIR)/usr/share/wireplumber/wireplumber.conf.d
+	cp $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-audio/80-disable-alsa-reserve.conf \
+		$(TARGET_DIR)/usr/share/wireplumber/wireplumber.conf.d/80-disable-alsa-reserve.conf
 
 	cp $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-audio/pipewire.conf \
 		$(TARGET_DIR)/usr/share/pipewire/pipewire.conf
@@ -70,9 +77,10 @@ define BATOCERA_AUDIO_X86_INTEL_DSP
 endef
 
 # Steam Deck OLED SOF files are not in the sound-open-firmware package yet
-define BATOCERA_AUDIO_STEAM_DECK_OLED
+# Steam Deck LCD still requires their own UCM2 conf files too
+define BATOCERA_AUDIO_STEAM_DECK
 	mkdir -p $(TARGET_DIR)/lib/firmware/amd/sof
-	cp $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-audio/sof-vangogh-*.bin \
+	cp $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-audio/sof-vangogh-*.* \
 	    $(TARGET_DIR)/lib/firmware/amd/sof/
 	mkdir -p $(TARGET_DIR)/lib/firmware/amd/sof-tplg
 	cp $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-audio/sof-vangogh-nau8821-max.tplg \
@@ -84,8 +92,9 @@ define BATOCERA_AUDIO_STEAM_DECK_OLED
 endef
 
 ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_X86_ANY),y)
+    BATOCERA_AUDIO_DEPENDENCIES += sound-open-firmware
     BATOCERA_AUDIO_POST_INSTALL_TARGET_HOOKS += BATOCERA_AUDIO_X86_INTEL_DSP
-    BATOCERA_AUDIO_POST_INSTALL_TARGET_HOOKS += BATOCERA_AUDIO_STEAM_DECK_OLED
+    BATOCERA_AUDIO_POST_INSTALL_TARGET_HOOKS += BATOCERA_AUDIO_STEAM_DECK
 endif
 
 $(eval $(generic-package))

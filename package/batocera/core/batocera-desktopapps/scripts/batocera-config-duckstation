@@ -2,7 +2,7 @@
 
 # Check if DISPLAY is not set
 if [ -z "${DISPLAY}" ]; then
-    DISPLAY=:0.0
+    DISPLAY=$(getLocalXDisplay)
 fi
 
 # Check if Wayland is available
@@ -13,5 +13,6 @@ else
 fi
 
 XDG_CONFIG_HOME=/userdata/system/configs \
+LD_LIBRARY_PATH=/usr/stenzek-shaderc/lib:/usr/lib \
 QT_QPA_PLATFORM="$QT_QPA_PLATFORM" \
 /usr/bin/duckstation-qt

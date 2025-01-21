@@ -19,7 +19,8 @@ for DIR in cheats \
            system/.cache \
            system/.config/lirc \
            system/bluetooth \
-           system/configs \
+           system/configs/retroarch/config/remaps \
+           system/configs/retroarch/inputs \
            system/pacman \
            system/pacman/db \
            system/pacman/pkg \
@@ -85,9 +86,8 @@ fi
 # there are almost empty, it's just for the structure
 # the user can delete the directory, it will recreate the structure
 # the user can delete files, files will not be recreated
-for FILE in music bios extractions kodi library saves screenshots splash \
+for FILE in music bios extractions kodi library saves screenshots recordings splash \
             system/.config/lirc/lircd.conf \
-            system/configs/emulationstation/es_input.cfg \
             system/configs/emulationstation/es_settings.cfg \
             system/.kodi \
             system/configs/amiberry \
@@ -99,7 +99,6 @@ for FILE in music bios extractions kodi library saves screenshots splash \
             system/configs/ppsspp \
             system/configs/shadersets \
             system/configs/umtool \
-            system/configs/xarcade2jstick \
             system/configs/theforceengine \
             system/batocera.conf \
             system/pacman/hooks/batocera-install.hook \
@@ -108,10 +107,12 @@ for FILE in music bios extractions kodi library saves screenshots splash \
             bios/mame2003 \
             bios/dolphin-emu \
             roms/iortcw/main \
-            bios/ps2
+            bios/ps2 \
+            system/configs/pironman5 \
+            bios/commanderx16
 do
     # Skip updating specific files
-    if [ "$FILE" = "system/configs/emulationstation/es_settings.cfg" ] || [ "$FILE" = "system/configs/emulationstation/es_input.cfg" ] || [ "$FILE" = "system/batocera.conf" ] || [ "$FILE" = "system/.kodi/userdata/guisettings.xml" ]; then
+    if [ "$FILE" = "system/configs/emulationstation/es_settings.cfg" ] || [ "$FILE" = "system/batocera.conf" ] || [ "$FILE" = "system/.kodi/userdata/guisettings.xml" ]; then
         # Check if the file doesn't exist, then create it
         if [ ! -e "${OUT}/${FILE}" ]; then
             mkdir -p "$(dirname "${OUT}/${FILE}")"
@@ -147,6 +148,7 @@ chmod 0700 /userdata/system/.ssh
 mkdir -p /userdata/system/udev/rules.d
 rm -rf /run/udev/rules.d
 ln -s /userdata/system/udev/rules.d/ /run/udev/
+udevadm control --reload-rules && udevadm trigger
 
 # and add the machine-id
 test -e /userdata/system/machine-id || dbus-uuidgen --ensure=/userdata/system/machine-id

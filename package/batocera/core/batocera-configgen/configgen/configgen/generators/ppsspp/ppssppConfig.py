@@ -1,37 +1,33 @@
-#!/usr/bin/env python
+from __future__ import annotations
 
-import sys
-import os
-import io
-import batoceraFiles
-import settings
-from Emulator import Emulator
-import configparser
-import subprocess
+import logging
+from typing import TYPE_CHECKING, Final
 
-from utils.logger import get_logger
-eslog = get_logger(__name__)
+from ...batoceraPaths import ensure_parents_and_open
+from ...utils import vulkan
+from ...utils.configparser import CaseSensitiveConfigParser
+from .ppssppPaths import PPSSPP_PSP_SYSTEM_DIR
 
-ppssppConf     = batoceraFiles.CONF + '/ppsspp/PSP/SYSTEM'
-ppssppConfig   = ppssppConf + '/ppsspp.ini'
-ppssppControls = ppssppConf + '/controls.ini'
+if TYPE_CHECKING:
+    from ...Emulator import Emulator
 
-def writePPSSPPConfig(system):
-    iniConfig = configparser.ConfigParser(interpolation=None)
-    # To prevent ConfigParser from converting to lower case
-    iniConfig.optionxform = str
-    if os.path.exists(ppssppConfig):
+
+eslog = logging.getLogger(__name__)
+
+ppssppConfig: Final   = PPSSPP_PSP_SYSTEM_DIR / 'ppsspp.ini'
+ppssppControls: Final = PPSSPP_PSP_SYSTEM_DIR / 'controls.ini'
+
+def writePPSSPPConfig(system: Emulator):
+    iniConfig = CaseSensitiveConfigParser(interpolation=None)
+    if ppssppConfig.exists():
         try:
-            with io.open(ppssppConfig, 'r', encoding='utf_8_sig') as fp:
-                iniConfig.readfp(fp)
+            iniConfig.read(ppssppConfig, encoding='utf_8_sig')
         except:
             pass
 
     createPPSSPPConfig(iniConfig, system)
     # Save the ini file
-    if not os.path.exists(os.path.dirname(ppssppConfig)):
-        os.makedirs(os.path.dirname(ppssppConfig))
-    with open(ppssppConfig, 'w') as configfile:
+    with ensure_parents_and_open(ppssppConfig, 'w') as configfile:
         iniConfig.write(configfile)
 
 def createPPSSPPConfig(iniConfig, system):
@@ -48,33 +44,22 @@ def createPPSSPPConfig(iniConfig, system):
     # If Vulkan
     if system.isOptSet("gfxbackend") and system.config["gfxbackend"] == "3 (VULKAN)":
         # Check if we have a discrete GPU & if so, set the Name
-        try:
-            have_vulkan = subprocess.check_output(["/usr/bin/batocera-vulkan", "hasVulkan"], text=True).strip()
-            if have_vulkan == "true":
-                eslog.debug("Vulkan driver is available on the system.")
-                try:
-                    have_discrete = subprocess.check_output(["/usr/bin/batocera-vulkan", "hasDiscrete"], text=True).strip()
-                    if have_discrete == "true":
-                        eslog.debug("A discrete GPU is available on the system. We will use that for performance")
-                        try:
-                            discrete_name = subprocess.check_output(["/usr/bin/batocera-vulkan", "discreteName"], text=True).strip()
-                            if discrete_name != "":
-                                eslog.debug("Using Discrete GPU Name: {} for PPSSPP".format(discrete_name))
-                                iniConfig.set("Graphics", "VulkanDevice", discrete_name)
-                            else:
-                                eslog.debug("Couldn't get discrete GPU Name")
-                        except subprocess.CalledProcessError:
-                            eslog.debug("Error getting discrete GPU Name")
-                    else:
-                        eslog.debug("Discrete GPU is not available on the system. Using default.")
-                except subprocess.CalledProcessError:
-                    eslog.debug("Error checking for discrete GPU.")
+        if vulkan.is_available():
+            eslog.debug("Vulkan driver is available on the system.")
+            if vulkan.has_discrete_gpu():
+                eslog.debug("A discrete GPU is available on the system. We will use that for performance")
+                discrete_name = vulkan.get_discrete_gpu_name()
+                if discrete_name:
+                    eslog.debug("Using Discrete GPU Name: {} for PPSSPP".format(discrete_name))
+                    iniConfig.set("Graphics", "VulkanDevice", discrete_name)
+                else:
+                    eslog.debug("Couldn't get discrete GPU Name")
             else:
-                eslog.debug("Vulkan driver is not available on the system. Falling back to OpenGL")
-                iniConfig.set("Graphics", "GraphicsBackend", "0 (OPENGL)")
-        except subprocess.CalledProcessError:
-            eslog.debug("Error executing batocera-vulkan script.")
-    
+                eslog.debug("Discrete GPU is not available on the system. Using default.")
+        else:
+            eslog.debug("Vulkan driver is not available on the system. Falling back to OpenGL")
+            iniConfig.set("Graphics", "GraphicsBackend", "0 (OPENGL)")
+
     # Display FPS
     if system.isOptSet('showFPS') and system.getOptBoolean('showFPS') == True:
         iniConfig.set("Graphics", "ShowFPSCounter", "3") # 1 for Speed%, 2 for FPS, 3 for both
@@ -152,7 +137,7 @@ def createPPSSPPConfig(iniConfig, system):
     else:
         iniConfig.set("SystemParam", "NickName", "Batocera")
     # Disable Encrypt Save (permit to exchange save with different machines)
-    iniConfig.set("SystemParam", "EncryptSave", "False")   
+    iniConfig.set("SystemParam", "EncryptSave", "False")
 
 
     ## [GENERAL]
@@ -171,6 +156,12 @@ def createPPSSPPConfig(iniConfig, system):
         iniConfig.set("General", "EnableCheats", "False")
     # Don't check for a new version
     iniConfig.set("General", "CheckForNewVersion", "False")
+
+    # SaveState
+    if system.isOptSet('state_slot'):
+        iniConfig.set("General", "StateSlot", str(system.config["state_slot"]))
+    else:
+        iniConfig.set("General", "StateSlot", "0")
 
     ## [UPGRADE] - don't upgrade
     if not iniConfig.has_section("Upgrade"):

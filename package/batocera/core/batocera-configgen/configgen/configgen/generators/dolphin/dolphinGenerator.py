@@ -1,38 +1,65 @@
-#!/usr/bin/env python
-import Command
-import batoceraFiles
-from generators.Generator import Generator
-import shutil
-import os.path
-from os import environ
-import configparser
-from . import dolphinControllers
-from . import dolphinSYSCONF
-import controllersConfig
-import subprocess
+from __future__ import annotations
 
-from utils.logger import get_logger
-eslog = get_logger(__name__)
+import logging
+from os import environ
+from pathlib import Path
+from typing import TYPE_CHECKING
+
+from ... import Command, controllersConfig
+from ...batoceraPaths import CACHE, CONFIGS, SAVES, mkdir_if_not_exists
+from ...utils import vulkan
+from ...utils.configparser import CaseSensitiveConfigParser
+from ..Generator import Generator
+from . import dolphinControllers, dolphinSYSCONF
+from .dolphinPaths import (
+    DOLPHIN_BIOS,
+    DOLPHIN_CONFIG,
+    DOLPHIN_GFX_INI,
+    DOLPHIN_INI,
+    DOLPHIN_QT_INI,
+    DOLPHIN_SAVES,
+    DOLPHIN_SYSCONF,
+)
+
+if TYPE_CHECKING:
+    from ...types import HotkeysContext
+
+eslog = logging.getLogger(__name__)
 
 class DolphinGenerator(Generator):
 
     def generate(self, system, rom, playersControllers, metadata, guns, wheels, gameResolution):
-        if not os.path.exists(os.path.dirname(batoceraFiles.dolphinIni)):
-            os.makedirs(os.path.dirname(batoceraFiles.dolphinIni))
+        rom_path = Path(rom)
+
+        mkdir_if_not_exists(DOLPHIN_INI.parent)
 
         # Dir required for saves
-        if not os.path.exists(batoceraFiles.dolphinData + "/StateSaves"):
-            os.makedirs(batoceraFiles.dolphinData + "/StateSaves")
-        
+        mkdir_if_not_exists(DOLPHIN_SAVES / "StateSaves")
+
         # Generate the controller config(s)
-        dolphinControllers.generateControllerConfig(system, playersControllers, metadata, wheels, rom, guns)
+        dolphinControllers.generateControllerConfig(system, playersControllers, metadata, wheels, rom_path, guns)
+
+        ## [ Qt.ini ] ##
+        qtIni = CaseSensitiveConfigParser(interpolation=None)
+        if DOLPHIN_QT_INI.exists():
+            qtIni.read(DOLPHIN_QT_INI)
+
+        # Sections
+        if not qtIni.has_section("Emulation"):
+            qtIni.add_section("Emulation")
+        if system.isOptSet('state_slot'):
+            qtIni.set("Emulation", "StateSlot", str(system.config["state_slot"]))
+        else:
+            qtIni.set("Emulation", "StateSlot", "1")
+
+        # Save Qt.ini
+        with DOLPHIN_QT_INI.open('w') as configfile:
+            qtIni.write(configfile)
 
         ## [ dolphin.ini ] ##
-        dolphinSettings = configparser.ConfigParser(interpolation=None)
-        # To prevent ConfigParser from converting to lower case
-        dolphinSettings.optionxform = str
-        if os.path.exists(batoceraFiles.dolphinIni):
-            dolphinSettings.read(batoceraFiles.dolphinIni)
+        dolphinSettings = CaseSensitiveConfigParser(interpolation=None)
+        if DOLPHIN_INI.exists():
+            dolphinSettings.read(DOLPHIN_INI)
 
         # Sections
         if not dolphinSettings.has_section("General"):
@@ -56,25 +83,23 @@ class DolphinGenerator(Generator):
             dolphinSettings.set("General", "ISOPath1", "/userdata/roms/gamecube")
             dolphinSettings.set("General", "ISOPaths", "2")
 
-        # Draw or not FPS
-        if system.isOptSet("showFPS") and system.getOptBoolean("showFPS"):
-            dolphinSettings.set("General", "ShowLag",        "True")
-            dolphinSettings.set("General", "ShowFrameCount", "True")
+        # increment savestates
+        if system.isOptSet('incrementalsavestates') and not system.getOptBoolean('incrementalsavestates'):
+            dolphinSettings.set("General", "AutoIncrementSlot", "False")
         else:
-            dolphinSettings.set("General", "ShowLag",        "False")
-            dolphinSettings.set("General", "ShowFrameCount", "False")
+            dolphinSettings.set("General", "AutoIncrementSlot", "True")
 
         # Don't ask about statistics
         dolphinSettings.set("Analytics", "PermissionAsked", "True")
 
         # PanicHandlers displaymessages
         dolphinSettings.set("Interface", "UsePanicHandlers", "False")
-        
+
         # Display message in game (Memory card save and many more...)
-        if system.isOptSet("ShowDpMsg") and system.getOptBoolean("ShowDpMsg") == False:
-            dolphinSettings.set("Interface", "OnScreenDisplayMessages", "False")
-        else:
+        if system.isOptSet("ShowDpMsg") and system.getOptBoolean("ShowDpMsg"):
             dolphinSettings.set("Interface", "OnScreenDisplayMessages", "True")
+        else:
+            dolphinSettings.set("Interface", "OnScreenDisplayMessages", "False")
 
         # Don't confirm at stop
         dolphinSettings.set("Interface", "ConfirmStop", "False")
@@ -123,18 +148,18 @@ class DolphinGenerator(Generator):
         if system.isOptSet("gfxbackend") and system.config["gfxbackend"] == "Vulkan":
             dolphinSettings.set("Core", "GFXBackend", "Vulkan")
             # Check Vulkan
-            try:
-                have_vulkan = subprocess.check_output(["/usr/bin/batocera-vulkan", "hasVulkan"], text=True).strip()
-                if have_vulkan != "true":
-                    eslog.debug("Vulkan driver is not available on the system. Using OpenGL instead.")
-                    dolphinSettings.set("Core", "GFXBackend", "OGL")
-            except subprocess.CalledProcessError:
-                eslog.debug("Error checking for discrete GPU.")
+            if not vulkan.is_available():
+                eslog.debug("Vulkan driver is not available on the system. Using OpenGL instead.")
+                dolphinSettings.set("Core", "GFXBackend", "OGL")
         else:
             dolphinSettings.set("Core", "GFXBackend", "OGL")
-        
+
         # Wiimote scanning
         dolphinSettings.set("Core", "WiimoteContinuousScanning", "True")
+
+        # Force OSD for RetroAchievements messages
+        if system.isOptSet('retroachievements') and system.getOptBoolean('retroachievements'):
+            dolphinSettings.set("Interface", "OnScreenDisplayMessages", "True")
 
         # Gamecube ports
         # Create a for loop going 1 through to 4 and iterate through it:
@@ -148,7 +173,7 @@ class DolphinGenerator(Generator):
                 dolphinSettings.set("Core", "SIDevice" + str(i - 1), value)
             else:
                 # if the pad is a wheel and on gamecube, use it
-                if system.name == "gamecube" and system.isOptSet('use_wheels') and system.getOptBoolean('use_wheels') and len(wheels) > 0 and str(i) in playersControllers and playersControllers[str(i)].dev in wheels:
+                if system.name == "gamecube" and system.isOptSet('use_wheels') and system.getOptBoolean('use_wheels') and len(wheels) > 0 and i in playersControllers and playersControllers[i].device_path in wheels:
                     dolphinSettings.set("Core", "SIDevice" + str(i - 1), "8")
                 else:
                     dolphinSettings.set("Core", "SIDevice" + str(i - 1), "6")
@@ -166,18 +191,18 @@ class DolphinGenerator(Generator):
         if system.isOptSet("dolphin_SkipIPL") and system.getOptBoolean("dolphin_SkipIPL"):
             # check files exist to avoid crashes
             ipl_regions = ["USA", "EUR", "JAP"]
-            base_path = "/userdata/bios/GC"
-            if any(os.path.exists(os.path.join(base_path, region, "IPL.bin")) for region in ipl_regions):
+            if any((DOLPHIN_BIOS / region / "IPL.bin").exists() for region in ipl_regions):
                 dolphinSettings.set("Core", "SkipIPL", "False")
             else:
                 dolphinSettings.set("Core", "SkipIPL", "True")
         else:
             dolphinSettings.set("Core", "SkipIPL", "True")
-        
+
         # Set audio backend
         dolphinSettings.set("DSP", "Backend", "Cubeb")
-        
+
         # Dolby Pro Logic II for surround sound
+        # DPL II requires DSPHLE to be disabled
         if system.isOptSet("dplii") and system.getOptBoolean("dplii"):
             dolphinSettings.set("Core", "DPL2Decoder", "True")
             dolphinSettings.set("Core", "DSPHLE", "False")
@@ -185,17 +210,15 @@ class DolphinGenerator(Generator):
         else:
             dolphinSettings.set("Core", "DPL2Decoder", "False")
             dolphinSettings.set("Core", "DSPHLE", "True")
-            dolphinSettings.set("DSP", "EnableJIT", "False")   
-        
+            dolphinSettings.set("DSP", "EnableJIT", "False")
+
         # Save dolphin.ini
-        with open(batoceraFiles.dolphinIni, 'w') as configfile:
+        with DOLPHIN_INI.open('w') as configfile:
             dolphinSettings.write(configfile)
 
         ## [ gfx.ini ] ##
-        dolphinGFXSettings = configparser.ConfigParser(interpolation=None)
-        # To prevent ConfigParser from converting to lower case
-        dolphinGFXSettings.optionxform = str
-        dolphinGFXSettings.read(batoceraFiles.dolphinGfxIni)
+        dolphinGFXSettings = CaseSensitiveConfigParser(interpolation=None)
+        dolphinGFXSettings.read(DOLPHIN_GFX_INI)
 
         # Add Default Sections
         if not dolphinGFXSettings.has_section("Settings"):
@@ -206,32 +229,21 @@ class DolphinGenerator(Generator):
             dolphinGFXSettings.add_section("Enhancements")
         if not dolphinGFXSettings.has_section("Hardware"):
             dolphinGFXSettings.add_section("Hardware")
-        
+
         # Set Vulkan adapter
-        try:
-            have_vulkan = subprocess.check_output(["/usr/bin/batocera-vulkan", "hasVulkan"], text=True).strip()
-            if have_vulkan == "true":
-                eslog.debug("Vulkan driver is available on the system.")
-                try:
-                    have_discrete = subprocess.check_output(["/usr/bin/batocera-vulkan", "hasDiscrete"], text=True).strip()
-                    if have_discrete == "true":
-                        eslog.debug("A discrete GPU is available on the system. We will use that for performance")
-                        try:
-                            discrete_index = subprocess.check_output(["/usr/bin/batocera-vulkan", "discreteIndex"], text=True).strip()
-                            if discrete_index != "":
-                                eslog.debug("Using Discrete GPU Index: {} for Dolphin".format(discrete_index))
-                                dolphinGFXSettings.set("Hardware", "Adapter", discrete_index)
-                            else:
-                                eslog.debug("Couldn't get discrete GPU index")
-                        except subprocess.CalledProcessError:
-                            eslog.debug("Error getting discrete GPU index")
-                    else:
-                        eslog.debug("Discrete GPU is not available on the system. Using default.")
-                except subprocess.CalledProcessError:
-                    eslog.debug("Error checking for discrete GPU.")
-        except subprocess.CalledProcessError:
-            eslog.debug("Error executing batocera-vulkan script.")
-        
+        if vulkan.is_available():
+            eslog.debug("Vulkan driver is available on the system.")
+            if vulkan.has_discrete_gpu():
+                eslog.debug("A discrete GPU is available on the system. We will use that for performance")
+                discrete_index = vulkan.get_discrete_gpu_index()
+                if discrete_index:
+                    eslog.debug("Using Discrete GPU Index: {} for Dolphin".format(discrete_index))
+                    dolphinGFXSettings.set("Hardware", "Adapter", discrete_index)
+                else:
+                    eslog.debug("Couldn't get discrete GPU index")
+            else:
+                eslog.debug("Discrete GPU is not available on the system. Using default.")
+
         # Graphics setting Aspect Ratio
         if system.isOptSet('dolphin_aspect_ratio'):
             dolphinGFXSettings.set("Settings", "AspectRatio", system.config["dolphin_aspect_ratio"])
@@ -277,7 +289,10 @@ class DolphinGenerator(Generator):
 
         # Shader pre-caching
         if system.isOptSet('wait_for_shaders') and system.getOptBoolean('wait_for_shaders'):
-            dolphinGFXSettings.set("Settings", "WaitForShadersBeforeStarting", "True")
+            if system.isOptSet("gfxbackend") and system.config["gfxbackend"] == "Vulkan":
+                dolphinGFXSettings.set("Settings", "WaitForShadersBeforeStarting", "True")
+            else:
+                dolphinGFXSettings.set("Settings", "WaitForShadersBeforeStarting", "False")
         else:
             dolphinGFXSettings.set("Settings", "WaitForShadersBeforeStarting", "False")
 
@@ -308,9 +323,9 @@ class DolphinGenerator(Generator):
                 dolphinGFXSettings.remove_option("Enhancements", "ArbitraryMipmapDetection")
                 dolphinGFXSettings.remove_option("Enhancements", "DisableCopyFilter")
                 dolphinGFXSettings.remove_option("Enhancements", "ForceTrueColor")
-        
-        if system.isOptSet('vbi_hack'):
-            dolphinGFXSettings.set("Hacks", "VISkip", system.config["vbi_hack"])
+
+        if system.isOptSet('vbi_hack') and system.getOptBoolean("vbi_hack"):
+            dolphinGFXSettings.set("Hacks", "VISkip", "True")
         else:
             dolphinGFXSettings.set("Hacks", "VISkip", "False")
 
@@ -321,8 +336,8 @@ class DolphinGenerator(Generator):
             dolphinGFXSettings.set("Settings", "InternalResolution", "1")
 
         # VSync
-        if system.isOptSet('vsync'):
-            dolphinGFXSettings.set("Hardware", "VSync", str(system.getOptBoolean('vsync')))
+        if system.isOptSet('vsync') and system.getOptBoolean("vsync") == False:
+            dolphinGFXSettings.set("Hardware", "VSync", "False")
         else:
             dolphinGFXSettings.set("Hardware", "VSync", "True")
 
@@ -343,21 +358,20 @@ class DolphinGenerator(Generator):
             dolphinGFXSettings.set("Settings", "SSAA", "True")
         else:
             dolphinGFXSettings.set("Settings", "SSAA", "False")
-        
+
         # Manual texture sampling
+        # Setting on = speed hack off. Setting off = speed hack on
         if system.isOptSet('manual_texture_sampling') and system.getOptBoolean('manual_texture_sampling'):
             dolphinGFXSettings.set("Hacks", "FastTextureSampling", "False")
         else:
-            dolphinGFXSettings.set("Hacks", "FastTextureSampling", "True")        
+            dolphinGFXSettings.set("Hacks", "FastTextureSampling", "True")
 
         # Save gfx.ini
-        with open(batoceraFiles.dolphinGfxIni, 'w') as configfile:
+        with DOLPHIN_GFX_INI.open('w') as configfile:
             dolphinGFXSettings.write(configfile)
 
         ## Hotkeys.ini - overwrite to avoid issues
-        hotkeyConfig = configparser.ConfigParser(interpolation=None)
-        # To prevent ConfigParser from converting to lower case
-        hotkeyConfig.optionxform = str
+        hotkeyConfig = CaseSensitiveConfigParser(interpolation=None)
         # [Hotkeys]
         hotkeyConfig.add_section('Hotkeys')
         # General - use virtual for now
@@ -409,17 +423,14 @@ class DolphinGenerator(Generator):
         hotkeyConfig.set('Hotkeys', 'USB Emulation Devices/Show Infinity Base', '@(Ctrl+I)')
         #
         # Write the configuration to the file
-        hotkey_path = '/userdata/system/configs/dolphin-emu/Hotkeys.ini'
-        with open(hotkey_path, 'w') as configfile:
+        with (DOLPHIN_CONFIG / 'Hotkeys.ini').open('w') as configfile:
             hotkeyConfig.write(configfile)
 
         ## Retroachievements
-        RacConfig = configparser.ConfigParser(interpolation=None)
-        # To prevent ConfigParser from converting to lower case
-        RacConfig.optionxform = str
+        RacConfig = CaseSensitiveConfigParser(interpolation=None)
         # [Achievements]
         RacConfig.add_section('Achievements')
-        if system.isOptSet('retroachievements') and system.getOptBoolean('retroachievements') == True:
+        if system.isOptSet('retroachievements') and system.getOptBoolean('retroachievements'):
             RacConfig.set('Achievements', 'Enabled', 'True')
             RacConfig.set('Achievements', 'AchievementsEnabled', 'True')
             username  = system.config.get('retroachievements.username', '')
@@ -442,18 +453,17 @@ class DolphinGenerator(Generator):
             RacConfig.set('Achievements', 'Enabled', 'False')
             RacConfig.set('Achievements', 'AchievementsEnabled', 'False')
         # Write the configuration to the file
-        rac_path = '/userdata/system/configs/dolphin-emu/RetroAchievements.ini'
-        with open(rac_path, 'w') as rac_configfile:
+        with (DOLPHIN_CONFIG / 'RetroAchievements.ini').open('w') as rac_configfile:
             RacConfig.write(rac_configfile)
-        
+
         # Update SYSCONF
         try:
-            dolphinSYSCONF.update(system.config, batoceraFiles.dolphinSYSCONF, gameResolution)
+            dolphinSYSCONF.update(system.config, DOLPHIN_SYSCONF, gameResolution)
         except Exception:
             pass # don't fail in case of SYSCONF update
 
         # Check what version we've got
-        if os.path.isfile("/usr/bin/dolphin-emu"):
+        if Path("/usr/bin/dolphin-emu").is_file():
             # use the -b 'batch' option for nicer exit
             commandArray = ["dolphin-emu", "-b", "-e", rom]
         else:
@@ -463,17 +473,20 @@ class DolphinGenerator(Generator):
         if system.isOptSet('state_filename'):
             commandArray.extend(["--save_state", system.config['state_filename']])
 
-        return Command.Command(array=commandArray, \
-            env={ "XDG_CONFIG_HOME":batoceraFiles.CONF, \
-            "XDG_DATA_HOME":batoceraFiles.SAVES, \
-            "QT_QPA_PLATFORM":"xcb"})
+        return Command.Command(
+            array=commandArray,
+            env={
+                "XDG_CONFIG_HOME": CONFIGS,
+                "XDG_DATA_HOME": SAVES,
+                "XDG_CACHE_HOME": CACHE,
+                "QT_QPA_PLATFORM": "xcb"
+            }
+        )
 
     def getInGameRatio(self, config, gameResolution, rom):
 
-        dolphinGFXSettings = configparser.ConfigParser(interpolation=None)
-        # To prevent ConfigParser from converting to lower case
-        dolphinGFXSettings.optionxform = str
-        dolphinGFXSettings.read(batoceraFiles.dolphinGfxIni)
+        dolphinGFXSettings = CaseSensitiveConfigParser(interpolation=None)
+        dolphinGFXSettings.read(DOLPHIN_GFX_INI)
 
         dolphin_aspect_ratio = dolphinGFXSettings.get("Settings", "AspectRatio")
         # What if we're playing a GameCube game with the widescreen patch or not?
@@ -506,6 +519,12 @@ class DolphinGenerator(Generator):
             return gameResolution["width"] / gameResolution["height"]
 
         return 4/3
+
+    def getHotkeysContext(self) -> HotkeysContext:
+        return {
+            "name": "dolphin",
+            "keys": { "exit": ["KEY_LEFTALT", "KEY_F4"] }
+        }
 
 # Get the language from the environment if user didn't set it in ES.
 # Seem to be only for the gamecube. However, while this is not in a gamecube section

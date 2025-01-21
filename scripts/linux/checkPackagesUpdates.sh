@@ -64,7 +64,6 @@ PACKAGES_LIBRETRO="libretro-81
                    libretro-lutro
                    libretro-mame
                    libretro-mame2003-plus
-                   libretro-mame2010
                    libretro-melonds
                    libretro-melonds-ds
                    libretro-mesen
@@ -148,7 +147,6 @@ PACKAGES_EMULATORS="amiberry
                     cemu
                     citra
                     hypseus-singe
-                    demul
                     dolphin-emu
                     dolphin-triforce
                     dosbox
@@ -184,6 +182,7 @@ PACKAGES_EMULATORS="amiberry
                     ruffle
                     ryujinx
                     scummvm
+                    shadps4
                     simcoupe
                     snes9x
                     solarus-engine
@@ -196,6 +195,7 @@ PACKAGES_EMULATORS="amiberry
                     vice
                     vita3k
                     vpinball
+                    x16emu
                     xemu
                     xenia
                     xenia-canary"
@@ -203,10 +203,12 @@ PACKAGES_EMULATORS="amiberry
 PACKAGES_PORTS="abuse
                 abuse-data
                 cannonball
+                catacombgl
                 cdogs
                 cgenius
                 corsixth
                 devilutionx
+                dhewm3
                 dxx-rebirth
                 ecwolf
                 eduke32
@@ -219,6 +221,8 @@ PACKAGES_PORTS="abuse
                 hurrican
                 ioquake3
                 iortcw
+                jazz2-native
+                lindbergh-loader
                 openjazz
                 raze
                 sdlpop
@@ -226,6 +230,7 @@ PACKAGES_PORTS="abuse
                 sonic2013
                 soniccd
                 sonic-mania
+                taradino
                 theforceengine
                 tyrian
                 uqm
@@ -235,22 +240,14 @@ PACKAGES_PORTS="abuse
                 hlsdk-xash3d-opfor
                 xash3d-fwgs"
 
-PACKAGES_WINE="d8vk
-               dxvk
+PACKAGES_WINE="dxvk
                dxvk-nvapi
                faudio
                mf
                rtkit
-               vkd3d
                vkd3d-proton
-               wine-ge-custom
-               wine-ge-custom-wow64_32
-               wine-lutris
-               wine-lutris-wow64_32
-               wine-mono-lutris
-               wine-mono-proton
-               wine-proton
-               wine-proton-wow64_32"
+               wine-tkg
+               wine-tkg-wow64_32"
 
 PACKAGES_CONTROLLERS="aelightgun
                       aimtrak-guns
@@ -569,16 +566,6 @@ create_pkg_functions_BitBucket() {
 create_pkg_functions_RichWhiteHouse() {
   eval "${1}_GETNET() {
     wget -qO - 'https://www.richwhitehouse.com/jaguar/index.php?content=download' | grep -m1 'BigPEmu_Linux64_v[0-9]*\.tar\.gz' | sed -e 's#.*BigPEmu_Linux64_\(v[0-9]*\)\.tar\.gz.*#\1#'
-  }"
-  eval "${1}_GETCUR() {
-    X1=\$(pkg_GETCURVERSION ${1})
-    echo \"\${X1}\"
-  }"
-}
-
-create_pkg_functions_demul() {
-  eval "${1}_GETNET() {
-    wget -qO - 'http://demul.emulation64.com/downloads/' | grep -m1 '.7z' | sed -e s#'.*files/\(.*\)\.7z.*$'#'\1'#
   }"
   eval "${1}_GETCUR() {
     X1=\$(pkg_GETCURVERSION ${1})
@@ -1011,9 +998,6 @@ source_site_eval() {
             ;;
             *"richwhitehouse.com"* )
               create_pkg_functions_RichWhiteHouse "${pkg}"
-            ;;
-            *"demul."* )
-              create_pkg_functions_demul "${pkg}"
             ;;
             *"redream."* )
               create_pkg_functions_redream "${pkg}"

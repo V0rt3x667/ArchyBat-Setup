@@ -1,26 +1,37 @@
-#!/usr/bin/env python
-import Command
-import batoceraFiles
-from generators.Generator import Generator
-from settings.unixSettings import UnixSettings
-import controllersConfig
-import os
-from utils.logger import get_logger
+from __future__ import annotations
 
-eslog = get_logger(__name__)
-CONFIGDIR  = batoceraFiles.CONF + '/GSplus'
-CONFIGFILE = CONFIGDIR + '/config.txt'
+import logging
+from pathlib import Path
+from typing import TYPE_CHECKING
+
+from ... import Command
+from ...batoceraPaths import BIOS, CONFIGS, mkdir_if_not_exists
+from ...controller import generate_sdl_game_controller_config
+from ...settings.unixSettings import UnixSettings
+from ..Generator import Generator
+
+if TYPE_CHECKING:
+    from ...types import HotkeysContext
+
+eslog = logging.getLogger(__name__)
+_CONFIGDIR  = CONFIGS / 'GSplus'
+_CONFIGFILE = _CONFIGDIR / 'config.txt'
 
 class GSplusGenerator(Generator):
+
+    def getHotkeysContext(self) -> HotkeysContext:
+        return {
+            "name": "gsplus",
+            "keys": { "exit": ["KEY_LEFTALT", "KEY_F4"], "menu": "KEY_F4", "pause": "KEY_F4" }
+        }
+
     def generate(self, system, rom, playersControllers, metadata, guns, wheels, gameResolution):
-        if not os.path.exists(CONFIGDIR):
-            os.makedirs(CONFIGDIR)
+        mkdir_if_not_exists(_CONFIGDIR)
 
-        config = UnixSettings(CONFIGFILE, separator=' ')
+        config = UnixSettings(_CONFIGFILE, separator=' ')
 
-        rombase=os.path.basename(rom)
-        romext=os.path.splitext(rombase)[1]
-        if (romext.lower() in ['.dsk', '.do', '.nib']):
+        rom_path = Path(rom)
+        if (rom_path.suffix.lower() in ['.dsk', '.do', '.nib']):
             config.save("s6d1", rom)
             config.save("s5d1", '')
             config.save("s7d1", '')
@@ -56,6 +67,7 @@ class GSplusGenerator(Generator):
             config.save("bram3[d0]", 'ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff')
             config.save("bram3[e0]", 'ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff')
             config.save("bram3[f0]", 'ff ff ff ff ff ff ff ff ff ff ff ff 05 cf af 65')
+            config.save("g_limit_speed", "1")
         else: # .po and .2mg
             config.save("s7d1", rom)
             config.save("s5d1", '')
@@ -92,8 +104,8 @@ class GSplusGenerator(Generator):
             config.save("bram3[d0]", '00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00')
             config.save("bram3[e0]", '00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00')
             config.save("bram3[f0]", '00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00')
-        config.save("g_cfg_rom_path", batoceraFiles.BIOS)
-        # config.save("g_limit_speed", "0")
+            config.save("g_limit_speed", "2")
+        config.save("g_cfg_rom_path", f"""{BIOS}/ROM.03""")
 
         config.write()
         commandArray = ["GSplus", "-fullscreen"]
@@ -101,5 +113,5 @@ class GSplusGenerator(Generator):
         return Command.Command(
             array=commandArray,
             env={
-                'SDL_GAMECONTROLLERCONFIG': controllersConfig.generateSdlGameControllerConfig(playersControllers)
+                'SDL_GAMECONTROLLERCONFIG': generate_sdl_game_controller_config(playersControllers)
             })

@@ -3,8 +3,8 @@
 # MAME (GroovyMAME)
 #
 ################################################################################
-# Version: GroovyMAME 0.265 - Switchres 2.220c
-MAME_VERSION = gm0265sr220c
+# Version: GroovyMAME 0.272 - Switchres 2.21d
+MAME_VERSION = gm0272sr221d
 MAME_SITE = $(call github,antonioginer,GroovyMAME,$(MAME_VERSION))
 MAME_DEPENDENCIES = sdl2 sdl2_ttf zlib libpng fontconfig sqlite jpeg flac rapidjson expat glm
 MAME_LICENSE = MAME
@@ -15,8 +15,11 @@ MAME_CFLAGS =
 MAME_LDFLAGS =
 
 # Limit number of jobs not to eat too much RAM....
-MAME_MAX_JOBS = 17
-MAME_JOBS = $(shell if [ $(PARALLEL_JOBS) -gt $(MAME_MAX_JOBS) ]; then echo $(MAME_MAX_JOBS); else echo $(PARALLEL_JOBS); fi)
+total_memory_kb := $(shell grep MemTotal /proc/meminfo | awk '{print $$2}')
+memory_based_jobs := $(shell echo $$(( $(total_memory_kb) / 1024 / 1024 / 2 + 1)))
+cpu_threads := $(shell nproc)
+jobs := $(shell echo $$(( $(memory_based_jobs) < $(cpu_threads) ? $(memory_based_jobs) : $(cpu_threads) )))
+MAME_JOBS := $(jobs)
 
 # Set PTR64 on/off according to architecture
 ifeq ($(BR2_ARCH_IS_64),y)
@@ -32,7 +35,14 @@ ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_X86_64_ANY),y)
 MAME_CROSS_ARCH = x86_64
 # other archs are embedded, no X11, no OpenGL (only ES)
 else
-MAME_CROSS_OPTS += NO_X11=1 NO_OPENGL=1 NO_USE_XINPUT=1 NO_USE_BGFX_KHRONOS=1 FORCE_DRC_C_BACKEND=1 USE_WAYLAND=1
+MAME_CROSS_OPTS += NO_X11=1 NO_OPENGL=1 NO_USE_XINPUT=1 NO_USE_BGFX_KHRONOS=1 FORCE_DRC_C_BACKEND=1
+endif
+
+# Wayland
+ifeq ($(BR2_PACKAGE_BATOCERA_WAYLAND),y)
+MAME_CROSS_OPTS += USE_WAYLAND=1
+else
+MAME_CROSS_OPTS += USE_WAYLAND=0
 endif
 
 # Allow cross-architecture compilation with MAME build system
@@ -55,7 +65,7 @@ MAME_CFLAGS += -mabi=lp64d -march=rv64imafdczbb_zba -mcpu=sifive-u74
 # Force OPTIMIZE level 1 to avoid fatal linking relocation issue so far....
 MAME_CROSS_OPTS += OPTIMIZE=2
 # Cast alignment warnings cause errors on riscv64
-MAME_CFLAGS += -Wno-error=cast-align
+MAME_CFLAGS += -Wno-error=cast-align -Wno-error=unused-function
 # Some GCC hacks needed to get riscv64 binary linking
 MAME_CFLAGS += -mcmodel=medany -fno-inline-small-functions
 MAME_LDFLAGS += -mcmodel=medany
@@ -79,6 +89,10 @@ endif
 
 ifeq ($(BR2_cortex_a73_a53),y)
 MAME_CFLAGS += -mcpu=cortex-a73.cortex-a53 -mtune=cortex-a73.cortex-a53
+endif
+
+ifeq ($(BR2_cortex_a76_a55),y)
+MAME_CFLAGS += -mcpu=cortex-a76.cortex-a55 -mtune=cortex-a76.cortex-a55
 endif
 
 define MAME_BUILD_CMDS
@@ -199,9 +213,12 @@ define MAME_INSTALL_TARGET_CMDS
 	cp -R $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulators/mame/dats			$(TARGET_DIR)/usr/bin/mame/
 	cp -R $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulators/mame/history			$(TARGET_DIR)/usr/bin/mame/
 
-	# gameStop script when exiting a rotated screen
-	mkdir -p $(TARGET_DIR)/usr/share/batocera/configgen/scripts
-	cp $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulators/mame/rotation_fix.sh $(TARGET_DIR)/usr/share/batocera/configgen/scripts/rotation_fix.sh
+	# gameStop script when exiting a rotated screen (xorg)
+	if [ "$(BR2_PACKAGE_XSERVER_XORG_SERVER)" = "y" ]; then \
+		mkdir -p $(TARGET_DIR)/usr/share/batocera/configgen/scripts; \
+		cp $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulators/mame/rotation_fix.sh \
+			$(TARGET_DIR)/usr/share/batocera/configgen/scripts/rotation_fix.sh; \
+	fi
 
 	# Copy user -autoboot_command overrides (batocera.linux/batocera.linux#11706)
 	mkdir -p $(MAME_CONF_INIT)/autoload
@@ -211,7 +228,6 @@ endef
 define MAME_EVMAPY
 	mkdir -p $(TARGET_DIR)/usr/share/evmapy
 	cp $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulators/mame/mame.mame.keys $(TARGET_DIR)/usr/share/evmapy
-	cp $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulators/mame/mame.mame.keys $(TARGET_DIR)/usr/share/evmapy/mame.keys
 	cp $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulators/mame/mame.mame.keys $(TARGET_DIR)/usr/share/evmapy/adam.mame.keys
 	cp $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulators/mame/mame.mame.keys $(TARGET_DIR)/usr/share/evmapy/advision.mame.keys
 	cp $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulators/mame/mame.mame.keys $(TARGET_DIR)/usr/share/evmapy/apfm1000.mame.keys

@@ -1,22 +1,32 @@
-#!/usr/bin/env python
+from __future__ import annotations
 
-from generators.Generator import Generator
-import batoceraFiles
-import Command
-import os
-from settings.unixSettings import UnixSettings
-from utils.logger import get_logger
+import logging
 import re
-import configparser
-import io
-import controllersConfig
-import json
-import httplib2
-import time
 import shutil
-import subprocess
+import time
+from pathlib import Path
+from typing import TYPE_CHECKING, Final
 
-eslog = get_logger(__name__)
+from ... import Command
+from ...batoceraPaths import BIOS, CACHE, CONFIGS, DATAINIT_DIR, ROMS, ensure_parents_and_open, mkdir_if_not_exists
+from ...controller import ControllerMapping, generate_sdl_game_controller_config, write_sdl_controller_db
+from ...utils import vulkan
+from ...utils.configparser import CaseSensitiveConfigParser
+from ..Generator import Generator
+
+if TYPE_CHECKING:
+    from collections.abc import Mapping
+
+    from ...Emulator import Emulator
+    from ...input import Input
+    from ...types import DeviceInfoMapping, GunMapping, HotkeysContext
+
+eslog = logging.getLogger(__name__)
+
+_PCSX2_BIN_DIR: Final = Path("/usr/pcsx2/bin")
+_PCSX2_RESOURCES_DIR: Final = _PCSX2_BIN_DIR / "resources"
+_PCSX2_CONFIG: Final = CONFIGS / "PCSX2"
+_PCSX2_BIOS: Final = BIOS / "ps2"
 
 class Pcsx2Generator(Generator):
 
@@ -26,20 +36,29 @@ class Pcsx2Generator(Generator):
         "GTForce":         "3"
     }
 
+    def getHotkeysContext(self) -> HotkeysContext:
+        return {
+            "name": "pcsx2",
+            "keys": { "exit": ["KEY_LEFTALT", "KEY_F4"] }
+        }
+
     def getInGameRatio(self, config, gameResolution, rom):
         if getGfxRatioFromConfig(config, gameResolution) == "16:9" or (getGfxRatioFromConfig(config, gameResolution) == "Stretch" and gameResolution["width"] / float(gameResolution["height"]) > ((16.0 / 9.0) - 0.1)):
             return 16/9
         return 4/3
 
+    @staticmethod
     def isPlayingWithWheel(system, wheels):
         return system.isOptSet('use_wheels') and system.getOptBoolean('use_wheels') and len(wheels) > 0
 
+    @staticmethod
     def useEmulatorWheels(playingWithWheel, wheel_type):
         if playingWithWheel is False:
             return False
         # the virtual type is the virtual wheel that use a physical wheel to manipulate the pad
         return wheel_type != "Virtual"
 
+    @staticmethod
     def getWheelType(metadata, playingWithWheel, config):
         wheel_type = "Virtual"
         if playingWithWheel is False:
@@ -53,52 +72,57 @@ class Pcsx2Generator(Generator):
         return wheel_type
 
     def generate(self, system, rom, playersControllers, metadata, guns, wheels, gameResolution):
-        pcsx2ConfigDir = "/userdata/system/configs/PCSX2"
-        pcsx2BiosDir = batoceraFiles.BIOS + "/ps2"
-        pcsx2Patches = pcsx2BiosDir + "/patches.zip"
+        pcsx2Patches = _PCSX2_BIOS / "patches.zip"
 
         # Remove older config files if present
-        inisDir = os.path.join(pcsx2ConfigDir, "inis")
+        inisDir = _PCSX2_CONFIG / "inis"
         files_to_remove = ["PCSX2_ui.ini", "PCSX2_vm.ini", "GS.ini"]
         for filename in files_to_remove:
-            file_path = os.path.join(inisDir, filename)
-            if os.path.exists(file_path):
-                os.remove(file_path)
+            file_path = inisDir / filename
+            if file_path.exists():
+                file_path.unlink()
 
         playingWithWheel = Pcsx2Generator.isPlayingWithWheel(system, wheels)
 
         # Config files
-        configureReg(pcsx2ConfigDir)
-        configureINI(pcsx2ConfigDir, pcsx2BiosDir, system, rom, playersControllers, metadata, guns, wheels, playingWithWheel)
-        configureAudio(pcsx2ConfigDir)
+        configureReg(_PCSX2_CONFIG)
+        configureINI(_PCSX2_CONFIG, _PCSX2_BIOS, system, rom, playersControllers, metadata, guns, wheels, playingWithWheel)
+        configureAudio(_PCSX2_CONFIG)
 
         # write our own game_controller_db.txt file before launching the game
-        dbfile = pcsx2ConfigDir + "/game_controller_db.txt"
-        controllersConfig.writeSDLGameDBAllControllers(playersControllers, dbfile)
+        dbfile = _PCSX2_CONFIG / "game_controller_db.txt"
+        write_sdl_controller_db(playersControllers, dbfile)
 
         commandArray = ["/usr/pcsx2/bin/pcsx2-qt"] if rom == "config" else \
               ["/usr/pcsx2/bin/pcsx2-qt", "-nogui", rom]
 
-        with open("/proc/cpuinfo") as cpuinfo:
+        with Path("/proc/cpuinfo").open() as cpuinfo:
             if not re.search(r'^flags\s*:.*\ssse4_1\W', cpuinfo.read(), re.MULTILINE):
                 eslog.warning("CPU does not support SSE4.1 which is required by pcsx2.  The emulator will likely crash with SIGILL (illegal instruction).")
 
-        envcmd = { "XDG_CONFIG_HOME":batoceraFiles.CONF,
-                   "QT_QPA_PLATFORM":"xcb",
-                   "SDL_JOYSTICK_HIDAPI": "0"
-                  }
+        # use their modified shaderc library
+        envcmd = {
+            "XDG_CONFIG_HOME":CONFIGS,
+            "QT_QPA_PLATFORM":"xcb",
+            "SDL_JOYSTICK_HIDAPI": "0"
+        }
 
         # wheels won't work correctly when SDL_GAMECONTROLLERCONFIG is set. excluding wheels from SDL_GAMECONTROLLERCONFIG doesn't fix too.
         # wheel metadata
         if not Pcsx2Generator.useEmulatorWheels(playingWithWheel, Pcsx2Generator.getWheelType(metadata, playingWithWheel, system.config)):
-            envcmd["SDL_GAMECONTROLLERCONFIG"] = controllersConfig.generateSdlGameControllerConfig(playersControllers)
+            envcmd["SDL_GAMECONTROLLERCONFIG"] = generate_sdl_game_controller_config(playersControllers)
 
         # ensure we have the patches.zip file to avoid message.
-        if not os.path.exists(pcsx2BiosDir):
-            os.makedirs(pcsx2BiosDir)
-        if not os.path.exists(pcsx2Patches):
-            source_file = "/usr/share/batocera/datainit/bios/ps2/patches.zip"
-            shutil.copy(source_file, pcsx2Patches)
+        mkdir_if_not_exists(pcsx2Patches.parent)
+        if not pcsx2Patches.exists():
+            shutil.copy(DATAINIT_DIR / "bios" / "ps2" / "patches.zip", pcsx2Patches)
+
+        # state_slot option
+        if system.isOptSet('state_filename'):
+            commandArray.extend(["-statefile", system.config['state_filename']])
+
+        if system.isOptSet('state_slot'):
+            commandArray.extend(["-stateindex", str(system.config['state_slot'])])
 
         return Command.Command(
             array=commandArray,
@@ -114,29 +138,24 @@ def getGfxRatioFromConfig(config, gameResolution):
             return "Stretch"
     return "4:3"
 
-def configureReg(config_directory):
-    configFileName = "{}/{}".format(config_directory, "PCSX2-reg.ini")
-    if not os.path.exists(config_directory):
-        os.makedirs(config_directory)
-    f = open(configFileName, "w")
-    f.write("DocumentsFolderMode=User\n")
-    f.write("CustomDocumentsFolder=/usr/pcsx2/bin\n")
-    f.write("UseDefaultSettingsFolder=enabled\n")
-    f.write("SettingsFolder=/userdata/system/configs/PCSX2/inis\n")
-    f.write("Install_Dir=/usr/pcsx2/bin\n")
-    f.write("RunWizard=0\n")
-    f.close()
+def configureReg(config_directory: Path) -> None:
+    with ensure_parents_and_open(config_directory / "PCSX2-reg.ini", "w") as f:
+        f.write("DocumentsFolderMode=User\n")
+        f.write(f"CustomDocumentsFolder={_PCSX2_BIN_DIR}\n")
+        f.write("UseDefaultSettingsFolder=enabled\n")
+        f.write(f"SettingsFolder={config_directory / 'inis'}\n")
+        f.write(f"Install_Dir={_PCSX2_BIN_DIR}\n")
+        f.write("RunWizard=0\n")
 
-def configureAudio(config_directory):
-    configFileName = "{}/{}".format(config_directory + "/inis", "spu2-x.ini")
-    if not os.path.exists(config_directory + "/inis"):
-        os.makedirs(config_directory + "/inis")
+def configureAudio(config_directory: Path) -> None:
+    configFileName = config_directory / 'inis' / "spu2-x.ini"
+    mkdir_if_not_exists(configFileName.parent)
 
     # Keep the custom files
-    if os.path.exists(configFileName):
+    if configFileName.exists():
         return
 
-    f = open(configFileName, "w")
+    f = configFileName.open("w")
     f.write("[MIXING]\n")
     f.write("Interpolation=1\n")
     f.write("Disable_Effects=0\n")
@@ -149,22 +168,18 @@ def configureAudio(config_directory):
     f.write("HostApi=alsa\n")
     f.close()
 
-def configureINI(config_directory, bios_directory, system, rom, controllers, metadata, guns, wheels, playingWithWheel):
-    configFileName = "{}/{}".format(config_directory + "/inis", "PCSX2.ini")
+def configureINI(config_directory: Path, bios_directory: Path, system: Emulator, rom: str, controllers: ControllerMapping, metadata: Mapping[str, str], guns: GunMapping, wheels: DeviceInfoMapping, playingWithWheel: bool) -> None:
+    configFileName = config_directory / 'inis' / "PCSX2.ini"
 
-    if not os.path.exists(config_directory + "/inis"):
-        os.makedirs(config_directory + "/inis")
+    mkdir_if_not_exists(configFileName.parent)
 
-    if not os.path.isfile(configFileName):
-        f = open(configFileName, "w")
-        f.write("[UI]\n")
-        f.close()
+    if not configFileName.is_file():
+        with configFileName.open("w") as f:
+            f.write("[UI]\n")
 
-    pcsx2INIConfig = configparser.ConfigParser(interpolation=None)
-    # To prevent ConfigParser from converting to lower case
-    pcsx2INIConfig.optionxform = str
+    pcsx2INIConfig = CaseSensitiveConfigParser(interpolation=None)
 
-    if os.path.isfile(configFileName):
+    if configFileName.is_file():
         pcsx2INIConfig.read(configFileName)
 
     ## [UI]
@@ -205,8 +220,7 @@ def configureINI(config_directory, bios_directory, system, rom, controllers, met
     pcsx2INIConfig.set("Folders", "Videos", "../../../saves/ps2/pcsx2/videos")
 
     # create cache folder
-    if not os.path.exists("/userdata/system/cache/ps2"):
-        os.makedirs("/userdata/system/cache/ps2")
+    mkdir_if_not_exists(CACHE / "ps2")
 
     ## [EmuCore]
     if not pcsx2INIConfig.has_section("EmuCore"):
@@ -241,51 +255,32 @@ def configureINI(config_directory, bios_directory, system, rom, controllers, met
         pcsx2INIConfig.add_section("Achievements")
     pcsx2INIConfig.set("Achievements", "Enabled", "false")
     if system.isOptSet('retroachievements') and system.getOptBoolean('retroachievements') == True:
-        headers   = {"Content-type": "text/plain", "User-Agent": "Batocera.linux"}
-        login_url = "https://retroachievements.org/"
         username  = system.config.get('retroachievements.username', "")
-        password  = system.config.get('retroachievements.password', "")
+        token     = system.config.get('retroachievements.token', "")
         hardcore  = system.config.get('retroachievements.hardcore', "")
         indicator = system.config.get('retroachievements.challenge_indicators', "")
         presence  = system.config.get('retroachievements.richpresence', "")
         leaderbd  = system.config.get('retroachievements.leaderboards', "")
-        login_cmd = f"dorequest.php?r=login&u={username}&p={password}"
-        try:
-                cnx = httplib2.Http()
-        except:
-                eslog.error("ERROR: Unable to connect to " + login_url)
-        try:
-                res, rout = cnx.request(login_url + login_cmd, method="GET", body=None, headers=headers)
-                if (res.status != 200):
-                    eslog.warning(f"ERROR: RetroAchievements.org responded with #{res.status} [{res.reason}] {rout}")
-                    settings.set("Cheevos", "Enabled",  "false")
-                else:
-                    parsedout = json.loads(rout.decode('utf-8'))
-                    if not parsedout['Success']:
-                        eslog.warning(f"ERROR: RetroAchievements login failed with ({str(parsedout)})")
-                    token = parsedout['Token']
-                    pcsx2INIConfig.set("Achievements", "Enabled", "true")
-                    pcsx2INIConfig.set("Achievements", "Username", username)
-                    pcsx2INIConfig.set("Achievements", "Token", token)
-                    pcsx2INIConfig.set("Achievements", "LoginTimestamp", str(int(time.time())))
-                    if hardcore == '1':
-                        pcsx2INIConfig.set("Achievements", "ChallengeMode", "true")
-                    else:
-                        pcsx2INIConfig.set("Achievements", "ChallengeMode", "false")
-                    if indicator == '1':
-                        pcsx2INIConfig.set("Achievements", "PrimedIndicators", "true")
-                    else:
-                        pcsx2INIConfig.set("Achievements", "PrimedIndicators", "false")
-                    if presence == '1':
-                        pcsx2INIConfig.set("Achievements", "RichPresence", "true")
-                    else:
-                        pcsx2INIConfig.set("Achievements", "RichPresence", "false")
-                    if leaderbd == '1':
-                        pcsx2INIConfig.set("Achievements", "Leaderboards", "true")
-                    else:
-                        pcsx2INIConfig.set("Achievements", "Leaderboards", "false")
-        except:
-                eslog.error("ERROR: setting RetroAchievements parameters")
+        pcsx2INIConfig.set("Achievements", "Enabled", "true")
+        pcsx2INIConfig.set("Achievements", "Username", username)
+        pcsx2INIConfig.set("Achievements", "Token", token)
+        pcsx2INIConfig.set("Achievements", "LoginTimestamp", str(int(time.time())))
+        if hardcore == '1':
+            pcsx2INIConfig.set("Achievements", "ChallengeMode", "true")
+        else:
+            pcsx2INIConfig.set("Achievements", "ChallengeMode", "false")
+        if indicator == '1':
+            pcsx2INIConfig.set("Achievements", "PrimedIndicators", "true")
+        else:
+            pcsx2INIConfig.set("Achievements", "PrimedIndicators", "false")
+        if presence == '1':
+            pcsx2INIConfig.set("Achievements", "RichPresence", "true")
+        else:
+            pcsx2INIConfig.set("Achievements", "RichPresence", "false")
+        if leaderbd == '1':
+            pcsx2INIConfig.set("Achievements", "Leaderboards", "true")
+        else:
+            pcsx2INIConfig.set("Achievements", "Leaderboards", "false")
     # set other settings
     pcsx2INIConfig.set("Achievements", "TestMode", "false")
     pcsx2INIConfig.set("Achievements", "UnofficialTestMode", "false")
@@ -302,49 +297,37 @@ def configureINI(config_directory, bios_directory, system, rom, controllers, met
 
     # Renderer
     # Check Vulkan first to be sure
-    try:
-        have_vulkan = subprocess.check_output(["/usr/bin/batocera-vulkan", "hasVulkan"], text=True).strip()
-        if have_vulkan == "true":
-            eslog.debug("Vulkan driver is available on the system.")
-            renderer = "12"  # Default to OpenGL
+    if vulkan.is_available():
+        eslog.debug("Vulkan driver is available on the system.")
+        renderer = "12"  # Default to OpenGL
 
-            if system.isOptSet("pcsx2_gfxbackend"):
-                if system.config["pcsx2_gfxbackend"] == "13":
-                    eslog.debug("User selected Software! Man you must have a fast CPU!")
-                    renderer = "13"
-                elif system.config["pcsx2_gfxbackend"] == "14":
-                    eslog.debug("User selected Vulkan")
-                    renderer = "14"
-                    try:
-                        have_discrete = subprocess.check_output(["/usr/bin/batocera-vulkan", "hasDiscrete"], text=True).strip()
-                        if have_discrete == "true":
-                            eslog.debug("A discrete GPU is available on the system. We will use that for performance")
-                            try:
-                                discrete_name = subprocess.check_output(["/usr/bin/batocera-vulkan", "discreteName"], text=True).strip()
-                                if discrete_name:
-                                    eslog.debug("Using Discrete GPU Name: {} for PCSX2".format(discrete_name))
-                                    pcsx2INIConfig.set("EmuCore/GS", "Adapter", discrete_name)
-                                else:
-                                    eslog.debug("Couldn't get discrete GPU Name")
-                                    pcsx2INIConfig.set("EmuCore/GS", "Adapter", "(Default)")
-                            except subprocess.CalledProcessError as e:
-                                eslog.debug("Error getting discrete GPU Name: {}".format(e))
-                                pcsx2INIConfig.set("EmuCore/GS", "Adapter", "(Default)")
-                        else:
-                            eslog.debug("Discrete GPU is not available on the system. Using default.")
-                            pcsx2INIConfig.set("EmuCore/GS", "Adapter", "(Default)")
-                    except subprocess.CalledProcessError as e:
-                        eslog.debug("Error checking for discrete GPU: {}".format(e))
-            else:
-                eslog.debug("User selected or defaulting to OpenGL")
-            
-            pcsx2INIConfig.set("EmuCore/GS", "Renderer", renderer)
+        if system.isOptSet("pcsx2_gfxbackend"):
+            if system.config["pcsx2_gfxbackend"] == "13":
+                eslog.debug("User selected Software! Man you must have a fast CPU!")
+                renderer = "13"
+            elif system.config["pcsx2_gfxbackend"] == "14":
+                eslog.debug("User selected Vulkan")
+                renderer = "14"
+                if vulkan.has_discrete_gpu():
+                    eslog.debug("A discrete GPU is available on the system. We will use that for performance")
+                    discrete_name = vulkan.get_discrete_gpu_name()
+                    if discrete_name:
+                        eslog.debug("Using Discrete GPU Name: {} for PCSX2".format(discrete_name))
+                        pcsx2INIConfig.set("EmuCore/GS", "Adapter", discrete_name)
+                    else:
+                        eslog.debug("Couldn't get discrete GPU Name")
+                        pcsx2INIConfig.set("EmuCore/GS", "Adapter", "(Default)")
+                else:
+                    eslog.debug("Discrete GPU is not available on the system. Using default.")
+                    pcsx2INIConfig.set("EmuCore/GS", "Adapter", "(Default)")
         else:
-            eslog.debug("Vulkan driver is not available on the system. Falling back to OpenGL")
-            pcsx2INIConfig.set("EmuCore/GS", "Renderer", "12")
-    except subprocess.CalledProcessError as e:
-        eslog.debug("Error checking for Vulkan driver: {}".format(e))
-    
+            eslog.debug("User selected or defaulting to OpenGL")
+
+        pcsx2INIConfig.set("EmuCore/GS", "Renderer", renderer)
+    else:
+        eslog.debug("Vulkan driver is not available on the system. Falling back to OpenGL")
+        pcsx2INIConfig.set("EmuCore/GS", "Renderer", "12")
+
     # Ratio
     if system.isOptSet('pcsx2_ratio'):
         pcsx2INIConfig.set("EmuCore/GS", "AspectRatio", system.config["pcsx2_ratio"])
@@ -435,6 +418,21 @@ def configureINI(config_directory, bios_directory, system, rom, controllers, met
         pcsx2INIConfig.set("EmuCore/GS", "OsdShowMessages", system.config["pcsx2_osd_messages"])
     else:
         pcsx2INIConfig.set("EmuCore/GS", "OsdShowMessages", "true")
+    # TV Shader
+    if system.isOptSet('pcsx2_shaderset'):
+        pcsx2INIConfig.set("EmuCore", "TVShader", system.config["pcsx2_shaderset"])
+    else:
+        pcsx2INIConfig.set("EmuCore", "TVShader", "0")
+
+    if system.isOptSet('incrementalsavestates') and not system.getOptBoolean('incrementalsavestates'):
+        pcsx2INIConfig.set("EmuCore", "AutoIncrementSlot", "false")
+    else:
+        pcsx2INIConfig.set("EmuCore", "AutoIncrementSlot", "true")
+
+    if system.isOptSet('autosave') and system.getOptBoolean('autosave') == True:
+        pcsx2INIConfig.set("EmuCore", "SaveStateOnShutdown", "true")
+    else:
+        pcsx2INIConfig.set("EmuCore", "SaveStateOnShutdown", "false")
 
     ## [InputSources]
     if not pcsx2INIConfig.has_section("InputSources"):
@@ -480,6 +478,10 @@ def configureINI(config_directory, bios_directory, system, rom, controllers, met
         pcsx2INIConfig.remove_option("USB1", "guncon2_Start")
     if pcsx2INIConfig.has_section("USB2") and pcsx2INIConfig.has_option("USB2", "guncon2_Start"):
         pcsx2INIConfig.remove_option("USB2", "guncon2_Start")
+    if pcsx2INIConfig.has_section("USB1") and pcsx2INIConfig.has_option("USB1", "guncon2_C"):
+        pcsx2INIConfig.remove_option("USB1", "guncon2_C")
+    if pcsx2INIConfig.has_section("USB2") and pcsx2INIConfig.has_option("USB2", "guncon2_C"):
+        pcsx2INIConfig.remove_option("USB2", "guncon2_C")
     if pcsx2INIConfig.has_section("USB1") and pcsx2INIConfig.has_option("USB1", "guncon2_numdevice"):
         pcsx2INIConfig.remove_option("USB1", "guncon2_numdevice")
     if pcsx2INIConfig.has_section("USB2") and pcsx2INIConfig.has_option("USB2", "guncon2_numdevice"):
@@ -495,6 +497,7 @@ def configureINI(config_directory, bios_directory, system, rom, controllers, met
     # guns
     if system.isOptSet('use_guns') and system.getOptBoolean('use_guns') and len(guns) > 0:
         gun1onport2 = len(guns) == 1 and "gun_gun1port" in metadata and metadata["gun_gun1port"] == "2"
+        pedalsKeys = {1: "c", 2: "v", 3: "b", 4: "n"}
 
         if len(guns) >= 1 and not gun1onport2:
             if not pcsx2INIConfig.has_section("USB1"):
@@ -506,6 +509,14 @@ def configureINI(config_directory, bios_directory, system, rom, controllers, met
                     if "start" in pad.inputs:
                         pcsx2INIConfig.set("USB1", "guncon2_Start", "SDL-{}/{}".format(pad.index, "Start"))
                 nc = nc + 1
+
+            ### find a keyboard key to simulate the action of the player (always like button 2) ; search in batocera.conf, else default config
+            if "controllers.pedals1" in system.config:
+                pedalkey = system.config["controllers.pedals1"]
+            else:
+                pedalkey = pedalsKeys[1]
+            pcsx2INIConfig.set("USB1", "guncon2_C", "Keyboard/"+pedalkey.upper())
+            ###
         if len(guns) >= 2 or gun1onport2:
             if not pcsx2INIConfig.has_section("USB2"):
                 pcsx2INIConfig.add_section("USB2")
@@ -516,47 +527,54 @@ def configureINI(config_directory, bios_directory, system, rom, controllers, met
                     if "start" in pad.inputs:
                         pcsx2INIConfig.set("USB2", "guncon2_Start", "SDL-{}/{}".format(pad.index, "Start"))
                 nc = nc + 1
+            ### find a keyboard key to simulate the action of the player (always like button 2) ; search in batocera.conf, else default config
+            if "controllers.pedals2" in system.config:
+                pedalkey = system.config["controllers.pedals2"]
+            else:
+                pedalkey = pedalsKeys[2]
+            pcsx2INIConfig.set("USB2", "guncon2_C", "Keyboard/"+pedalkey.upper())
+            ###
             if gun1onport2:
                 pcsx2INIConfig.set("USB2", "guncon2_numdevice", "0")
     # Gun crosshairs - one player only, PCSX2 can't distinguish both crosshair for some reason
     if pcsx2INIConfig.has_section("USB1"):
         if system.isOptSet('pcsx2_crosshairs') and system.config["pcsx2_crosshairs"] == "1":
-            pcsx2INIConfig.set("USB1", "guncon2_cursor_path", "/usr/pcsx2/bin/resources/crosshairs/Blue.png")
+            pcsx2INIConfig.set("USB1", "guncon2_cursor_path", str(_PCSX2_RESOURCES_DIR / "crosshairs" / "Blue.png"))
         else:
             pcsx2INIConfig.set("USB1", "guncon2_cursor_path", "")
     if pcsx2INIConfig.has_section("USB2"):
         if system.isOptSet('pcsx2_crosshairs') and system.config["pcsx2_crosshairs"] == "1":
-            pcsx2INIConfig.set("USB2", "guncon2_cursor_path", "/usr/pcsx2/bin/resources/crosshairs/Red.png")
+            pcsx2INIConfig.set("USB2", "guncon2_cursor_path", str(_PCSX2_RESOURCES_DIR / "crosshairs" / "Red.png"))
         else:
             pcsx2INIConfig.set("USB2", "guncon2_cursor_path", "")
     # hack for the fog bug for guns (time crisis - crisis zone)
     fog_files = [
-        "/usr/pcsx2/bin/resources/textures/SCES-52530/replacements/c321d53987f3986d-eadd4df7c9d76527-00005dd4.png",
-        "/usr/pcsx2/bin/resources/textures/SLUS-20927/replacements/c321d53987f3986d-eadd4df7c9d76527-00005dd4.png"
+        _PCSX2_RESOURCES_DIR / "textures" / "SCES-52530" / "replacements" / "c321d53987f3986d-eadd4df7c9d76527-00005dd4.png",
+        _PCSX2_RESOURCES_DIR / "textures" / "SLUS-20927" / "replacements" / "c321d53987f3986d-eadd4df7c9d76527-00005dd4.png"
     ]
-    texture_dir = config_directory + "/textures"
+    texture_dir = config_directory / "textures"
     # copy textures if necessary to PCSX2 config folder
     if system.isOptSet("pcsx2_crisis_fog") and system.config["pcsx2_crisis_fog"] == "true":
         for file_path in fog_files:
-            parent_directory_name = os.path.basename(os.path.dirname(os.path.dirname(file_path)))
-            file_name = os.path.basename(file_path)
-            texture_directory_path = os.path.join(texture_dir, parent_directory_name, "replacements")
-            os.makedirs(texture_directory_path, exist_ok=True)
+            parent_directory_name = file_path.parent.parent.name
+            file_name = file_path.name
+            texture_directory_path = texture_dir / parent_directory_name / "replacements"
+            texture_directory_path.mkdir(parents=True, exist_ok=True)
 
-            destination_file_path = os.path.join(texture_directory_path, file_name)
+            destination_file_path = texture_directory_path / file_name
 
             shutil.copyfile(file_path, destination_file_path)
         # set texture replacement on regardless of previous setting
         pcsx2INIConfig.set("EmuCore/GS", "LoadTextureReplacements", "true")
     else:
         for file_path in fog_files:
-            parent_directory_name = os.path.basename(os.path.dirname(os.path.dirname(file_path)))
-            file_name = os.path.basename(file_path)
-            texture_directory_path = os.path.join(texture_dir, parent_directory_name, "replacements")
-            target_file_path = os.path.join(texture_directory_path, file_name)
+            parent_directory_name = file_path.parent.parent.name
+            file_name = file_path.name
+            texture_directory_path = texture_dir / parent_directory_name / "replacements"
+            target_file_path = texture_directory_path / file_name
 
-            if os.path.isfile(target_file_path):
-                os.remove(target_file_path)
+            if target_file_path.is_file():
+                target_file_path.unlink()
 
     # wheels
     wtype = Pcsx2Generator.getWheelType(metadata, playingWithWheel, system.config)
@@ -604,7 +622,7 @@ def configureINI(config_directory, bios_directory, system, rom, controllers, met
 
             usbx = 1
             for controller, pad in sorted(controllers.items()):
-                if pad.dev in wheels:
+                if pad.device_path in wheels:
                     if not pcsx2INIConfig.has_section("USB{}".format(usbx)):
                         pcsx2INIConfig.add_section("USB{}".format(usbx))
                     pcsx2INIConfig.set("USB{}".format(usbx), "Type", "Pad")
@@ -612,8 +630,8 @@ def configureINI(config_directory, bios_directory, system, rom, controllers, met
                     wheel_type = Pcsx2Generator.getWheelType(metadata, playingWithWheel, system.config)
                     pcsx2INIConfig.set("USB{}".format(usbx), "Pad_subtype", Pcsx2Generator.wheelTypeMapping[wheel_type])
 
-                    if hasattr(pad, 'physdev'): # ffb on the real wheel
-                        pcsx2INIConfig.set("USB{}".format(usbx), "Pad_FFDevice", "SDL-{}".format(pad.physid))
+                    if pad.physical_device_path is not None: # ffb on the real wheel
+                        pcsx2INIConfig.set("USB{}".format(usbx), "Pad_FFDevice", "SDL-{}".format(pad.physical_index))
                     else:
                         pcsx2INIConfig.set("USB{}".format(usbx), "Pad_FFDevice", "SDL-{}".format(pad.index))
 
@@ -734,12 +752,12 @@ def configureINI(config_directory, bios_directory, system, rom, controllers, met
     if not pcsx2INIConfig.has_section("GameList"):
         pcsx2INIConfig.add_section("GameList")
 
-    pcsx2INIConfig.set("GameList", "RecursivePaths", "/userdata/roms/ps2")
+    pcsx2INIConfig.set("GameList", "RecursivePaths", str(ROMS / "ps2"))
 
-    with open(configFileName, 'w') as configfile:
+    with configFileName.open('w') as configfile:
         pcsx2INIConfig.write(configfile)
 
-def input2wheel(input, reversedAxis = False):
+def input2wheel(input: Input, reversedAxis: bool | None = False) -> str | None:
     if input.type == "button":
         pcsx2_magic_button_offset = 21 # PCSX2/SDLInputSource.cpp : const u32 button = ev->button + std::size(s_sdl_button_names)
         return "Button{}".format(int(input.id) + pcsx2_magic_button_offset)
