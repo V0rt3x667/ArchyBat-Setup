@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, Final
 
 from ... import Command
 from ...batoceraPaths import CONFIGS, SCREENSHOTS, mkdir_if_not_exists
-from ...controller import generate_sdl_game_controller_config
+from ...controller import Controller, generate_sdl_game_controller_config
 from ..Generator import Generator
 
 if TYPE_CHECKING:
@@ -26,7 +26,7 @@ class SdlPopGenerator(Generator):
     def getHotkeysContext(self) -> HotkeysContext:
         return {
             "name": "sdlpop",
-            "keys": { "exit": ["KEY_LEFTALT", "KEY_F4"], "menu": "KEY_ESC", "pause": "KEY_ESC", "save_state": "KEY_F6", "restore_state": "KEY_F9" }
+            "keys": { "exit": ["KEY_LEFTALT", "KEY_F4"], "menu": "KEY_ESC", "pause": "KEY_ESC", "save_state": "KEY_F6", "restore_state": "KEY_F9", "reset": ["KEY_LEFTCTRL", "KEY_R"] }
         }
 
     def generate(self, system, rom, playersControllers, metadata, guns, wheels, gameResolution):
@@ -49,11 +49,8 @@ class SdlPopGenerator(Generator):
             (SYSTEM_DIR / 'screenshots').symlink_to(SCREENSHOTS_DIR, target_is_directory=True)
 
         # pad number
-        nplayer = 1
-        for playercontroller, pad in sorted(playersControllers.items()):
-            if nplayer == 1:
-                commandArray.append(f"joynum={pad.index}")
-            nplayer += 1
+        if pad := Controller.find_player_number(playersControllers, 1):
+            commandArray.append(f"joynum={pad.index}")
 
         return Command.Command(array=commandArray,env={
             "SDL_GAMECONTROLLERCONFIG": generate_sdl_game_controller_config(playersControllers)

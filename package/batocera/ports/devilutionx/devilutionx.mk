@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-DEVILUTIONX_VERSION = 1.5.3
+DEVILUTIONX_VERSION = 1.5.4
 DEVILUTIONX_SITE = \
     https://github.com/diasurgical/devilutionX/releases/download/$(DEVILUTIONX_VERSION)
 DEVILUTIONX_SOURCE = devilutionx-src.tar.xz
@@ -39,13 +39,6 @@ define DEVILUTIONX_CLEAR_DL
     fi
 endef
 
-define DEVILUTIONX_INSTALL_TARGET_EVMAPY
-	mkdir -p $(TARGET_DIR)/usr/share/evmapy
-	cp $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/ports/devilutionx/devilutionx.keys \
-        $(TARGET_DIR)/usr/share/evmapy
-endef
-
 DEVILUTIONX_PRE_DOWNLOAD_HOOKS = DEVILUTIONX_CLEAR_DL
-DEVILUTIONX_POST_INSTALL_TARGET_HOOKS = DEVILUTIONX_INSTALL_TARGET_EVMAPY
 
 $(eval $(cmake-package))

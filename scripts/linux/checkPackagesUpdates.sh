@@ -76,7 +76,6 @@ PACKAGES_LIBRETRO="libretro-81
                    libretro-nestopia
                    libretro-nxengine
                    libretro-o2em
-                   libretro-openlara
                    libretro-opera
                    libretro-parallel-n64
                    libretro-pc88
@@ -143,6 +142,7 @@ PACKAGES_OPENBOR="openbor4432
 
 PACKAGES_EMULATORS="amiberry
                     applewin
+                    azahar
                     bigpemu
                     cemu
                     citra
@@ -158,7 +158,6 @@ PACKAGES_EMULATORS="amiberry
                     liblcf
                     eka2l1
                     flycast
-                    fpinball
                     fsuae
                     gsplus
                     hatari
@@ -169,7 +168,6 @@ PACKAGES_EMULATORS="amiberry
                     mame
                     melonds
                     model2
-                    moonlight-embedded
                     openmsx
                     pcsx2
                     pifba
@@ -232,13 +230,18 @@ PACKAGES_PORTS="abuse
                 sonic-mania
                 taradino
                 theforceengine
+                tr1x
+                tr2x
                 tyrian
                 uqm
                 vcmi
                 hlsdk-xash3d
                 hlsdk-xash3d-dmc
                 hlsdk-xash3d-opfor
-                xash3d-fwgs"
+                xash3d-fwgs
+                vkquake
+                vkquake2
+                vkquake3"
 
 PACKAGES_WINE="dxvk
                dxvk-nvapi
@@ -265,11 +268,11 @@ PACKAGES_CONTROLLERS="aelightgun
                       guncon3
                       hid-nx
                       input-wrapper
-                      jammasd
                       joycond
                       lightguns-games-precalibrations
                       mk_arcade_joystick_rpi
                       new-lg4ff
+                      openfire-guns
                       qtsixa
                       qtsixa-shanwan
                       retrogame
@@ -283,12 +286,15 @@ PACKAGES_CONTROLLERS="aelightgun
                       wiimote-3rdparty
                       wiimotes-rules
                       xarcade2jstick
+                      xgunner-lightguns
                       xone
                       xow
                       xpadneo
                       xpad-noone"
 
-PACKAGES_ALLGROUPS="RETROARCH LIBRETRO MUPEN OPENBOR EMULATORS PORTS WINE CONTROLLERS"
+PACKAGES_UTILS="moonlight-embedded"
+
+PACKAGES_ALLGROUPS="RETROARCH LIBRETRO MUPEN OPENBOR EMULATORS PORTS WINE CONTROLLERS UTILS"
 ### ############# ###
 
 # COLORS ##
@@ -311,7 +317,7 @@ show_help() {
   echo "[package] can be any of the *.mk under ./packages/batocera/ (without the extension \".mk\")"
   echo "Example: $0 libretro-mame libretro-fbneo   (search updates for both \"libretro-mame\" and \"libretro-fbneo\" packages)"
   echo ""
-  echo "[PACKAGE] can be RETROARCH, LIBRETRO, MUPEN, OPENBOR, EMULATORS, PORTS, WINE, CONTROLLERS, ALLGROUPS, ALL"
+  echo "[PACKAGE] can be RETROARCH, LIBRETRO, MUPEN, OPENBOR, EMULATORS, PORTS, WINE, CONTROLLERS, ALLGROUPS, UTILS, ALL"
   echo "Example: $0 ALLGROUPS   (search updates for all PACKAGE groups)"
   echo ""
   echo "It is posible to combine packages and groups."
@@ -459,6 +465,22 @@ gitlabfreedesktoplasttag_GETNET() {
 
 gitlabfreedesktoptagdate_GETNET() {
   wget -qO - "https://gitlab.freedesktop.org/${1}/-/tags/${2}" | grep -m1 'js-timeago' | sed -e s#'.*data-container="body">\(.*\)</time>.*$'#'\1'#
+}
+
+crediarlastcommit_GETNET() {
+  wget -qO - "https://crediar.dev/${1}/-/commits" | grep -oE 'commit/[0-9a-f]{40}' | head -n1 | sed 's#commit/##'
+}
+
+crediarcommitdate_GETNET() {
+  wget -qO - "https://crediar.dev/${1}/-/commit/${2}" | grep -m1 'js-timeago' | sed -e 's#.*data-container="body">\(.*\)</time>.*$#\1#'
+}
+
+crediarlasttag_GETNET() {
+  wget -qO - "https://crediar.dev/${1}/-/tags" | grep -oE '/-/tags/[^"]+' | head -n1 | sed 's#/[-]tags/##'
+}
+
+crediartagdate_GETNET() {
+  wget -qO - "https://crediar.dev/${1}/-/tags/${2}" | grep -m1 'js-timeago' | sed -e 's#.*data-container="body">\(.*\)</time>.*$#\1#'
 }
 
 ## /HELPERS ##
@@ -953,6 +975,34 @@ create_pkg_functions_GitLabFreeDesktop() {
   esac
 }
 
+create_pkg_functions_Crediar() {
+  CR_VERS=$(pkg_GETCURVERSION "${1}")
+  if test "$(echo "${CR_VERS}" | wc -c)" = 41  # git full checksum length (40+newline)
+  then
+    eval "${1}_GETNET() {
+      X1=\$(crediarlastcommit_GETNET ${2})
+      X2=\$(crediarcommitdate_GETNET ${2} \${X1})
+      echo \"\${X1} - \${X2}\"
+    }"
+    eval "${1}_GETCUR() {
+      X1=\$(pkg_GETCURVERSION ${1})
+      X2=\$(crediarcommitdate_GETNET ${2} \${X1})
+      echo \"\${X1} - \${X2}\"
+    }"
+  else
+    eval "${1}_GETNET() {
+      X1=\$(crediarlasttag_GETNET ${2})
+      X2=\$(crediartagdate_GETNET ${2} \${X1})
+      echo \"\${X1} - \${X2}\"
+    }"
+    eval "${1}_GETCUR() {
+      X1=\$(pkg_GETCURVERSION ${1})
+      X2=\$(crediartagdate_GETNET ${2} \${X1})
+      echo \"\${X1} - \${X2}\"
+    }"
+  fi
+}
+
 source_site_eval() {
   for pkg in ${PACKAGES}
   do
@@ -1102,6 +1152,10 @@ source_site_eval() {
             ;;
             ""|"binaries"|"\$"* )
               create_pkg_functions_No_Site "${pkg}"
+            ;;
+            *"crediar.dev"* )
+              REPOPATH=$(echo "$TESTSTRING" | sed -e 's#.*crediar\.dev/\([^/]*/[^/]*\)[/]*.*#\1#' -e 's#\.git##')
+              create_pkg_functions_Crediar "${pkg}" "${REPOPATH}"
             ;;
             * )
               echo -e "\n*** UNKNOWN SITE\n  $(find ./package/batocera/ -name "${pkg}.mk" -type f) \n  $TESTSTRING \n***\n"

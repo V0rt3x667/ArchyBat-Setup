@@ -3,14 +3,14 @@
 # lindbergh-loader
 #
 ################################################################################
-# Version: Commits on Jan 12, 2025
-LINDBERGH_LOADER_VERSION = a0ad7a8ba0405bf5497faf6d700be69fa50c0757
+# Version: Commits on Feb 28, 2025
+LINDBERGH_LOADER_VERSION = d755b1ca1f3d89536335dcc17bc4cf6878ee5d5b
 LINDBERGH_LOADER_SITE = $(call github,dmanlfc,lindbergh-loader,$(LINDBERGH_LOADER_VERSION))
 LINDBERGH_LOADER_LICENSE = ShareAlike 4.0 International
 LINDBERGH_LOADER_LICENSE_FILES = LICENSE.md
 
 ifeq ($(BR2_x86_64),y)
-LINDBERGH_LOADER_DEPENDENCIES = wine-x86
+LINDBERGH_LOADER_DEPENDENCIES = wine-x86 dmidecode
 endif
 
 ifeq ($(BR2_i386),y)
@@ -20,7 +20,8 @@ LINDBERGH_LOADER_DEPENDENCIES += xlib_libXext xlib_libXi xlib_libXmu xlib_libXSc
 
 # match the makefile cflags
 LINDBERGH_LOADER_CFLAGS = -g -fPIC -m32 -Wall -Werror -Wno-unused-but-set-variable
-LINDBERGH_LOADER_CFLAGS += -Wno-unused-variable -Wno-unused-function -D_GNU_SOURCE -Wno-char-subscripts
+LINDBERGH_LOADER_CFLAGS += -Wno-unused-variable -Wno-unused-function -D_GNU_SOURCE
+LINDBERGH_LOADER_CFLAGS += -Wno-char-subscripts -Wno-misleading-indentation
 LINDBERGH_LOADER_CFLAGS += -I$(STAGING_DIR)/usr/include
 # match the makefile ldflags
 LINDBERGH_LOADER_LDFLAGS += -L$(STAGING_DIR)/usr/lib
@@ -47,16 +48,6 @@ define LINDBERGH_LOADER_INSTALL_TARGET_CMDS
 	cp -fv $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulators/lindbergh-loader/lib*.so* \
 	    $(TARGET_DIR)/usr/bin/lindbergh/extralibs
 endef
-endif
-
-define LINDBERGH_LOADER_EVMAPY
-	mkdir -p $(TARGET_DIR)/usr/share/evmapy
-	cp -f $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulators/lindbergh-loader/lindbergh.keys \
-		$(TARGET_DIR)/usr/share/evmapy
-endef
-
-ifeq ($(BR2_x86_64),y)
-LINDBERGH_LOADER_POST_INSTALL_TARGET_HOOKS = LINDBERGH_LOADER_EVMAPY
 endif
 
 $(eval $(generic-package))

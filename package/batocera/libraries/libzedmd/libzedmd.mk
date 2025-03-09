@@ -3,12 +3,12 @@
 # libzedmd
 #
 ################################################################################
-# Version: Commits on Jul 2, 2024
-LIBZEDMD_VERSION = 927a519efcff79f9876fecb9d5a04c9ba5fc2348
+# Version: Commits on Feb 16, 2025
+LIBZEDMD_VERSION = 893e59cc2f671be17455a68837f4618936006785
 LIBZEDMD_SITE = $(call github,PPUC,libzedmd,$(LIBZEDMD_VERSION))
 LIBZEDMD_LICENSE = GPLv3
 LIBZEDMD_LICENSE_FILES = LICENSE
-LIBZEDMD_DEPENDENCIES = libserialport
+LIBZEDMD_DEPENDENCIES = cargs libserialport sockpp
 LIBZEDMD_SUPPORTS_IN_SOURCE_BUILD = NO
 
 LIBZEDMD_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release
@@ -32,5 +32,13 @@ endif
 
 # Install to staging to build Visual Pinball Standalone
 LIBZEDMD_INSTALL_STAGING = YES
+
+define LIBZEDMD_POST_PROCESS
+	mkdir -p $(TARGET_DIR)/usr/bin
+	$(INSTALL) -m 755 $(@D)/buildroot-build/zedmd-client $(TARGET_DIR)/usr/bin/zedmd-client
+endef
+
+LIBZEDMD_POST_INSTALL_TARGET_HOOKS += LIBZEDMD_POST_PROCESS
+
 
 $(eval $(cmake-package))

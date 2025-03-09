@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-ALLLINUXFIRMWARES_VERSION = 20241110
+ALLLINUXFIRMWARES_VERSION = 20250211
 ALLLINUXFIRMWARES_SOURCE = linux-firmware-$(ALLLINUXFIRMWARES_VERSION).tar.gz
 ALLLINUXFIRMWARES_SITE = https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot
 
@@ -73,9 +73,6 @@ define ALLLINUXFIRMWARES_LINK_QCA_WIFI_BT
         $(TARGET_DIR)/lib/firmware/ath11k/WCN6855/hw2.1
     cp -rf $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/firmwares/alllinuxfirmwares/QCA206X/* \
         $(TARGET_DIR)/lib/firmware/ath11k/QCA2066
-    # bluetooth
-    cp -rf $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/firmwares/alllinuxfirmwares/qca/* \
-        $(TARGET_DIR)/lib/firmware/qca
 endef
 
 # symlink AMD GPU firmware for 890M devices
@@ -87,6 +84,7 @@ endef
 # symlink Bee-Link SER9 for a BIOS / firmware bug
 define ALLLINUXFIRMWARES_FIX_SER9
     mkdir -p $(TARGET_DIR)/usr/share/batocera/firmware
+    mkdir -p $(TARGET_DIR)/etc/init.d
     cp -f $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/firmwares/alllinuxfirmwares/dcn_3_5_dmcub.bin \
         $(TARGET_DIR)/usr/share/batocera/firmware/dcn_3_5_dmcub.bin
     $(INSTALL) -m 0755 -D $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/firmwares/alllinuxfirmwares/S03firmware \

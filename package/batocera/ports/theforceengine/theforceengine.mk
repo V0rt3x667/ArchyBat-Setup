@@ -3,8 +3,8 @@
 # theforceengine
 #
 ################################################################################
-# Version: Commits on Oct 26, 2024
-THEFORCEENGINE_VERSION = 93ce678eaa535c1cc6471ba14b809faa485515d4
+# Version: Commits on Feb 20, 2025
+THEFORCEENGINE_VERSION = 6ea7dfce59e83540ba640e8d58f847630f0402b7
 THEFORCEENGINE_SITE = https://github.com/luciusDXL/TheForceEngine.git
 THEFORCEENGINE_SITE_METHOD=git
 THEFORCEENGINE_GIT_SUBMODULES=YES
@@ -19,13 +19,15 @@ THEFORCEENGINE_EXTRA_DOWNLOADS = \
     https://df-21.net/downloads/patches/$(THEFORCEENGINE_PATCH_VERSION)/,\
     $(THEFORCEENGINE_PATCH_SOURCE))
 
-THEFORCEENGINE_DEPENDENCIES = libglew sdl2
+THEFORCEENGINE_DEPENDENCIES = libglew sdl2 sdl2_image
 
 THEFORCEENGINE_SUPPORTS_IN_SOURCE_BUILD = NO
 
 THEFORCEENGINE_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release
 THEFORCEENGINE_CONF_OPTS += -DBUILD_SHARED_LIBS=FALSE
 THEFORCEENGINE_CONF_OPTS += -DDISABLE_SYSMIDI=ON
+THEFORCEENGINE_CONF_OPTS += -DENABLE_EDITOR=ON
+THEFORCEENGINE_CONF_OPTS += -DENABLE_FORCE_SCRIPT=ON
 
 ifeq ($(BR2_PACKAGE_RTMIDI),y)
     THEFORCEENGINE_DEPENDENCIES += rtmidi
@@ -40,12 +42,12 @@ define THEFORCEENGINE_INSTALL_TARGET_CMDS
         $(TARGET_DIR)/usr/bin/theforceengine
     rsync -arv $(@D)/TheForceEngine/Captions $(THEFORCEENGINE_CONF_INIT)
     rsync -arv $(@D)/TheForceEngine/Documentation $(THEFORCEENGINE_CONF_INIT)
-    rsync -arv $(@D)/TheForceEngine/UI_Text $(THEFORCEENGINE_CONF_INIT)
-    rsync -arv $(@D)/TheForceEngine/UI_Images $(THEFORCEENGINE_CONF_INIT)
-    rsync -arv $(@D)/TheForceEngine/Shaders $(THEFORCEENGINE_CONF_INIT)
-    rsync -arv $(@D)/TheForceEngine/SoundFonts $(THEFORCEENGINE_CONF_INIT)
     rsync -arv $(@D)/TheForceEngine/Fonts $(THEFORCEENGINE_CONF_INIT)
     rsync -arv --exclude 'CMakeLists.txt' $(@D)/TheForceEngine/Mods $(THEFORCEENGINE_CONF_INIT)
+    rsync -arv $(@D)/TheForceEngine/Shaders $(THEFORCEENGINE_CONF_INIT)
+    rsync -arv $(@D)/TheForceEngine/SoundFonts $(THEFORCEENGINE_CONF_INIT)
+    rsync -arv $(@D)/TheForceEngine/UI_Text $(THEFORCEENGINE_CONF_INIT)
+    rsync -arv $(@D)/TheForceEngine/UI_Images $(THEFORCEENGINE_CONF_INIT)
 endef
 
 define THEFORCEENGINE_PATCH_ZIP

@@ -17,14 +17,14 @@ if TYPE_CHECKING:
     from ...types import HotkeysContext
 
 
-eslog = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 class VPinballGenerator(Generator):
 
     def getHotkeysContext(self) -> HotkeysContext:
         return {
             "name": "vpinball",
-            "keys": { "exit": "KEY_Q", "coin": "KEY_5", "menu": "KEY_ESC", "pause": "KEY_ESC" }
+            "keys": { "exit": "KEY_F4", "coin": "KEY_5", "menu": "KEY_ESC", "pause": "KEY_ESC", "reset": "KEY_F3" }
         }
 
     def generate(self, system, rom, playersControllers, metadata, guns, wheels, gameResolution):
@@ -47,8 +47,8 @@ class VPinballGenerator(Generator):
             vpinballSettings = CaseSensitiveConfigParser(interpolation=None, allow_no_value=True)
             vpinballSettings.read(vpinballConfigFile)
         except configparser.DuplicateOptionError as e:
-            eslog.debug(f"Error reading VPinballX.ini: {e}")
-            eslog.debug(f"*** Using default VPinballX.ini file ***")
+            _logger.debug("Error reading VPinballX.ini: %s", e)
+            _logger.debug("*** Using default VPinballX.ini file ***")
             shutil.copy("/usr/bin/vpinball/assets/Default_VPinballX.ini", vpinballConfigFile)
             vpinballSettings = CaseSensitiveConfigParser(interpolation=None, allow_no_value=True)
             vpinballSettings.read(vpinballConfigFile)

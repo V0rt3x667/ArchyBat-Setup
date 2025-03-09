@@ -17,13 +17,14 @@ BATOCERA_CONFIGGEN_DEPENDENCIES = \
 	python3-configobj \
 	ffmpeg-python \
 	python-pillow \
-	python-ruamel-yaml
+	python-ruamel-yaml \
+	python-requests
 BATOCERA_CONFIGGEN_INSTALL_STAGING = YES
 
 CONFIGGEN_DIR = $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-configgen
 
 define BATOCERA_CONFIGGEN_EXTRACT_CMDS
-	cp -avf $(CONFIGGEN_DIR)/configgen/* $(@D)
+	rsync -av --exclude=".*" --exclude="**/__pycache__/" --exclude="dist" $(CONFIGGEN_DIR)/configgen/ $(@D)
 	echo "__version__ = '$(BATOCERA_CONFIGGEN_VERSION)'" > $(@D)/configgen/__version__.py
 endef
 
@@ -107,6 +108,9 @@ define BATOCERA_CONFIGGEN_CONFIGS
 	    $(TARGET_DIR)/usr/share/batocera/configgen/configgen-defaults-arch.yml
 	cp $(CONFIGGEN_DIR)/scripts/call_achievements_hooks.sh \
 	    $(TARGET_DIR)/usr/share/batocera/configgen/
+	# evmapy default hotkeys file
+        mkdir -p $(TARGET_DIR)/usr/share/evmapy
+	cp $(CONFIGGEN_DIR)/hotkeys.keys $(TARGET_DIR)/usr/share/evmapy/hotkeys.keys
 endef
 
 define BATOCERA_CONFIGGEN_ES_HOOKS

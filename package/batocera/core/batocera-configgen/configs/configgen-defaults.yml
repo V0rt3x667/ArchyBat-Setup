@@ -373,9 +373,6 @@ msxturbor:
 mugen:
   emulator: mugen
   core:     wine-tkg
-fpinball:
-  emulator: fpinball
-  core:     fpinball
 multivision:
   emulator: libretro
   core:     gearsystem
@@ -433,11 +430,6 @@ openbor:
 openjazz:
   emulator: openjazz
   core:     openjazz
-openlara:
-  emulator: libretro
-  core:     openlara
-  options:
-    gfxbackend: gl
 
 # P-S
 
@@ -511,6 +503,14 @@ pygame:
 pyxel:
   emulator: pyxel
   core:     pyxel
+quake:
+  emulator: libretro
+  core:     tyrquake
+quake2:
+  emulator: libretro
+  core:     vitaquake2
+  options:
+    gfxbackend: glcore
 quake3:
   emulator: ioquake3
   core:     ioquake3
@@ -633,6 +633,12 @@ ti99:
 tic80:
   emulator: libretro
   core:     tic80
+traider1:
+  emulator: tr1x
+  core:     tr1x
+traider2:
+  emulator: tr2x
+  core:     tr2x
 triforce:
   emulator: dolphin_triforce
   core:     dolphin_triforce
@@ -642,9 +648,6 @@ tutor:
 tyrian:
   emulator: tyrian
   core:     tyrian
-tyrquake:
-  emulator: libretro
-  core:     tyrquake
 uqm:
   emulator: uqm
   core:     uqm
@@ -672,11 +675,6 @@ virtualboy:
 vis:
   emulator: libretro
   core:     mame
-vitaquake2:
-  emulator: libretro
-  core:     vitaquake2
-  options:
-    gfxbackend: glcore
 vsmile:
   emulator: libretro
   core:     mame

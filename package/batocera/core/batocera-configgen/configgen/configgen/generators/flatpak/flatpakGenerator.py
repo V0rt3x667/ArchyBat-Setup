@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import os
-from pathlib import Path
 from typing import TYPE_CHECKING
 
 from ... import Command
@@ -16,7 +15,7 @@ class FlatpakGenerator(Generator):
     def generate(self, system, rom, playersControllers, metadata, guns, wheels, gameResolution):
 
         romId = None
-        with Path(rom).open() as f:
+        with rom.open() as f:
             romId = str.strip(f.read())
 
         # bad hack in a first time to get audio for user batocera
@@ -33,5 +32,5 @@ class FlatpakGenerator(Generator):
     def getHotkeysContext(self) -> HotkeysContext:
         return {
             "name": "flatpak",
-            "keys": { "exit": ["KEY_LEFTALT", "KEY_F4"] }
+            "keys": { "exit": "flatpak kill $(flatpak ps --columns=application | head -n 1)" }
         }

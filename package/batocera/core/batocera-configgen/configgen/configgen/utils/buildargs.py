@@ -1,10 +1,7 @@
 from __future__ import annotations
 
-import logging
 from dataclasses import dataclass
 from pathlib import Path
-
-logger = logging.getLogger(__name__)
 
 """Argument parsing helper functions for launching Build Engine source ports Eduke32 and Raze"""
 
@@ -53,22 +50,22 @@ def parse_args(launch_args: list[str | Path], rom_path: Path) -> Result:
     ]}
     with rom_path.open("r") as file:
         lines = file.readlines()
-    errors = []
+    errors: list[ParseError] = []
     for i, line in enumerate(lines):
         line = line.strip()
-        if line.startswith("#") or line.startswith("//"):
+        if line.startswith(("#", "//")):
             continue
         split = line.split("=")
         key = None
         val = None
         if len(split) > 2:
-            errors += [ParseError(i, f"found another '=', but there should only be one")]
+            errors += [ParseError(i, "found another '=', but there should only be one")]
             continue
         if len(split) == 2:
             key = split[0].strip().upper()
             val = split[1].strip()
         if not key or not val:
-            errors += [ParseError(i, f"KEY and/or VAL is empty; are you missing a '='?")]
+            errors += [ParseError(i, "KEY and/or VAL is empty; are you missing a '='?")]
             continue
         if key not in build_args:
             errors += [ParseError(i, f"KEY '{key}' is not valid")]

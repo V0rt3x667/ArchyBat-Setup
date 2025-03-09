@@ -4,13 +4,14 @@
 #
 ################################################################################
 
-XEMU_VERSION = v0.8.10
+XEMU_VERSION = v0.8.23
 XEMU_SITE = https://github.com/xemu-project/xemu.git
 XEMU_SITE_METHOD = git
 XEMU_GIT_SUBMODULES = YES
 XEMU_LICENSE = GPLv2
 XEMU_DEPENDENCIES = python3 bzip2 pixman zlib slirp sdl2 libgbm libopenssl
 XEMU_DEPENDENCIES += libpcap libsamplerate gmp libgtk3 xlib_libX11 keyutils
+XEMU_DEPENDENCIES += host-libcurl
 
 XEMU_EXTRA_DOWNLOADS = https://github.com/mborgerson/xemu-hdd-image/releases/download/1.0/xbox_hdd.qcow2.zip
 
@@ -71,7 +72,10 @@ XEMU_CONF_OPTS += --disable-hvf
 XEMU_CONF_OPTS += --disable-whpx
 XEMU_CONF_OPTS += --with-default-devices
 XEMU_CONF_OPTS += --disable-renderdoc
+
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_X86),y)
 XEMU_CONF_OPTS += --enable-avx2
+endif
 
 define XEMU_CONFIGURE_CMDS
 	cd $(@D) && $(TARGET_CONFIGURE_OPTS) ./configure $(XEMU_CONF_OPTS)
@@ -139,17 +143,17 @@ define XEMU_GET_SUBMODULES
 	rm tomlplusplus.tar.gz
 	
     # xxhash
-	mkdir -p $(@D)/subprojects/xxHash-0.8.2
+	mkdir -p $(@D)/subprojects/xxHash-0.8.3
 	$(HOST_DIR)/bin/curl -L -o xxhash.tar.gz \
-	    http://github.com/mesonbuild/wrapdb/releases/download/xxhash_0.8.2-1/xxHash-0.8.2.tar.gz
-	$(TAR) -xzf xxhash.tar.gz --strip-components=1 -C $(@D)/subprojects/xxHash-0.8.2
+	    http://github.com/mesonbuild/wrapdb/releases/download/xxhash_0.8.3-1/xxHash-0.8.3.tar.gz
+	$(TAR) -xzf xxhash.tar.gz --strip-components=1 -C $(@D)/subprojects/xxHash-0.8.3
 	rm xxhash.tar.gz
 	
     # xxhash patch
-	$(HOST_DIR)/bin/curl -L -o xxhash_0.8.2-1_patch.zip \
-	    https://wrapdb.mesonbuild.com/v2/xxhash_0.8.2-1/get_patch
-	$(UNZIP) -o xxhash_0.8.2-1_patch.zip -d $(@D)/subprojects
-	rm xxhash_0.8.2-1_patch.zip
+	$(HOST_DIR)/bin/curl -L -o xxhash_0.8.3-1_patch.zip \
+	    https://wrapdb.mesonbuild.com/v2/xxhash_0.8.3-1/get_patch
+	$(UNZIP) -o xxhash_0.8.3-1_patch.zip -d $(@D)/subprojects
+	rm xxhash_0.8.3-1_patch.zip
 	
     # cpp-httplib
 	mkdir -p $(@D)/subprojects/cpp-httplib
@@ -194,20 +198,7 @@ define XEMU_GET_SUBMODULES
 	rm berkeley-testfloat-3.tar.gz
 endef
 
-define XEMU_EVMAPY
-	mkdir -p $(TARGET_DIR)/usr/share/evmapy
-	cp $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulators/xemu/*.keys \
-	    $(TARGET_DIR)/usr/share/evmapy
-endef
-
-define XEMU_EVMAPY
-	mkdir -p $(TARGET_DIR)/usr/share/evmapy
-	cp $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulators/xemu/*.keys \
-	    $(TARGET_DIR)/usr/share/evmapy
-endef
-
 XEMU_PRE_CONFIGURE_HOOKS = XEMU_VERSION_DETAILS
 XEMU_PRE_CONFIGURE_HOOKS += XEMU_GET_SUBMODULES
-XEMU_POST_INSTALL_TARGET_HOOKS += XEMU_EVMAPY
 
 $(eval $(autotools-package))

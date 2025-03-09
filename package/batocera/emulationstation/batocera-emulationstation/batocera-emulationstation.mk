@@ -3,8 +3,8 @@
 # batocera-emulationstation
 #
 ################################################################################
-# Last update: Commits on Jan 14, 2025
-BATOCERA_EMULATIONSTATION_VERSION = 770b59a4580f3cb1b8437f79d90e9a8007990cd8
+# Last update: Commits on Mar 7, 2025
+BATOCERA_EMULATIONSTATION_VERSION = 7796081c50dbac7e2120cb46b7379a3cb0f93d3f
 BATOCERA_EMULATIONSTATION_SITE = https://github.com/batocera-linux/batocera-emulationstation
 BATOCERA_EMULATIONSTATION_SITE_METHOD = git
 BATOCERA_EMULATIONSTATION_LICENSE = MIT
@@ -18,6 +18,10 @@ BATOCERA_EMULATIONSTATION_INSTALL_STAGING = YES
 
 BATOCERA_EMULATIONSTATION_CONF_OPTS += \
     -DCMAKE_CXX_FLAGS=-D$(call UPPERCASE,$(BATOCERA_SYSTEM_ARCH))
+
+ifeq ($(BR2_PACKAGE_XAPP_XINIT),y)
+BATOCERA_EMULATIONSTATION_DEPENDENCIES += xapp_xinit
+endif
 
 ifeq ($(BR2_PACKAGE_HAS_LIBMALI),y)
 BATOCERA_EMULATIONSTATION_DEPENDENCIES += libmali
@@ -186,7 +190,7 @@ endif
 
 define BATOCERA_EMULATIONSTATION_XORG
 	$(INSTALL) -D -m 0755 $(BATOCERA_EMULATIONSTATION_SOURCE_PATH)/xorg/xinitrc \
-	    $(TARGET_DIR)/etc/X11/xinit/xinitrc
+	    $(BINARIES_DIR)/batocera-target/etc/X11/xinit/xinitrc
 endef
 
 define BATOCERA_EMULATIONSTATION_WAYLAND_SWAY

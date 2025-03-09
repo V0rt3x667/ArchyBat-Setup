@@ -1,49 +1,128 @@
 # 2025/xx/xx - batocera.linux 42 - xxx
 ### Special Notes
+- Quake 1 & 2 roms need moving from tyrquake to quake & vitaquake2 to quake2 folders respectively.
+  See the _info.txt file for directory layouts & ES file launcher naming conventions.
+  vkQuake3 replaces ioQuake3 for systems that support Vulkan. Saved games should continue to work.
+  The libretro cores will continue to run as before.
+- Removed the buggy Libretro-Openlara in favor of the standalone TRX1 Tomb Raider port.
+  If you have saved games, it is recommended to stick with v41 or earlier as the same data is not compatible.
+- Zedmd upgraded. You need firmware zedmd 5.1.5. See https://wiki.batocera.org/hardware:diy_zedmd?s[]=dmd#zedmd_configuration.
+- Removed Future Pinball in favor of Visual Pinball which has been available for some time and runs native on Linux.
 ### Hardware
 - Add OrangePi 4a board support
 - Add OrangePi 3b board support
+- Add Anbernic RG351V support
+- Initial support for RS3 Reaper light gun
+- Initial support for XGunner light gun
+- Initial support for OpenFIRE light gun
+- Initial support for Fusion P.I.G.S. light gun
 ### Added
 - Wireguard VPN for RK3326 boards
 - Image scaling option for Drastic
 - A selection of Dhewm3 mods
 - CatacombGL port for running various Catacomb games
 - Holani libretro core
+- Squashfs support for SGB-MSU1
+- DuckStation cheat list
+- Game Specific color palette for gambette core
+- Non-Micro GUN4IR light gun hardware support
+- Steering wheel support added for :
+  - Logitech: G923 (Xbox), PRO Racing Wheel
+  - Speedlink: 4in1 Leather Power Feedback Wheel
+- Sega Lindbergh loader
+- Variable Refresh Rate (VRR) support for modern AMD gpus
+- Support of Shanwan Twin USB Joystick (new revision)
+- Libretro-PS2 core
+- Force Feedback on RP5 & RPmini
+- vkQuake 1, 2 & 3 for systems that support Vulkan.
+- TR1X & TR2X for Tomb Raider I & II support
+- gun : option to hide the crossair in es
 ### Fixed
 - Fix some problems in ES and Batocera with IPv6 networks
 - Fix ES behavior with usb network tethering
 - Fix handling of luks.enabled setting to allow disabling LUKS integration
 - X86_64, choose a better refresh rate or resolution if the TV / Monitors default is too low.
+- Fix potential issue of having race condition with sequential numbering
+- Fix MAME config for apple2p, apple2e, apple2ee
+- Fix GSPlus rom config and speed
+- DualShock 4 controller on Odroid XU4
 ### Changed / Improved
 - Significantly improve ES shutdown time, especially with large and medium collections
 - BigPEmu now supports .bigpimg CD images
+- ROG Ally gamepad support
+- Batocera-wine: add saves directory and save files options
+- Libretro-virtualjaguar core can now load .zip ROMs
+- Updated BlamCon code to new firmware (now compatible with 4 light guns)
 ### Updated
-- BigPEmu to v117
-- Cemu to 2.5
-- Dolphin-Emu to 2412-145
-- ETLegacy to v2.83.1
-- Jazz2 to 3.1.0
-- GroovyMAME to 0.272
-- Gzdoom to g4.14.0
+- BigPEmu to v118
+- Cemu to 2.6
+- Dolphin-Emu to 2412-268
+- ETLegacy to v2.83.2
+- Jazz2 to 3.2.0
+- GroovyMAME to 0.274
+- Gzdoom to g4.14.1
 - Libretro-Kronos to 2.7.0
-- Libretro-MAME to 0.272
-- Libretro-Play! to Jan 12 2025 build
+- Libretro-MAME to 0.274
+- Libretro-Play! 4th Feb build
+- RetroArch to v1.20.0
 - Ruffle to Nightly-2024-12-28
-- RPCS3 to 0.0.34-17265
+- RPCS3 to v0.0.35
 - ScummVM to v2.9.0
-- PCSX2 to v2.3.110
-- Play! to Jan 12 2025 build
-- Xemu to v0.8.10
+- PCSX2 to v2.3.185
+- Play! to 4th Feb build
+- Xemu to v0.8.23
 - Triforce to use a Crediar build (Nov 29, 2024)
+- Vice to 3.9
+- TheXTech to v1.3.7-hotfix2
+- DXX-Rebirth to 12th of Jan build
+- EDuke to 26th of Dec build
+- Hurrican to 24th of Nov build
+- Sonic3 Air to v25.02.15.0-test
+- Taradino to 18th of Feb build
+- TheForceEngine to 20th Feb build
+- Xash3d-fwgs to 20th of Feb build
+- AppleWin to 8th of Feb build
+- MelonDS to 17th Jan build
+- Snes9x to 24th Jan build
+- Solarus Engine to 18th Jan build
+- IOQuake3 to 25th December build
+- Amiberry to v7.0.4
+- Libretro-Wasm4 to v2.7.1
+- Dosbox Staging to v0.82.0
+- Dosbox-X to v2025.02.01
+- DevilutionX to 1.5.4
+- OpenMSX to release 20.0
+- Ruffle to nightly-2025-02-12
+- Raze to 1.11.0
+- PPSSPP to 28th February build
+- Libretro-PPSSPP to 28th February build
 ### System
+- Bluez to 5.79
 - Buildroot to 2024.11.x with supporting package updates
-- Mesa3D to 24.3.3
-- Linux Kernel to 6.12.6
-- GStreamer codecs to 1.24.10
-- SDL2 to 2.30.9
+- Mesa3D to 25.0.0
+- Linux Kernel to 6.13.3
+- GStreamer codecs to 1.24.12
+- SDL2 to 2.30.11
 - Vulkan stack to v1.4.304
+- MPV to 0.39.0
+- Kodi to 21.2
+- Nvidia production driver to 570.124.04
+- LLVM to 19.1.7
+- Wine-TKG to 10.1
+- Faudio to 25.02
+- DXVK to 2.5.3
+- DXVK-NVAPI to 0.8.0
+- VKD3D-Proton to 2.14.1
+- Linux Firmware to 20250109
+- Sound Open Firmware to 2025.01
+- Intel Media Driver to 25.1.1
+- LibDRM to 2.4.124
+- Pipewire to 1.2.7
+- Wireplumber to 0.5.8
+- Ryzenadj to v0.16.0
+- QT6 to 6.8.1
 
-# 2024/12/xx - batocera.linux 41 - Golden-rayed Blue
+# 2025/01/06 - batocera.linux 41 - Golden-rayed Blue
 ### Special Notes
 - The Xenia Canary introduces GamerTags (user profiles).
   On first run or game launch you may be prompted to create a profile.

@@ -3,12 +3,13 @@
 # libretro-ppsspp
 #
 ################################################################################
-
-LIBRETRO_PPSSPP_VERSION = v1.18.1
+# Version: Commits on Feb 28, 2025
+LIBRETRO_PPSSPP_VERSION = 6770122c5c0ad0c0902ca2304ebb653da5870fe3
 LIBRETRO_PPSSPP_SITE = https://github.com/hrydgard/ppsspp.git
 LIBRETRO_PPSSPP_SITE_METHOD=git
 LIBRETRO_PPSSPP_GIT_SUBMODULES=YES
 LIBRETRO_PPSSPP_LICENSE = GPLv2
+LIBRETRO_PPSSPP_DEPENDENCIES += retroarch
 
 LIBRETRO_PPSSPP_CMAKE_BACKEND = ninja
 

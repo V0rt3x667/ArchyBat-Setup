@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import re
-from evdev import InputDevice
 import xml.etree.ElementTree as ET
 from pathlib import Path
-from typing import TYPE_CHECKING, Final
+from typing import TYPE_CHECKING, Final, cast
+
+import evdev
 
 from ... import Command
-from ...batoceraPaths import CACHE, CONFIGS, SAVES, mkdir_if_not_exists
+from ...batoceraPaths import CACHE, CONFIGS, SAVES, configure_emulator, mkdir_if_not_exists
 from ..Generator import Generator
 
 if TYPE_CHECKING:
@@ -65,20 +66,20 @@ class PlayGenerator(Generator):
             for attr_name, attr_value in pref_attrs.items():
                 pref_element.attrib[attr_name] = attr_value
                 # Check system options for overriding values
-                if pref_name == 'ps2.limitframerate' and system.isOptSet('play_vsync'):
-                    pref_element.attrib['Value'] = system.config['play_vsync']
-                if pref_name == 'renderer.widescreen' and system.isOptSet('play_widescreen'):
-                    pref_element.attrib['Value'] = system.config['play_widescreen']
-                if pref_name == 'system.language' and system.isOptSet('play_language'):
-                    pref_element.attrib['Value'] = system.config['play_language']
-                if pref_name == 'video.gshandler' and system.isOptSet('play_api'):
-                    pref_element.attrib['Value'] = system.config['play_api']
-                if pref_name == 'renderer.opengl.resfactor' and system.isOptSet('play_scale'):
-                    pref_element.attrib['Value'] = system.config['play_scale']
-                if pref_name == 'renderer.presentationmode' and system.isOptSet('play_mode'):
-                    pref_element.attrib['Value'] = system.config['play_mode']
-                if pref_name == 'renderer.opengl.forcebilineartextures' and system.isOptSet('play_filter'):
-                    pref_element.attrib['Value'] = system.config['play_filter']
+                if pref_name == 'ps2.limitframerate' and (vsync := system.config.get('play_vsync')):
+                    pref_element.attrib['Value'] = vsync
+                if pref_name == 'renderer.widescreen' and (widescreen := system.config.get('play_widescreen')):
+                    pref_element.attrib['Value'] = widescreen
+                if pref_name == 'system.language' and (language := system.config.get('play_language')):
+                    pref_element.attrib['Value'] = language
+                if pref_name == 'video.gshandler' and (api := system.config.get('play_api')):
+                    pref_element.attrib['Value'] = api
+                if pref_name == 'renderer.opengl.resfactor' and (scale := system.config.get('play_scale')):
+                    pref_element.attrib['Value'] = scale
+                if pref_name == 'renderer.presentationmode' and (mode := system.config.get('play_mode')):
+                    pref_element.attrib['Value'] = mode
+                if pref_name == 'renderer.opengl.forcebilineartextures' and (filter := system.config.get('play_filter')):
+                    pref_element.attrib['Value'] = filter
 
         # Write the updated configuration back to the file
         tree = ET.ElementTree(root)
@@ -111,12 +112,12 @@ class PlayGenerator(Generator):
         }
 
         # Functions to convert the GUID
-        def get_device_id(dev: InputDevice) -> str:
+        def get_device_id(dev: evdev.InputDevice) -> str:
             uniq = dev.uniq  # Unique string (e.g., MAC) for the device
-            
+
             if uniq and re.match(r"^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$", uniq):
                 return uniq.lower()  # Return the MAC address as-is, in lowercase
-            
+
             # Fallback: use vendor, product, and version if uniq is not a valid MAC
             device = [0] * 6
             vendor = dev.info.vendor
@@ -128,10 +129,10 @@ class PlayGenerator(Generator):
             device[3] = (product >> 8) & 0xFF
             device[4] = version & 0xFF
             device[5] = (version >> 8) & 0xFF
-            
+
             return ':'.join(f"{byte:x}" for byte in device)
 
-        def create_input_preferences(input_config, pad_guid, key_id, key_type, provider_id, nplayer, joystick_name, binding_type, hat_value):
+        def create_input_preferences(input_config: ET.Element, pad_guid: str, key_id: str | int, key_type: int, provider_id: int, nplayer: int, joystick_name: str, binding_type: int | str, hat_value: int):
             """Helper function to create XML preferences for joystick inputs."""
             ET.SubElement(input_config,
                           "Preference",
@@ -172,53 +173,47 @@ class PlayGenerator(Generator):
         input_config = ET.Element("Config")
 
         # Iterate over connected controllers with a limit of 2 players
-        nplayer = 1
-        for playercontroller, pad in sorted(playersControllers.items()):
-            controller = playersControllers[playercontroller]
-            dev = InputDevice(pad.device_path)
+        for nplayer, controller in enumerate(playersControllers[:2], start=1):
+            dev = evdev.InputDevice(controller.device_path)
             pad_guid = get_device_id(dev)
             provider_id = 1702257782
-            
-            if nplayer <= 2:
-                # Write this per pad
-                ET.SubElement(
-                    input_config,
-                    "Preference",
-                    Name=f"input.pad{nplayer}.analog.sensitivity",
-                    Type="float",
-                    Value=str(1.000000)
-                )
-                
-                # Handle joystick inputs
-                for index in controller.inputs:
-                    input = controller.inputs[index]
-                    if input.name not in playMapping:
-                        continue
-                    
-                    if input.type == 'axis':
-                        key_type = 1
-                        binding_type = 1
-                        key_id = input.id
-                        hat_value = -1
+
+            # Write this per pad
+            ET.SubElement(
+                input_config,
+                "Preference",
+                Name=f"input.pad{nplayer}.analog.sensitivity",
+                Type="float",
+                Value=str(1.000000)
+            )
+
+            # Handle joystick inputs
+            for input in controller.inputs.values():
+                if input.name not in playMapping:
+                    continue
+
+                if input.type == 'axis':
+                    key_type = 1
+                    binding_type = 1
+                    key_id = input.id
+                    hat_value = -1
+                    create_input_preferences(input_config, pad_guid, key_id, key_type, provider_id, nplayer, input.name, binding_type, hat_value)
+
+                elif input.type == 'hat':
+                    key_type = 2
+                    binding_type = 3
+                    key_id = 17 if input.name in ['up', 'down'] else 16
+                    hat_value = 4 if input.name in ['up', 'left'] else 0
+                    if input.name in ['up', 'down', 'left', 'right']:
                         create_input_preferences(input_config, pad_guid, key_id, key_type, provider_id, nplayer, input.name, binding_type, hat_value)
 
-                    elif input.type == 'hat':
-                        key_type = 2
-                        binding_type = 3
-                        key_id = 17 if input.name in ['up', 'down'] else 16
-                        hat_value = 4 if input.name in ['up', 'left'] else 0
-                        if input.name in ['up', 'down', 'left', 'right']:
-                            create_input_preferences(input_config, pad_guid, key_id, key_type, provider_id, nplayer, input.name, binding_type, hat_value)
+                elif input.type == 'button':
+                    key_type = 0
+                    binding_type = input.value
+                    key_id = input.code
+                    hat_value = -1
+                    create_input_preferences(input_config, pad_guid, cast(str, key_id), key_type, provider_id, nplayer, input.name, binding_type, hat_value)
 
-                    elif input.type == 'button':
-                        key_type = 0
-                        binding_type = input.value
-                        key_id = input.code
-                        hat_value = -1
-                        create_input_preferences(input_config, pad_guid, key_id, key_type, provider_id, nplayer, input.name, binding_type, hat_value)
-
-                nplayer += 1
-        
         # Save the controller settings to the specified input file
         input_tree = ET.ElementTree(input_config)
         ET.indent(input_tree, space="    ", level=0)
@@ -226,11 +221,11 @@ class PlayGenerator(Generator):
         input_tree.write(playInputFile)
 
         ## Prepare the command to run the emulator
-        commandArray = ["/usr/bin/Play", "--fullscreen"]
+        commandArray: list[str | Path] = ["/usr/bin/Play", "--fullscreen"]
 
-        if rom != "config":
+        if not configure_emulator(rom):
             # if zip, it's a namco arcade game
-            if rom.lower().endswith("zip"):
+            if rom.suffix.lower() == ".zip":
                 # strip path & extension
                 commandArray.extend(["--arcade", Path(rom).stem])
             else:
@@ -247,9 +242,6 @@ class PlayGenerator(Generator):
         )
 
     def getInGameRatio(self, config, gameResolution, rom):
-        if 'play_widescreen' in config and config['play_widescreen'] == "true":
+        if config.get('play_widescreen') == "true" or config.get('play_mode') == "0":
             return 16/9
-        elif 'play_mode' in config and config['play_mode'] == "0":
-            return 16/9
-        else:
-            return 4/3
+        return 4/3

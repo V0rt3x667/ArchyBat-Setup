@@ -12,7 +12,7 @@ from ..Generator import Generator
 if TYPE_CHECKING:
     from ...types import HotkeysContext
 
-eslog = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 class HurricanGenerator(Generator):
 
@@ -20,8 +20,8 @@ class HurricanGenerator(Generator):
         try:
             os.chdir(ROMS / "hurrican" / "data" / "levels/")
             os.chdir(ROMS / "hurrican")
-        except:
-            eslog.error("ERROR: Game assets not installed. You can get them from the Batocera Content Downloader.")
+        except Exception:
+            _logger.error("ERROR: Game assets not installed. You can get them from the Batocera Content Downloader.")
         commandArray = ["hurrican"]
 
         return Command.Command(

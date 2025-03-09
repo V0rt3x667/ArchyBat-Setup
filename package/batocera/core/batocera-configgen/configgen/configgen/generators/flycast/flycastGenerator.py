@@ -23,9 +23,9 @@ class FlycastGenerator(Generator):
             "keys": {
                 "exit": "KEY_F7",
                 "menu": "KEY_TAB",
-                "fast_foward": "KEY_SPACE",
-                "load_state": "KEY_F8",
-                "save_state": "KEY_F9"
+                "save_state": "KEY_F8",
+                "restore_state": "KEY_F9",
+                "fastforward": "KEY_SPACE"
             }
         }
 
@@ -37,14 +37,13 @@ class FlycastGenerator(Generator):
         if FLYCAST_CONFIG.exists():
             try:
                 Config.read(FLYCAST_CONFIG)
-            except:
+            except Exception:
                 pass # give up the file
 
         if not Config.has_section("input"):
             Config.add_section("input")
         # For each pad detected
-        for index in playersControllers:
-            controller = playersControllers[index]
+        for controller in playersControllers:
             # Write the mapping files for Dreamcast
             if (system.name == "dreamcast"):
                 flycastControllers.generateControllerConfig(controller, "dreamcast")
@@ -53,17 +52,14 @@ class FlycastGenerator(Generator):
                 flycastControllers.generateControllerConfig(controller, "arcade")
 
             # Set the controller type per Port
-            Config.set("input", 'device' + str(controller.player_number), "0") # Sega Controller
-            Config.set("input", 'device' + str(controller.player_number) + '.1', "1") # Sega VMU
+            Config.set("input", f'device{controller.player_number}', "0") # Sega Controller
+            Config.set("input", f'device{controller.player_number}.1', "1") # Sega VMU
             # Set controller pack, gui option
-            ctrlpackconfig = "flycast_ctrl{}_pack".format(controller.player_number)
-            if system.isOptSet(ctrlpackconfig):
-                Config.set("input", 'device' + str(controller.player_number) + '.2', str(system.config[ctrlpackconfig]))
-            else:
-                Config.set("input", 'device' + str(controller.player_number) + '.2', "1") # Sega VMU
+            ctrlpackconfig = f"flycast_ctrl{controller.player_number}_pack"
+            Config.set("input", f'device{controller.player_number}.2', system.config.get_str(ctrlpackconfig, '1'))  # Sega VMU
             # Ensure controller(s) are on seperate Ports
             port = controller.player_number-1
-            Config.set("input", 'maple_sdl_joystick_' + str(port), str(port))
+            Config.set("input", f'maple_sdl_joystick_{port}', str(port))
 
         # add the keyboard mappings for hotkeys
         flycastControllers.generateKeyboardConfig()
@@ -78,30 +74,24 @@ class FlycastGenerator(Generator):
         Config.set("window", "width", str(gameResolution["width"]))
         Config.set("window", "height", str(gameResolution["height"]))
         # set render resolution - default 480 (Native)
-        if system.isOptSet("flycast_render_resolution"):
-            Config.set("config", "rend.Resolution", str(system.config["flycast_render_resolution"]))
-        else:
-            Config.set("config", "rend.Resolution", "480")
+        Config.set("config", "rend.Resolution", system.config.get_str("flycast_render_resolution", "480"))
         # wide screen mode - default off
-        if system.isOptSet("flycast_ratio"):
-            Config.set("config", "rend.WideScreen", str(system.config["flycast_ratio"]))
-        else:
-            Config.set("config", "rend.WideScreen", "no")
+        Config.set("config", "rend.WideScreen", system.config.get_str("flycast_ratio", "no"))
         # rotate option - default off
-        if system.isOptSet("flycast_rotate"):
-            Config.set("config", "rend.Rotate90", str(system.config["flycast_rotate"]))
-        else:
-            Config.set("config", "rend.Rotate90", "no")
+        Config.set("config", "rend.Rotate90", system.config.get_str("flycast_rotate", "no"))
         # renderer - default: OpenGL
-        if system.isOptSet("flycast_renderer") and system.config["flycast_renderer"] == "0":
-            if system.isOptSet("flycast_sorting") and system.config["flycast_sorting"] == "3":
+        renderer = system.config.get('flycast_renderer')
+        sorting = system.config.get('flycast_sorting')
+
+        if renderer == "0":
+            if sorting == "3":
                 # per pixel
                 Config.set("config", "pvr.rend", "3")
             else:
                 # per triangle
                 Config.set("config", "pvr.rend", "0")
-        elif system.isOptSet("flycast_renderer") and system.config["flycast_renderer"] == "4":
-            if system.isOptSet("flycast_sorting") and system.config["flycast_sorting"] == "3":
+        elif renderer == "4":
+            if sorting == "3":
                 # per pixel
                 Config.set("config", "pvr.rend", "5")
             else:
@@ -109,102 +99,58 @@ class FlycastGenerator(Generator):
                 Config.set("config", "pvr.rend", "4")
         else:
             Config.set("config", "pvr.rend", "0")
-            if system.isOptSet("flycast_sorting") and system.config["flycast_sorting"] == "3":
+            if sorting == "3":
                 # per pixel
                 Config.set("config", "pvr.rend", "3")
+
         # anisotropic filtering
-        if system.isOptSet("flycast_anisotropic"):
-            Config.set("config", "rend.AnisotropicFiltering", str(system.config["flycast_anisotropic"]))
-        else:
-            Config.set("config", "rend.AnisotropicFiltering", "1")
+        Config.set("config", "rend.AnisotropicFiltering", system.config.get_str("flycast_anisotropic", "1"))
         # transparent sorting
         # per strip
-        if system.isOptSet("flycast_sorting") and system.config["flycast_sorting"] == "2":
-            Config.set("config", "rend.PerStripSorting", "yes")
-        else:
-            Config.set("config", "rend.PerStripSorting", "no")
+        Config.set("config", "rend.PerStripSorting", "yes" if system.config.get("flycast_sorting") == "2" else "no")
 
         # [Dreamcast specifics]
         # language
-        if system.isOptSet("flycast_language"):
-            Config.set("config", "Dreamcast.Language", str(system.config["flycast_language"]))
-        else:
-            Config.set("config", "Dreamcast.Language", "1")
+        Config.set("config", "Dreamcast.Language", system.config.get_str("flycast_language", "1"))
         # region
-        if system.isOptSet("flycast_region"):
-            Config.set("config", "Dreamcast.Region", str(system.config["flycast_region"]))
-        else:
-            Config.set("config", "Dreamcast.Region", "1")
+        Config.set("config", "Dreamcast.Region", system.config.get_str("flycast_region", "1"))
         # save / load states
-        if system.isOptSet("flycast_loadstate"):
-            Config.set("config", "Dreamcast.AutoLoadState", str(system.config["flycast_loadstate"]))
-        else:
-            Config.set("config", "Dreamcast.AutoLoadState", "no")
-        if system.isOptSet("flycast_savestate"):
-            Config.set("config", "Dreamcast.AutoSaveState", str(system.config["flycast_savestate"]))
-        else:
-            Config.set("config", "Dreamcast.AutoSaveState", "no")
+        Config.set("config", "Dreamcast.AutoLoadState", system.config.get_str("flycast_loadstate", "no"))
+        Config.set("config", "Dreamcast.AutoSaveState", system.config.get_str("flycast_savestate", "no"))
         # windows CE
-        if system.isOptSet("flycast_winCE"):
-            Config.set("config", "Dreamcast.ForceWindowsCE", str(system.config["flycast_winCE"]))
-        else:
-            Config.set("config", "Dreamcast.ForceWindowsCE", "no")
+        Config.set("config", "Dreamcast.ForceWindowsCE", system.config.get_str("flycast_winCE", "no"))
         # DSP
-        if system.isOptSet("flycast_DSP"):
-             Config.set("config", "aica.DSPEnabled", str(system.config["flycast_DSP"]))
-        else:
-            Config.set("config", "aica.DSPEnabled", "no")
+        Config.set("config", "aica.DSPEnabled", system.config.get_str("flycast_DSP", "no"))
         # Guns (WIP)
         # Guns crosshairs
-        if system.isOptSet("flycast_lightgun1_crosshair"):
-            Config.set("config", "rend.CrossHairColor1", str(system.config["flycast_lightgun1_crosshair"]))
-        else:
-            Config.set("config", "rend.CrossHairColor1", "0")
-        if system.isOptSet("flycast_lightgun2_crosshair"):
-            Config.set("config", "rend.CrossHairColor2", str(system.config["flycast_lightgun2_crosshair"]))
-        else:
-            Config.set("config", "rend.CrossHairColor2", "0")
-        if system.isOptSet("flycast_lightgun3_crosshair"):
-            Config.set("config", "rend.CrossHairColor3", str(system.config["flycast_lightgun3_crosshair"]))
-        else:
-            Config.set("config", "rend.CrossHairColor3", "0")
-        if system.isOptSet("flycast_lightgun4_crosshair"):
-            Config.set("config", "rend.CrossHairColor4", str(system.config["flycast_lightgun4_crosshair"]))
-        else:
-            Config.set("config", "rend.CrossHairColor4", "0")
+        Config.set("config", "rend.CrossHairColor1", system.config.get_str("flycast_lightgun1_crosshair", "0"))
+        Config.set("config", "rend.CrossHairColor2", system.config.get_str("flycast_lightgun2_crosshair", "0"))
+        Config.set("config", "rend.CrossHairColor3", system.config.get_str("flycast_lightgun3_crosshair", "0"))
+        Config.set("config", "rend.CrossHairColor4", system.config.get_str("flycast_lightgun4_crosshair", "0"))
 
         # Retroachievements
         if not Config.has_section("achievements"):
             Config.add_section("achievements")
 
-        if system.isOptSet('retroachievements') and system.getOptBoolean('retroachievements') == True:
-            headers   = {"Content-type": "text/plain", "User-Agent": "Batocera.linux"}
-            login_url = "https://retroachievements.org/"
+        if system.config.get_bool('retroachievements'):
             username  = system.config.get('retroachievements.username', "")
-            password  = system.config.get('retroachievements.password', "")
-            hardcore  = system.config.get('retroachievements.hardcore', "")
+            hardcore  = system.config.get_bool('retroachievements.hardcore', return_values=("yes", "no"))
             token     = system.config.get('retroachievements.token', "")
+
             # apply config
             Config.set("achievements", "Enabled", "yes")
-            if hardcore == '1':
-                Config.set("achievements", "HardcoreMode", "yes")
-            else:
-                Config.set("achievements", "HardcoreMode", "no")
+            Config.set("achievements", "HardcoreMode", hardcore)
             Config.set("achievements", "Token", token)
             Config.set("achievements", "UserName" , username)
         else:
             Config.set("achievements", "Enabled", "no")
 
         # custom : allow the user to configure directly emu.cfg via batocera.conf via lines like : dreamcast.flycast.section.option=value
-        for user_config in system.config:
-            if user_config[:8] == "flycast.":
-                section_option = user_config[8:]
-                section_option_splitter = section_option.find(".")
-                custom_section = section_option[:section_option_splitter]
-                custom_option = section_option[section_option_splitter+1:]
-                if not Config.has_section(custom_section):
-                    Config.add_section(custom_section)
-                Config.set(custom_section, custom_option, system.config[user_config])
+        for section_option, user_config_value in system.config.items(starts_with='flycast.'):
+            custom_section, _, custom_option = section_option.partition('.')
+            if not Config.has_section(custom_section):
+                Config.add_section(custom_section)
+            Config.set(custom_section, custom_option, user_config_value)
 
         ### update the configuration file
         with ensure_parents_and_open(FLYCAST_CONFIG, 'w+') as cfgfile:
@@ -222,8 +168,7 @@ class FlycastGenerator(Generator):
             copyfile(FLYCAST_VMU_BLANK, FLYCAST_VMUA2)
 
         # the command to run
-        commandArray = ['/usr/bin/flycast']
-        commandArray.append(rom)
+        commandArray = ['/usr/bin/flycast', rom]
         # Here is the trick to make flycast find files :
         # emu.cfg is in $XDG_CONFIG_DIRS or $XDG_CONFIG_HOME.
         # VMU will be in $XDG_DATA_HOME / $FLYCAST_DATADIR because it needs rw access -> /userdata/saves/dreamcast

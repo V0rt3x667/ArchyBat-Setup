@@ -1,19 +1,18 @@
 from __future__ import annotations
 
-import logging
 import os
-from pathlib import Path
 from typing import TYPE_CHECKING, Final
 
 from ... import Command
 from ...batoceraPaths import BIOS, HOME, ROMS, SCREENSHOTS, ensure_parents_and_open
 from ...controller import generate_sdl_game_controller_config
+from ...exceptions import BatoceraException
 from ..Generator import Generator
 
 if TYPE_CHECKING:
-    from ...types import HotkeysContext
+    from pathlib import Path
 
-eslog = logging.getLogger(__name__)
+    from ...types import HotkeysContext
 
 PICO8_BIN_PATH: Final = BIOS / "pico-8" / "pico8"
 PICO8_ROOT_PATH: Final = ROMS / "pico8"
@@ -29,12 +28,10 @@ class LexaloffleGenerator(Generator):
     def getHotkeysContext(self) -> HotkeysContext:
         return {
             "name": "lexaloffle",
-            "keys": { "exit": ["KEY_LEFTCTRL", "KEY_Q"] }
+            "keys": { "exit": ["KEY_LEFTCTRL", "KEY_Q"], "menu": "KEY_ENTER", "reset": [ "KEY_LEFTCTRL", "KEY_R" ] }
         }
 
     def generate(self, system, rom, playersControllers, metadata, guns, wheels, gameResolution):
-        rom_path = Path(rom)
-
         if (system.name == "pico8"):
             BIN_PATH=PICO8_BIN_PATH
             CONTROLLERS=PICO8_CONTROLLERS
@@ -44,34 +41,33 @@ class LexaloffleGenerator(Generator):
             CONTROLLERS=VOX_CONTROLLERS
             ROOT_PATH=VOX_ROOT_PATH
         else:
-            eslog.error(f"The Lexaloffle generator has been called for an unknwon system: {system.name}.")
-            return -1
+            raise BatoceraException(f"The Lexaloffle generator has been called for an unknwon system: {system.name}.")
+
         if not BIN_PATH.exists():
-            eslog.error(f"Lexaloffle official binary not found at {BIN_PATH}")
-            return -1
+            raise BatoceraException(f"Lexaloffle official binary not found at {BIN_PATH}")
+
         if not os.access(BIN_PATH, os.X_OK):
-            eslog.error(f"File {BIN_PATH} is not set as executable")
-            return -1
+            raise BatoceraException(f"{BIN_PATH} is not set as executable")
 
         # the command to run
         commandArray: list[str | Path] = [BIN_PATH]
         commandArray.extend(["-desktop", SCREENSHOTS])  # screenshots
         commandArray.extend(["-windowed", "0"])                     # full screen
         # Display FPS
-        if system.config['showFPS'] == 'true':
+        if system.config.show_fps:
                 commandArray.extend(["-show_fps", "1"])
         else:
                 commandArray.extend(["-show_fps", "0"])
 
-        rombase = rom_path.stem
+        rombase = rom.stem
 
         # .m3u support for multi-cart pico-8
-        if rom_path.suffix.lower() == ".m3u":
-            with rom_path.open() as fpin:
+        if rom.suffix.lower() == ".m3u":
+            with rom.open() as fpin:
                 lines = fpin.readlines()
-            fullpath = rom_path.absolute().parent / lines[0].strip()
+            fullpath = rom.absolute().parent / lines[0].strip()
             commandArray.extend(["-root_path", fullpath.parent])
-            rom_path = fullpath
+            rom = fullpath
         else:
             commandArray.extend(["-root_path", ROOT_PATH]) # store carts from splore
 

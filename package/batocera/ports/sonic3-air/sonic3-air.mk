@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-SONIC3_AIR_VERSION = v24.02.02.0-stable
+SONIC3_AIR_VERSION = v25.02.15.0-test
 SONIC3_AIR_SITE = https://github.com/Eukaryot/sonic3air.git
 SONIC3_AIR_SITE_METHOD = git
 SONIC3_AIR_GIT_SUBMODULES = YES
@@ -20,6 +20,7 @@ SONIC3_AIR_SUPPORTS_IN_SOURCE_BUILD = NO
 
 SONIC3_AIR_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release
 SONIC3_AIR_CONF_OPTS += -DBUILD_SHARED_LIBS=OFF
+SONIC3_AIR_CONF_OPTS += -DUSE_DISCORD=OFF
 
 define SONIC3_AIR_INSTALL_TARGET_CMDS
     mkdir -p $(TARGET_DIR)/usr/bin/sonic3-air
@@ -33,13 +34,5 @@ define SONIC3_AIR_INSTALL_TARGET_CMDS
 	cp -r $(@D)/Oxygen/sonic3air/scripts $(TARGET_DIR)/usr/bin/sonic3-air
 	cp -r $(@D)/Oxygen/sonic3air/saves $(TARGET_DIR)/usr/bin/sonic3-air
 endef
-
-define SONIC3_AIR_EVMAPY
-	mkdir -p $(TARGET_DIR)/usr/share/evmapy
-	cp $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/ports/sonic3-air/sonic3-air.keys \
-	    $(TARGET_DIR)/usr/share/evmapy
-endef
-
-SONIC3_AIR_POST_INSTALL_TARGET_HOOKS += SONIC3_AIR_EVMAPY
 
 $(eval $(cmake-package))

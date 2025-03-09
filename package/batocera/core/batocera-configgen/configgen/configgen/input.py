@@ -22,7 +22,7 @@ class Input:
     type: str
     id: str
     value: str
-    code: str | None
+    code: str | None = None
 
     def replace(self, /, **changes: Unpack[_InputChanges]) -> Self:
         return replace(self, **changes)
@@ -39,7 +39,7 @@ class Input:
 
     @classmethod
     def from_parent_element(cls, parent_element: ET.Element, /) -> Iterator[tuple[str, Self]]:
-        for element in parent_element.findall('input'):
+        for element in parent_element.iterfind('./input'):
             input = cls.from_element(element)
             yield input.name, input
 

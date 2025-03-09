@@ -1,20 +1,22 @@
 from __future__ import annotations
 
 import logging
-import os
-
-from pathlib import Path
 from typing import TYPE_CHECKING, Final
 
 from ... import Command
 from ...batoceraPaths import BIOS, CONFIGS, mkdir_if_not_exists
+from ...exceptions import BatoceraException
 from ...utils.configparser import CaseSensitiveConfigParser
 from ..Generator import Generator
 
 if TYPE_CHECKING:
+    from pathlib import Path
+
+    from ...controller import Controllers
+    from ...Emulator import Emulator
     from ...types import HotkeysContext
 
-eslog = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 # libretro generator uses this, so it needs to be public
 HATARI_CONFIG: Final = CONFIGS / "hatari"
@@ -28,8 +30,6 @@ class HatariGenerator(Generator):
         }
 
     def generate(self, system, rom, playersControllers, metadata, guns, wheels, gameResolution):
-        rom_path = Path(rom)
-
         model_mapping = {
             "520st_auto":       { "machine": "st",      "tos": "auto" },
             "520st_100":        { "machine": "st",      "tos": "100"  },
@@ -64,40 +64,32 @@ class HatariGenerator(Generator):
         # tt should use tos 3.XX / emutos512k
         # falcon should use tos 4.XX / emutos512k
 
-        machine = "st"
-        tosversion = "auto"
-        if system.isOptSet("model") and system.config["model"] in model_mapping:
-            machine   = model_mapping[system.config["model"]]["machine"]
-            tosversion = model_mapping[system.config["model"]]["tos"]
-        toslang = "us"
-        if system.isOptSet("language"):
-            toslang = system.config["language"]
+        model = system.config.get("model", "none")
+        mapped = model_mapping.get(model, {"machine": "st", "tos": "auto"})
+        machine = mapped["machine"]
+        tosversion = mapped["tos"]
+        toslang = system.config.get("language", "us")
 
         commandArray += ["--machine", machine]
         tos = HatariGenerator.findBestTos(BIOS, machine, tosversion, toslang)
-        commandArray += [ "--tos", BIOS / tos]
+        commandArray += [ "--tos", tos]
 
         # RAM (ST Ram) options (0 for 512k, 1 for 1MB)
-        memorysize = 0
-        if system.isOptSet("ram"):
-            memorysize = system.config["ram"]
-        commandArray += ["--memsize", str(memorysize)]
+        memorysize = system.config.get_str("ram", "0")
+        commandArray += ["--memsize", memorysize]
 
-        rom_extension = rom_path.suffix.lower()
+        rom_extension = rom.suffix.lower()
         if rom_extension == ".hd":
-            if system.isOptSet("hatari_drive") and system.config["hatari_drive"] == "ACSI":
-                commandArray += ["--acsi", rom_path]
-            else:
-                commandArray += ["--ide-master", rom_path]
+            commandArray += ["--acsi" if system.config.get("hatari_drive") == "ACSI" else "--ide-master", rom]
         elif rom_extension == ".gemdos":
             blank_file = HATARI_CONFIG / "blank.st"
             if not blank_file.exists():
                 with blank_file.open('w'):
                     pass
-            commandArray += ["--harddrive", rom_path, blank_file]
+            commandArray += ["--harddrive", rom, blank_file]
         else:
             # Floppy (A) options
-            commandArray += ["--disk-a", rom_path]
+            commandArray += ["--disk-a", rom]
             # Floppy (B) options
             commandArray += ["--drive-b", "off"]
 
@@ -107,7 +99,7 @@ class HatariGenerator(Generator):
         return Command.Command(array=commandArray)
 
     @staticmethod
-    def generateConfig(system, playersControllers):
+    def generateConfig(system: Emulator, playersControllers: Controllers):
         config = CaseSensitiveConfigParser(interpolation=None)
 
         padMapping = {
@@ -124,33 +116,30 @@ class HatariGenerator(Generator):
         # pads
         # disable previous configuration
         for i in range(1, 6): # 1 to 5 included
-            section = "Joystick" + str(i)
+            section = f"Joystick{i}"
             if config.has_section(section):
                 config.set(section, "nJoyId", "-1")
                 config.set(section, "nJoystickMode", "0")
 
-        nplayer = 1
-        for playercontroller, pad in sorted(playersControllers.items()):
-            if nplayer <= 5:
-                section = "Joystick" + str(nplayer)
-                if not config.has_section(section):
-                    config.add_section(section)
-                config.set(section, "nJoyId", str(pad.index))
-                config.set(section, "nJoystickMode", "1")
+        for pad in playersControllers[:5]:
+            section = f"Joystick{pad.player_number}"
+            if not config.has_section(section):
+                config.add_section(section)
+            config.set(section, "nJoyId", str(pad.index))
+            config.set(section, "nJoystickMode", "1")
 
-                if padMapping[1] in pad.inputs:
-                    config.set(section, "nButton1", str(pad.inputs[padMapping[1]].id))
-                else:
-                    config.set(section, "nButton1", "0")
-                if padMapping[2] in pad.inputs:
-                    config.set(section, "nButton2", str(pad.inputs[padMapping[2]].id))
-                else:
-                    config.set(section, "nButton2", "1")
-                if padMapping[3] in pad.inputs:
-                    config.set(section, "nButton3", str(pad.inputs[padMapping[3]].id))
-                else:
-                    config.set(section, "nButton3", "2")
-            nplayer += 1
+            if padMapping[1] in pad.inputs:
+                config.set(section, "nButton1", str(pad.inputs[padMapping[1]].id))
+            else:
+                config.set(section, "nButton1", "0")
+            if padMapping[2] in pad.inputs:
+                config.set(section, "nButton2", str(pad.inputs[padMapping[2]].id))
+            else:
+                config.set(section, "nButton2", "1")
+            if padMapping[3] in pad.inputs:
+                config.set(section, "nButton3", str(pad.inputs[padMapping[3]].id))
+            else:
+                config.set(section, "nButton3", "2")
 
         # Log
         if not config.has_section("Log"):
@@ -160,16 +149,13 @@ class HatariGenerator(Generator):
         # Screen
         if not config.has_section("Screen"):
             config.add_section("Screen")
-        if system.isOptSet("showFPS") and system.getOptBoolean("showFPS"):
-            config.set("Screen", "bShowStatusbar", "TRUE")
-        else:
-            config.set("Screen", "bShowStatusbar", "FALSE")
+        config.set("Screen", "bShowStatusbar", str(system.config.show_fps).upper())
 
         with configFileName.open('w') as configfile:
             config.write(configfile)
 
     @staticmethod
-    def findBestTos(biosdir: Path, machine, tos_version, language) -> str:
+    def findBestTos(biosdir: Path, machine: str, tos_version: str, language: str, /) -> Path:
         # all languages by preference, when value is "auto"
         all_languages = ["us", "uk", "de", "es", "fr", "it", "nl", "ru", "se", ""]
 
@@ -189,7 +175,7 @@ class HatariGenerator(Generator):
             l_tos.extend(all_machines_bios[machine])
             for v_tos_version in l_tos:
                 l_lang = []
-                if l_lang != "auto":
+                if language != "auto":
                     l_lang = [language]
                 l_lang.extend(all_languages)
                 for v_language in l_lang:
@@ -197,11 +183,11 @@ class HatariGenerator(Generator):
                         biosversion = v_tos_version
                     else:
                         biosversion = f"tos{v_tos_version}"
-                    filename = f"{biosversion}{v_language}.img"
-                    if os.path.exists(f"{biosdir}/{filename}"):
-                        eslog.debug(f"tos filename: {filename}")
-                        return filename
-                    else:
-                        eslog.warning(f"tos filename {filename} not found")
+                    tos_path = biosdir / f"{biosversion}{v_language}.img"
+                    if tos_path.exists():
+                        _logger.debug("tos filename: %s", tos_path.name)
+                        return tos_path
 
-        raise Exception(f"no bios found for machine {machine}")
+                    _logger.warning("tos filename %s not found", tos_path.name)
+
+        raise BatoceraException(f"No bios found for machine {machine}")

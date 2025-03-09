@@ -4,14 +4,14 @@
 #
 ################################################################################
 
-ETLEGACY_VERSION = v2.83.1
+ETLEGACY_VERSION = v2.83.2
 ETLEGACY_SITE = https://github.com/etlegacy/etlegacy.git
 ETLEGACY_SITE_METHOD = git
 ETLEGACY_GIT_SUBMODULES = YES
 ETLEGACY_LICENSE = GPL-3.0
 ETLEGACY_LICENSE_FILE = COPYING.txt
 
-ETLEGACY_DEPENDENCIES += freetype libcurl libglew libpng libtheora
+ETLEGACY_DEPENDENCIES += freetype libcurl libglew libpng libtheora libglu
 ETLEGACY_DEPENDENCIES += libvorbis lua openal openssl sdl2
 
 ETLEGACY_SUPPORTS_IN_SOURCE_BUILD = NO
@@ -58,13 +58,5 @@ define ETLEGACY_INSTALL_TARGET_CMDS
     cp $(@D)/buildroot-build/etl \
 	    $(TARGET_DIR)/usr/bin/etl
 endef
-
-define ETLEGACY_EVMAPY
-	mkdir -p $(TARGET_DIR)/usr/share/evmapy
-	cp $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/ports/etlegacy/etlegacy.keys \
-	    $(TARGET_DIR)/usr/share/evmapy
-endef
-
-ETLEGACY_POST_INSTALL_TARGET_HOOKS += ETLEGACY_EVMAPY
 
 $(eval $(cmake-package))

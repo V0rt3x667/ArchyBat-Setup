@@ -19,6 +19,10 @@ else
     SONIC2013_DEPENDENCIES += libglew
 endif
 
+ifeq ($(BR2_PACKAGE_LIBGLU),y)
+    SONIC2013_DEPENDENCIES += libglu
+endif
+
 define SONIC2013_BUILD_CMDS
 	$(TARGET_CONFIGURE_OPTS) $(MAKE) -C $(@D) -f Makefile VERBOSE=1
 endef
@@ -26,13 +30,5 @@ endef
 define SONIC2013_INSTALL_TARGET_CMDS
 	$(INSTALL) -D -m 0755 $(@D)/bin/RSDKv4 $(TARGET_DIR)/usr/bin/sonic2013
 endef
-
-define SONIC2013_POST_PROCESS
-	mkdir -p $(TARGET_DIR)/usr/share/evmapy $(TARGET_DIR)/usr/share/sonic2013
-	cp -f $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/ports/sonic2013/sonicretro.sonic2013.keys \
-	    $(TARGET_DIR)/usr/share/evmapy
-endef
-
-SONIC2013_POST_INSTALL_TARGET_HOOKS += SONIC2013_POST_PROCESS
 
 $(eval $(generic-package))

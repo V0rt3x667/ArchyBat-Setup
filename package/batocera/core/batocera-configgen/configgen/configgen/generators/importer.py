@@ -3,6 +3,8 @@ from __future__ import annotations
 from importlib import import_module
 from typing import TYPE_CHECKING, Final
 
+from ..exceptions import BatoceraException
+
 if TYPE_CHECKING:
     from .Generator import Generator
 
@@ -50,7 +52,12 @@ _GENERATOR_MAP: Final[dict[str, tuple[str, str]]] = {
     'jazz2-native': ('jazz2_native.jazz2_nativeGenerator', 'Jazz2_NativeGenerator'),
     'dhewm3': ('dhewm3.dhewm3Generator', 'Dhewm3Generator'),
     'catacombgl': ('catacombgl.catacombglGenerator', 'CatacombGLGenerator'),
-    'lindbergh-loader': ('lindbergh.lindberghGenerator', 'LindberghGenerator')
+    'lindbergh-loader': ('lindbergh.lindberghGenerator', 'LindberghGenerator'),
+    'vkquake': ('vkquake.vkquakeGenerator', 'VKQuakeGenerator'),
+    'vkquake2': ('vkquake2.vkquake2Generator', 'VKQuake2Generator'),
+    'vkquake3': ('ioquake3.ioquake3Generator', 'IOQuake3Generator'),
+    'tr1x': ('tr1x.tr1xGenerator', 'TR1XGenerator'),
+    'tr2x': ('tr2x.tr2xGenerator', 'TR2XGenerator')
 }
 
 def get_generator(emulator: str) -> Generator:
@@ -65,10 +72,10 @@ def get_generator(emulator: str) -> Generator:
         generator_cls: type[Generator] = getattr(module, cls_name)
     except ImportError as e:
         if e.name is not None and e.name.startswith(__name__.split('.')[0]):
-            raise Exception(f'no generator found for emulator {emulator}') from e
-        else:
-            raise
+            raise BatoceraException(f'No generator found for emulator {emulator}') from e
+
+        raise BatoceraException(f'Error importing generator for emulator {emulator}') from e
     except AttributeError as e:
-        raise Exception(f'no generator found for emulator {emulator}') from e
+        raise BatoceraException(f'No generator found for emulator {emulator}') from e
 
     return generator_cls()

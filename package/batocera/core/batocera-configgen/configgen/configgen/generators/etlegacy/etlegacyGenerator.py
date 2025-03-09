@@ -24,7 +24,7 @@ class ETLegacyGenerator(Generator):
     def generate(self, system, rom, playersControllers, metadata, guns, wheels, gameResolution):
 
         etLegacyDir = ROMS / "etlegacy" / "legacy"
-        etLegacyFile = "legacy_2.82-dirty.pk3"
+        etLegacyFile = "legacy_2.83-dirty.pk3"
         etLegacySource = Path("/usr/share/etlegacy") / etLegacyFile
         etLegacyDest = etLegacyDir / etLegacyFile
 
@@ -47,12 +47,9 @@ class ETLegacyGenerator(Generator):
         }
 
         # Set language
-        if system.isOptSet("etlegacy_language"):
-            options_to_set["seta cl_lang"] = system.config["etlegacy_language"]
-            options_to_set["seta ui_cl_lang"] = system.config["etlegacy_language"]
-        else:
-            options_to_set["seta cl_lang"] = "en"
-            options_to_set["seta ui_cl_lang"] = "en"
+        language = system.config.get("etlegacy_language", "en")
+        options_to_set["seta cl_lang"] = language
+        options_to_set["seta ui_cl_lang"] = language
 
         # Check if the file exists
         if config_file_path.is_file():

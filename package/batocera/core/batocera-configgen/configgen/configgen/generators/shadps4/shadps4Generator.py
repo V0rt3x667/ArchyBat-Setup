@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING
 import toml
 
 from ... import Command
-from ...batoceraPaths import CONFIGS
+from ...batoceraPaths import CONFIGS, configure_emulator, mkdir_if_not_exists
 from ...controller import generate_sdl_game_controller_config
 from ...utils import vulkan
 from ..Generator import Generator
@@ -17,7 +17,7 @@ from ..Generator import Generator
 if TYPE_CHECKING:
     from ...types import HotkeysContext
 
-eslog = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 class shadPS4Generator(Generator):
 
@@ -30,39 +30,37 @@ class shadPS4Generator(Generator):
     def generate(self, system, rom, playersControllers, metadata, guns, wheels, gameResolution):
 
         # Set the paths using Path objects
-        configPath = Path(CONFIGS) / "shadps4"
-        if rom != "config":
-            romPath = Path(rom).parent / "eboot.bin"
+        configPath = CONFIGS / "shadps4"
         romDir = Path("/userdata/roms/ps4")
         dlcPath = romDir / "DLC"
 
-        os.makedirs(configPath, exist_ok=True)
+        mkdir_if_not_exists(configPath)
 
         # Check Vulkan first before doing anything
         discrete_index = 0
         if vulkan.is_available():
-            eslog.debug("Vulkan driver is available on the system.")
+            _logger.debug("Vulkan driver is available on the system.")
             vulkan_version = vulkan.get_version()
             if vulkan_version > "1.3":
-                eslog.debug(f"Using Vulkan version: {vulkan_version}")
+                _logger.debug("Using Vulkan version: %s", vulkan_version)
                 if vulkan.has_discrete_gpu():
-                    eslog.debug("A discrete GPU is available on the system. We will use that for performance")
+                    _logger.debug("A discrete GPU is available on the system. We will use that for performance")
                     discrete_index = vulkan.get_discrete_gpu_index()
                     if discrete_index:
-                        eslog.debug(f"Using Discrete GPU Index: {discrete_index} for shadPS4")
+                        _logger.debug("Using Discrete GPU Index: %s for shadPS4", discrete_index)
                     else:
-                        eslog.debug("Couldn't get discrete GPU index")
+                        _logger.debug("Couldn't get discrete GPU index")
                         discrete_index = 0
                 else:
-                    eslog.debug("Discrete GPU is not available on the system. Using default.")
+                    _logger.debug("Discrete GPU is not available on the system. Using default.")
             else:
-                eslog.debug(f"Vulkan version: {vulkan_version} is not compatible with shadPS4")
+                _logger.debug("Vulkan version: %s is not compatible with shadPS4", vulkan_version)
         else:
-            eslog.debug("*** Vulkan driver required is not available on the system!!! ***")
+            _logger.debug("*** Vulkan driver required is not available on the system!!! ***")
             sys.exit(1)
 
         # Adjust the config.toml file
-        config = {}
+        config: dict[str, dict[str, object]] = {}
         toml_file = configPath / "user" / "config.toml"
 
         # Check if the file exists
@@ -140,7 +138,7 @@ class shadPS4Generator(Generator):
         config.setdefault("Vulkan", {})["gpuId"] = int(discrete_index)
 
         # Create necessary directories if they do not exist
-        os.makedirs(toml_file.parent, exist_ok=True)
+        mkdir_if_not_exists(toml_file.parent)
 
         # Now write the updated toml
         with toml_file.open("w") as f:
@@ -150,10 +148,10 @@ class shadPS4Generator(Generator):
         os.chdir(configPath)
 
         # Run command
-        if rom == "config":
+        if configure_emulator(rom):
             commandArray: list[str | Path] = ["/usr/bin/shadps4/shadps4"]
         else:
-            commandArray: list[str | Path] = ["/usr/bin/shadps4/shadps4", str(romPath)]
+            commandArray: list[str | Path] = ["/usr/bin/shadps4/shadps4", rom.parent / "eboot.bin"]
 
         return Command.Command(
             array=commandArray,

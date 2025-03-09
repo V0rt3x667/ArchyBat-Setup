@@ -9,6 +9,18 @@ class Resolution(TypedDict):
     height: int
 
 
+class BezelInfo(TypedDict):
+    width: int
+    height: int
+    top: int
+    left: int
+    bottom: int
+    right: int
+    opacity: NotRequired[float]
+    messagex: NotRequired[float]
+    messagey: NotRequired[float]
+
+
 class ScreenInfo(TypedDict):
     width: int
     height: int
@@ -16,21 +28,9 @@ class ScreenInfo(TypedDict):
     y: int
 
 
-class Gun(TypedDict):
-    node: str | None
-    id_mouse: int
-    need_cross: bool
-    need_borders: bool
-    name: str
-    buttons: list[str]
-
-
-type GunMapping = Mapping[int, Gun]
-type GunDict = dict[int, Gun]
-
-
 class DeviceInfo(TypedDict):
     eventId: int
+    sysfs_path: str
     isJoystick: bool
     isWheel: bool
     isMouse: bool

@@ -11,8 +11,12 @@ DOLPHIN_TRIFORCE_LICENSE = GPLv2+
 DOLPHIN_TRIFORCE_GIT_SUBMODULES = YES
 DOLPHIN_TRIFORCE_SUPPORTS_IN_SOURCE_BUILD = NO
 
-DOLPHIN_TRIFORCE_DEPENDENCIES += bluez5_utils hidapi host-xz ffmpeg libcurl speex
-DOLPHIN_TRIFORCE_DEPENDENCIES += libevdev libpng libusb lzo xz sdl2 zlib 
+DOLPHIN_TRIFORCE_DEPENDENCIES += bluez5_utils ffmpeg hidapi host-xz libcurl
+DOLPHIN_TRIFORCE_DEPENDENCIES += libevdev libpng libusb lzo sdl2 speex xz zlib
+
+ifeq ($(BR2_PACKAGE_QT6),y)
+DOLPHIN_TRIFORCE_DEPENDENCIES += qt6base qt6svg
+endif
 
 DOLPHIN_TRIFORCE_CONF_OPTS  = -DCMAKE_BUILD_TYPE=Release
 DOLPHIN_TRIFORCE_CONF_OPTS += -DBUILD_SHARED_LIBS=OFF
@@ -47,13 +51,6 @@ define DOLPHIN_TRIFORCE_INI
 		$(TARGET_DIR)/usr/share/triforce
 endef
 
-define DOLPHIN_TRIFORCE_EVMAPY
-	mkdir -p $(TARGET_DIR)/usr/share/evmapy
-	cp -prn $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulators/dolphin-triforce/*.keys \
-		$(TARGET_DIR)/usr/share/evmapy
-endef
-
 DOLPHIN_TRIFORCE_POST_INSTALL_TARGET_HOOKS += DOLPHIN_TRIFORCE_INI
-DOLPHIN_TRIFORCE_POST_INSTALL_TARGET_HOOKS += DOLPHIN_TRIFORCE_EVMAPY
 
 $(eval $(cmake-package))

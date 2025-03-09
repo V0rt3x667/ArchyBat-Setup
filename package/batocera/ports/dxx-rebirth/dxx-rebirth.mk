@@ -3,8 +3,8 @@
 # dxx-rebirth (Descent 1 & 2) engine
 #
 ################################################################################
-# Version: Commits on Aug 12, 2024
-DXX_REBIRTH_VERSION = bd3c033bdf1faa4606086dcae0436531fb2e7e5c
+# Version: Commits on Jan 12, 2025
+DXX_REBIRTH_VERSION = f3a2afc43880899d570d97bf4e3392f325870116
 DXX_REBIRTH_SITE = https://github.com/dxx-rebirth/dxx-rebirth
 DXX_REBIRTH_SITE_METHOD=git
 DXX_REBIRTH_LICENSE = GPLv3
@@ -19,6 +19,14 @@ DXX_REBIRTH_SCONS_ENV = $(TARGET_CONFIGURE_OPTS)
 DXX_REBIRTH_SCONS_OPTS = -j$(PARALLEL_JOBS)
 
 DXX_REBIRTH_SCONS_OPTS += sdl2=yes
+
+ifeq ($(BR2_PACKAGE_LIBGLEW),y)
+    DXX_REBIRTH_DEPENDENCIES += libglew
+endif
+
+ifeq ($(BR2_PACKAGE_LIBGLU),y)
+    DXX_REBIRTH_DEPENDENCIES += libglu
+endif
 
 define DXX_REBIRTH_BUILD_CMDS
     (cd $(@D); \

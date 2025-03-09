@@ -10,7 +10,7 @@ from .ppssppPaths import PPSSPP_CONFIG_INIT, PPSSPP_PSP_SYSTEM_DIR
 if TYPE_CHECKING:
     from ...controller import Controller
 
-eslog = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 ppssppControlsIni: Final  = PPSSPP_PSP_SYSTEM_DIR / 'controls.ini'
 ppssppControlsInit: Final = PPSSPP_CONFIG_INIT / 'controls.ini'
@@ -147,7 +147,6 @@ def generateControllerConfig(controller: Controller):
         var = ppssppMapping[input.name][input.type]
         padnum = controller.index
 
-        code = input.code
         if input.type == 'button':
             pspcode = sdlNameToNKCode[input.name]
             val = f"{DEVICE_ID_PAD_0 + padnum}-{pspcode}"
@@ -161,11 +160,12 @@ def generateControllerConfig(controller: Controller):
             pspcode = axisToCode(nkAxisId, int(input.value))
             val = f"{DEVICE_ID_PAD_0 + padnum}-{pspcode}"
             val = optionValue(Config, section, var, val)
-            eslog.debug(f"Adding {var} to {val}")
+            _logger.debug("Adding %s to %s", var, val)
             Config.set(section, var, val)
 
             # Skip the rest if it's an axis dpad
-            if input.name in [ 'up', 'down', 'left', 'right' ] : continue
+            if input.name in [ 'up', 'down', 'left', 'right' ]:
+                continue
             # Also need to do the opposite direction manually. The input.id is the same as up/left, but the direction is opposite
             if input.name == 'joystick1up':
                 var = ppssppMapping['joystick1down'][input.type]
@@ -205,7 +205,7 @@ def generateControllerConfig(controller: Controller):
         Config.write(cfgfile)
     return configFileName
 
-def axisToCode(axisId, direction) :
+def axisToCode(axisId: int, direction: int) :
     if direction < 0:
         direction = 1
     else:
@@ -213,8 +213,7 @@ def axisToCode(axisId, direction) :
     return AXIS_BIND_NKCODE_START + axisId * 2 + direction
 
 # determine if the option already exists or not
-def optionValue(config, section, option, value):
+def optionValue(config: CaseSensitiveConfigParser, section: str, option: str, value: str):
     if config.has_option(section, option):
         return f"{config.get(section, option)},{value}"
-    else:
-        return value
+    return value
